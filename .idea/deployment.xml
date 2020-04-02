@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="On explicit save action" autoUploadExternalChanges="true">
+    <serverData>
+      <paths name="JingBh Server">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/public" local="$PROJECT_DIR$/public" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/vendor" />
+            <excludedPath path="/storage/app" />
+            <excludedPath path="/storage/app/public" />
+            <excludedPath path="/storage/framework/cache" />
+            <excludedPath path="/storage/framework/cache/data" />
+            <excludedPath path="/storage/framework/sessions" />
+            <excludedPath path="/storage/framework/views" />
+            <excludedPath path="/storage/logs" />
+            <excludedPath path="/storage/source" />
+            <excludedPath path="/bootstrap/cache" />
+            <excludedPath path="/node_modules" />
+            <excludedPath path="/public/mix-manifest.json" />
+            <excludedPath path="/public/css" />
+            <excludedPath path="/public/js" />
+            <excludedPath path="/.env" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ON_EXPLICIT_SAVE" />
+  </component>
+</project>

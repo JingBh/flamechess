@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="JingBh Server" uuid="338e2530-9004-4586-829e-87f4da9398d8">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://db.server.jingbh.top:3306/flamechess</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Homestead" uuid="64d7c317-0e29-4435-a35c-ab78a6126af6">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://192.168.10.10:3306/homestead</jdbc-url>
+    </data-source>
+  </component>
+</project>
