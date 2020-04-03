@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+    <script type="text/javascript">
+
+        var id = "10298";
+        var initonce = 0;
+
+        RecordChessMove( "" );
+        
+        function piecesAction( dbstr ) {
+            var idstr = getQueryString(id);
+
+            if (idstr != null) {
+                var s = fcscript_init(idstr);
+                if (s.length == 1 && s[0].length >= 4) {
+                    var prepos = retpos(s[0][1], s[0][2]);
+                    switch (s[0][3]) {
+
+                        case
+                        '+'
+                        :   // roboth.html?10253=password,A,1,+,z;
+                            addpiece( dbstr, prepos, s[0][4]);
+                            break;
+                        case
+                        '-'
+                        :   // roboth.html?10253=password,A,1,-;
+                            deletepiece(dbstr, prepos);
+                            break;
+                        case
+                        '>'
+                        :   // roboth.html?10253=password,A,1,>,A,0;
+                            var pos = retpos(s[0][4], s[0][5]);
+                            movepiece(dbstr, prepos, pos);
+                            break;
+                        case
+                        'i'
+                        :   // roboth.html?10253=password,*,*,i;
+                            if ( initonce == 0 ) { 
+                                initonce = 1;
+                                RecordChessMove( "000000000000000000000z0Z0" );
+                            } break;
+
+                        case
+                        'c'
+                        :   // roboth.html?10253=password,*,*,c,r/R/0/-;
+                            if ( initonce == 0 ) { 
+                                initonce = 1;
+                                RecordChessMove( s[0][4] + ':' + getTimeStr(), true );
+                            } break;
+
+                        default:
+                            alert("error cmd: " + s[0][3]);
+
+                    }
+                }
+            }
+            // window.close();
+        }
+
+        function retpos( r, c )
+        {
+            if ( r.charCodeAt() < 64 || r.charCodeAt() > 64+14 )
+                alert( "row " + r + " was not 'A-N'" );
+            else
+                return { r:r.charCodeAt()-64, c:parseInt(c) }
+        }
+
+        function p2pos( p )
+        {
+            return (p.r-1) * 14 + p.c;
+        }
+
+        function addpiece( db, p, ch ){
+            var ndb = "";
+            var pp = p2pos(p);
+            if ( db[pp] != 0 ) return;
+            if ( pp > 0 ) 
+                ndb = db.substring( 0, pp );
+            ndb += ch;
+            ndb += db.substring( p2pos(p)+1, db.length );
+            RecordChessMove( ndb );
+        }
+
+        function deletepiece( db, p ) {
+            var ndb = "";
+            var pp = p2pos(p);
+            if ( db[pp] == 0 ) return;
+            if ( pp > 0 )
+                ndb = db.substring( 0, pp );
+            ndb += 0;
+            ndb += db.substring( p2pos(p)+1, db.length );
+            RecordChessMove( ndb );
+        }
+
+        function movepiece( db, pre, p ) {
+            var ps = p2pos(pre);
+            var pd = p2pos(p);
+            var ndb = "";
+            if ( db[pd] != 0 ) return;
+            if ( db[ps] == 0 ) return;
+            if ( ps > pd ) {
+                if ( pd > 0 )
+                    ndb = db.substring( 0, pd );
+                ndb += db[ps];
+                if ( ps - pd > 1 )
+                    ndb += db.substring( pd+1, ps );
+                ndb += 0;
+                ndb += db.substring( ps+1, db.length );
+            } else
+            if ( pd > ps ) {
+                if ( ps > 0 )
+                    ndb = db.substring( 0, ps );
+                ndb += 0;
+                if ( pd - ps > 1 )
+                    ndb += db.substring( ps+1, pd );
+                ndb += db[ps];
+                ndb += db.substring( pd+1, db.length );
+            } else return;
+            RecordChessMove( ndb );
+        }
+
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return decodeURI(r[2]); return null;
+        }
+
+        function fcscript_init( script )
+        {
+            var last = 0;
+            for ( var i=0; i<script.length; i++ )
+                if ( script.charAt(i) == ';' ) last ++;
+            var sarray = new Array(last);
+            last = 0;
+            var parray = 0;
+            for ( var i=0; i<script.length; i++ )
+                if ( script.charAt(i) == ';' ) {
+                    var cmds = script.substring( last, i )+',';
+                    var cmdlast = 0;
+                    for ( var j=0; j<cmds.length; j++ )
+                        if ( cmds.charAt(j) == ',' ) cmdlast ++;
+                    // create the ln array.
+                    sarray[parray] = new Array(cmdlast);
+                    cmdlast = 0;
+                    var pcmd = 0;
+                    for ( var j=0; j<cmds.length; j++ )
+                        if ( cmds.charAt(j) == ',' ) {
+                            sarray[parray][pcmd] = cmds.substring( cmdlast, j );
+                            cmdlast = j + 1;
+                            pcmd ++;
+                        }
+                    last = i+1;
+                    parray ++;
+                }
+            return sarray;
+        }
+
+        function RecordChessMove( str, clk = false )
+        {
+//alert( "in showstr"+str );
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {// code for IE7+, Firefox, Chrome, Opera, Safari
+//  alert( "window.XMLHttpRequest" );
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {// code for IE6, IE5
+//  alert( "!window.XMLHttpRequest" );
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+//alert( "xmlhttp.onreadystatechange=function()" );
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+//                document.getElementById("txtHint").innerHTML= getCPphpID( xmlhttp.responseText );
+                    //alert( xmlhttp.responseText );
+                    var resp = xmlhttp.responseText;
+                    var i=0;
+                    var dbstr = "";
+                    for ( i=1; i<resp.length-4; i++ )
+                        dbstr += resp[i];
+                    piecesAction( dbstr );
+                    return;
+                }
+            }
+
+            var cmdphpstr = "fcdbrw.php";
+            if ( clk == true ) 
+                cmdphpstr = "fcclkrw.php";
+
+            var cmdstr = "http://flamechess.cn/js/1/21/";
+            if ( str == "" )
+                cmdstr += cmdphpstr;
+            else
+                cmdstr += cmdphpstr + "?i=" + str;
+
+            if ( str == "" ) cmdstr += "?";
+            else cmdstr += "&";
+
+            cmdstr += "id=" + id;
+            xmlhttp.open("GET",cmdstr,true);
+            xmlhttp.send();
+        }
+
+  function getTimeStr(){
+    var myDate = new Date();
+    var year = myDate.getFullYear();
+    var month = myDate.getMonth() + 1;
+    var date = myDate.getDate();
+    var dateArr = ["日","一",'二','三','四','五','六'];
+    var day = myDate.getDay();
+    var hours = myDate.getHours();
+    var minutes = formatTime(myDate.getMinutes());
+    var seconds = formatTime(myDate.getSeconds());
+    var millsec = formatTime(myDate.getMilliseconds());
+
+    var ret = " " + year + "年" + month +"月" + date + "日" + " 星期" + dateArr[day] + " " + hours + ":" + minutes + ":" + seconds + '.' + millsec ;
+    return ret;
+  }
+ 
+  //格式化时间：分秒。
+  function formatTime (i){
+    if(i < 10){
+      i = "0" + i;
+    }
+    return i;
+  }
+
+    </script>
+</html>

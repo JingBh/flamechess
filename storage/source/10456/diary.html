@@ -1,0 +1,1007 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        div{
+            width: 360px;
+            height: 360px;
+            overflow: hidden;
+            margin:0 auto;
+            float: left;
+        }
+        div img{
+            cursor: pointer;
+            transition: all 0.6s;
+        }
+        div img:hover{
+            transform: scale(1.06);
+        }
+
+        .div-input { position:absolute;
+            right:320px; top:17px; }
+        .div-form { position:absolute;
+            right:68px; top:0px; }
+
+        .div-b{ position:absolute;
+            right:0px; top:0px;
+            background-image: url(../xiaoyuan/flamemind.png);
+            width:138px; height:408px;}
+        .div-c{ position:absolute;
+            right:46px; top:350px;
+            background-image: url(../xiaoyuan/flamemind2.png);
+            width:71px; height:370px;
+            font-family: 楷体_GB2312;
+            font-size: 36px;}
+        .div-l{ position:absolute;
+            left:22px; top:22px;
+            width:396px; height:36px;}
+        .div-z{ position:absolute;
+            right:0px; top:532px;
+            width:170px; height:176px;}
+
+    </style>
+</head>
+<body id="bb" class="body" background="../xiaoyuan/wangelement.gif">
+<div class="div-b"><img src="../xiaoyuan/target.png" boarder=0></div>
+<div id="cc" class="div-c" style="color:#FFF; text-align:center"></div>
+<div id="ll" class="div-l" style="color:#FFF; text-align:left"></div>
+<div id="zz" class="div-z" style="color:#FFF; text-align:center"></div>
+
+<img src="input.png" boarder=0 class="div-input">
+<form action="" name="search-form" method="get" id="search-form-new" class="div-form" align="right">
+    <font color='#6CC'; size=16px;>&nbsp&nbsp</font>
+    <input type="text" style="background:none;border:0;height:30px;font-size:24px;text-align:center;color:#037;" id="kw" maxlength="80" tabindex="1" size="10" name="id" value="" autocomplete="off" />
+    <script type="text/javascript"> document.getElementById('kw').focus();</script>
+    <button alog-action="g-search-anwser" type="submit" id="search-btn" hidefocus="true"  tabindex="2" class="btn-global" style="VISIBILITY: hidden">recording</button>
+</form>
+<p><font color='#6CC'; size=26px;>&nbsp</font></p>
+
+<script src="../redirectidx.js"></script>
+<script type="text/javascript">
+    var divc = document.getElementById("cc");
+    var nm = getQueryString("nm");
+    if ( nm != null )
+        divc.innerText = nm;     // 刘雨陈工作室;
+    else
+        divc.innerText = "火种日记";   // nm;
+    var i=0;
+    var n=getQueryString("n");
+
+
+    var i;
+    var fs = fcscript_init(
+
+        '10123,../66/img/tibetchessA4.jpg,../66/img/tibetchess.png,1;' +
+        '10560,./img/10560/diary10560.pdf,img/10560/diary10560.png,0;' +
+        '10170,./img/10170_large.jpg,img/10170.png,0;' +
+
+        '10298,../rander/37.html?37,../rander/img/37.png,0;' +
+
+        '2411851577,../1/22/?id=10353,img/12210253.png,0;' +
+        '10353,../1/22/?id=10353,img/12210253.png,0;' +
+
+        '2020,./?id=10102100,img/2020/10102100_360.png,0;' +
+
+        '20200101,./img/nadamu.pdf,./img/nadamu.png,0;' +
+        '20201100,../rander/37.html?37,../rander/img/37.png,0;' +
+
+        '10170100,../1/25/?id=10170100,../1/25/images/face.png,0;' +
+        '10170101,../1/25/?id=10170101,../1/25/images/face.png,0;' +
+        '10170102,../1/25/?id=10170102,../1/25/images/face.png,0;' +
+        '10170103,../1/25/?id=10170103,../1/25/images/face.png,0;' +
+        '10170104,../1/25/?id=10170104,../1/25/images/face.png,0;' +
+        '10170105,../1/25/?id=10170105,../1/25/images/face.png,0;' +
+
+        '12500201,../1/25/?id=12500201,../1/25/images/face.png,0;' +
+
+        '12500100,../1/20/?id=12500100&p=1,../1/20/images/face1.png,0;' +
+        '12500101,../1/20/?id=12500101&p=1,../1/20/images/face1.png,0;' +
+        '12500102,../1/20/?id=12500102&p=1,../1/20/images/face1.png,0;' +
+        '12500103,../1/20/?id=12500103&p=1,../1/20/images/face1.png,0;' +
+        '12500104,../1/20/?id=12500104&p=1,../1/20/images/face1.png,0;' +
+        '12500105,../1/20/?id=12500105&p=1,../1/20/images/face1.png,0;' +
+        '12500106,../1/20/?id=12500106&p=1,../1/20/images/face1.png,0;' +
+        '12500107,../1/20/?id=12500107&p=1,../1/20/images/face1.png,0;' +
+        '12500108,../1/20/?id=12500108&p=1,../1/20/images/face1.png,0;' +
+        '12500109,../1/20/?id=12500109&p=1,../1/20/images/face1.png,0;' +
+
+        '12500110,../1/20/?id=12500110&p=1,../1/20/images/face1.png,0;' +
+        '12500111,../1/20/?id=12500111&p=1,../1/20/images/face1.png,0;' +
+        '12500112,../1/20/?id=12500112&p=1,../1/20/images/face1.png,0;' +
+        '12500113,../1/20/?id=12500113&p=1,../1/20/images/face1.png,0;' +
+        '12500114,../1/20/?id=12500114&p=1,../1/20/images/face1.png,0;' +
+        '12500115,../1/20/?id=12500115&p=1,../1/20/images/face1.png,0;' +
+        '12500116,../1/20/?id=12500116&p=1,../1/20/images/face1.png,0;' +
+        '12500117,../1/20/?id=12500117&p=1,../1/20/images/face1.png,0;' +
+        '12500118,../1/20/?id=12500118&p=1,../1/20/images/face1.png,0;' +
+        '12500119,../1/20/?id=12500119&p=1,../1/20/images/face1.png,0;' +
+
+        '12500120,../1/20/?id=12500120&p=1,../1/20/images/face1.png,0;' +
+        '12500121,../1/20/?id=12500121&p=1,../1/20/images/face1.png,0;' +
+        '12500122,../1/20/?id=12500122&p=1,../1/20/images/face1.png,0;' +
+        '12500123,../1/20/?id=12500123&p=1,../1/20/images/face1.png,0;' +
+        '12500124,../1/20/?id=12500124&p=1,../1/20/images/face1.png,0;' +
+        '12500125,../1/20/?id=12500125&p=1,../1/20/images/face1.png,0;' +
+        '12500126,../1/20/?id=12500126&p=1,../1/20/images/face1.png,0;' +
+        '12500127,../1/20/?id=12500127&p=1,../1/20/images/face1.png,0;' +
+        '12500128,../1/20/?id=12500128&p=1,../1/20/images/face1.png,0;' +
+        '12500129,../1/20/?id=12500129&p=1,../1/20/images/face1.png,0;' +
+
+        '12500130,../1/20/?id=12500130&p=1,../1/20/images/face1.png,0;' +
+        '12500131,../1/20/?id=12500131&p=1,../1/20/images/face1.png,0;' +
+        '12500132,../1/20/?id=12500132&p=1,../1/20/images/face1.png,0;' +
+        '12500133,../1/20/?id=12500133&p=1,../1/20/images/face1.png,0;' +
+        '12500134,../1/20/?id=12500134&p=1,../1/20/images/face1.png,0;' +
+        '12500135,../1/20/?id=12500135&p=1,../1/20/images/face1.png,0;' +
+        '12500136,../1/20/?id=12500136&p=1,../1/20/images/face1.png,0;' +
+        '12500137,../1/20/?id=12500137&p=1,../1/20/images/face1.png,0;' +
+        '12500138,../1/20/?id=12500138&p=1,../1/20/images/face1.png,0;' +
+        '12500139,../1/20/?id=12500139&p=1,../1/20/images/face1.png,0;' +
+
+        '12531,../1/25/?id=12500&p=1,./img/12530/12531/01.png,0;' +
+        '12532,../1/25/?id=12500&p=16,./img/12530/12532/01.png,0;' +
+        '12533,../1/32/?id=12500,./img/12530/12533/01.png,0;' +
+        '12534,../1/25/?id=12500&p=15,./img/12530/12534/10.png,0;' +
+
+        '12530,./?id=12531,./img/12530/12531.png,0;' +
+        '12520,../1/27/?id=12500,./img/12520/01.png,0;' +
+        '12510,../1/25/?id=12500&p=7,./img/12510/01.png,0;' +
+        '12500,./?id=20200101,./img/nadamu.png,0;' +
+        '10267,./img/diary-hgfx-01.pdf,img/10267.png,0;' +
+
+        '10168,../1/21/?id=10168,img/12210253.png,0;' +
+        '10194,../1/21/?id=10194,img/12210253.png,0;' +
+        '10228,../1/21/?id=10228,img/12210253.png,0;' +
+        '10253,../1/21/?id=10253,img/12210253.png,0;' +
+
+        '10307,http://v.qq.com/page/g/3/z/g3053s6jy4z.html,img/wedo.png,0;' +
+
+        '10456,../1/31/?id=10353109&p=1,./img/10353/wanwu.png,0;' +
+
+        '10201,./img/10201_large.jpg,img/10201.png,0;' +
+        '10197,./img/10201_large.jpg,img/10201.png,0;' +
+        '10193,./img/10201_large.jpg,img/10201.png,0;' +
+        '10286,./img/10201_large.jpg,img/10201.png,0;' +
+        '10164,./img/10201_large.jpg,img/10201.png,0;' +
+        '10109,./img/10109_300dpi.jpg,./img/10109.png,1;' +
+        '10108,./img/10108_300dpi.jpg,./img/10108.png,1;' +
+        '10102100,./img/10102100_large.jpg,img/10102100.png,1;' +
+        '10106620,./img/10106620_signed.jpg,img/10106620.png,1;' +
+        '10105601,./img/10105601_large.jpg,img/10105601.png,1;' +
+        '10107,./img/10107_to_10106601_1267.jpg,img/10107.png,1;' +
+        '10106,./img/FC-Gift-10106.jpg,img/10106.png,1;' +
+        '10105,./img/FC-Gift-10105.jpg,img/10105.png,1;' +
+        '10104,./img/FC-Gift-10103-4.jpg,img/10104.png,1;' +
+        '10103,./img/FC-Gift-10103.jpg,img/10103.png,1;' +
+        '10102,./img/FC-Gift-10102.jpg,img/10102.png,1;' +
+        '10101,./img/FC-Gift-10101.jpg,img/10101.png,1;' );
+
+    if ( n != null ) {
+
+        for ( i=0; i<fs.length; i++ ) {
+//                     if ( n == fs[i][0] ) {
+//                          location.href = fs[i][1];
+            if ( fs[i][3] == '1' ) {
+                //获取div
+                var div=document.getElementById("bb");
+                dd = document.createElement("div");
+
+                if ( i==0 ) dd.style.width="720px";
+                else dd.style.width="360px";
+
+                div.appendChild(dd);
+                dd.innerHTML += '<a href="'+fs[i][1]+'" target=_blank><img src="'+fs[i][2]+'"></a>';
+            }
+//                     }
+        }
+
+        for ( i=0; i<=n; i++ ) {
+            //获取div
+            var div=document.getElementById("bb");
+
+            //换行
+            var dd = document.createElement("div");
+            div.appendChild(dd);
+
+            if ( i!= n )
+                dd.innerHTML += '<a href="./img/'+(i+1)+'_large.png" target=_blank><img src="img/'+(i+1)+'.png"></a>';
+            else
+                dd.innerHTML += '<a href="./diary.pdf" target=_blank><img src="diary.png"></a>';
+        }
+
+        var div=document.getElementById("bb");
+
+        //换行
+        var dd = document.createElement("div");
+        div.appendChild(dd);
+        dd.innerHTML += '<img src="demo.png">';
+    }
+    else {
+        var id=getQueryString("id");
+
+        if ( id != null && id != "" ) {
+
+            var addadv3 = true;
+
+//            if ( id.substring(0,8) == "20200101" )
+            if ( id == "20200101" )
+                location.href = './zhisai.html?id=' + id;
+
+            if ( id == "20200101" )
+                location.href = './zhisai.html?id=' + id;
+            else
+            if ( id.substring(0,8) == "20200101" &&
+                id.substring(8,11) >= '001' &&
+                id.substring(8,11) <= '099' ) {
+
+
+                redirect_roomidx_zhisai( id );
+
+                addadv3 = false;
+            }
+
+
+
+            document.getElementById('kw').focus();
+            document.getElementById('kw').value = id;
+
+            //获取div
+            var div=document.getElementById("bb");
+
+            //换行
+            var dd = document.createElement("div");
+            div.appendChild(dd);
+
+            if ( id == 10100100 )
+                dd.innerHTML += '<a href="./img/1_large.png" target=_blank><img src="img/1.png"></a>';
+            else
+            if ( id == 10100200 )
+                dd.innerHTML += '<a href="./img/2_large.png" target=_blank><img src="img/2.png"></a>';
+            else
+            if ( id == 10100300 )
+                dd.innerHTML += '<a href="./img/3_large.png" target=_blank><img src="img/3.png"></a>';
+            else
+            if ( id == 10100400 )
+                dd.innerHTML += '<a href="./img/4_large.png" target=_blank><img src="img/4.png"></a>';
+            else
+            if ( id == 10100500 )
+                dd.innerHTML += '<a href="./img/5_large.png" target=_blank><img src="img/5.png"></a>';
+            else {
+
+                for ( i=0; i<fs.length; i++ ) {
+                    if ( id == fs[i][0] ) {
+
+                        if ( fs[i][0] == "12500" )
+                            dd.style.width = "1080px";
+
+
+                        dd.innerHTML += '<a href="' + fs[i][1] + '" target=_blank><img src="' + fs[i][2] +'"></a>';
+                        break; }
+                }
+
+                if ( redirect_roomidx( id, "../" ) )
+                    addadv3 = false;
+                else
+                if ( id <= 9999 ) {
+
+                    if ( redirect_gameidx( id, "../" ) == false )
+                        ;
+                } else
+                if ( i >= fs.length && addadv3 )
+                    dd.innerHTML += '<img src="none.png">';
+            }
+
+            var div=document.getElementById("bb");
+
+            if ( addadv3 ) {
+                //换行
+                dd = document.createElement("div");
+                div.appendChild(dd);
+                dd.innerHTML += '<a href="./img/6_large.png" target=_blank><img src="img/6.png"></a>';
+                dd = document.createElement("div");
+                div.appendChild(dd);
+                dd.innerHTML += '<a href="./diary.pdf" target=_blank><img src="diary.png"></a>';
+                dd = document.createElement("div");
+                div.appendChild(dd);
+                dd.innerHTML += '<img src="demo.png">';
+            }
+        } else
+            location.href = "./?n=6";
+    }
+
+    function getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return decodeURI(r[2]);
+        }
+        return null;
+    }
+
+
+    function fcscript_init( script )
+    {
+        var last = 0;
+        for ( var i=0; i<script.length; i++ )
+            if ( script.charAt(i) == ';' ) last ++;
+        var sarray = new Array(last);
+        last = 0;
+        var parray = 0;
+        for ( var i=0; i<script.length; i++ )
+            if ( script.charAt(i) == ';' ) {
+                var cmds = script.substring( last, i )+',';
+                var cmdlast = 0;
+                for ( var j=0; j<cmds.length; j++ )
+                    if ( cmds.charAt(j) == ',' ) cmdlast ++;
+                // create the ln array.
+                sarray[parray] = new Array(cmdlast);
+                cmdlast = 0;
+                var pcmd = 0;
+                for ( var j=0; j<cmds.length; j++ )
+                    if ( cmds.charAt(j) == ',' ) {
+                        sarray[parray][pcmd] = cmds.substring( cmdlast, j );
+                        cmdlast = j + 1;
+                        pcmd ++;
+                    }
+                last = i+1;
+                parray ++;
+            }
+        return sarray;
+    }
+
+
+    function redirect_roomidx_zhisai( id ) {
+
+
+        if ( id.substring(0,8) == "20200101" &&
+            id.substring(8,11) >= '001' &&
+            id.substring(8,11) <= '099' )
+        {
+
+            var fs   = fcscript_init(
+                '../1/25/?id=' + id + ',../1/25/images/face.png;' +
+                '../1/20/?id=' + id + '&p=1,../1/20/images/face1.png;' +
+                '../1/25/?id=' + id + '&p=9,./img/12510/13.png;' +
+                '../1/25/?id=' + id + '&p=15,./img/12530/12534/10.png;' +
+                '../1/26/?id=' + id + ',./img/12520/09.png;' +
+                '../1/24/?id=' + id + '&p=2,./img/12520/04.png;' +
+                '../1/25/?id=' + id + '&p=14,./img/12510/09.png;' +
+                './img/zhisai/754340425.jpg,./img/zhisai/zhisai300.png;'
+            );
+
+            var divc = document.getElementById("cc");
+            divc.innerText = "智赛网" + id.substring(9,11) + "贵宾室";   // nm;
+
+
+
+            for ( var i=0; i<fs.length; i++ ) {
+
+                //获取div
+                var div=document.getElementById("bb");
+
+                //换行
+                var dd = document.createElement("div");
+                div.appendChild(dd);
+
+                div.appendChild(dd);
+                dd.innerHTML += '<a href="' + fs[i][0] + '" target=_blank><img src="' + fs[i][1] + '"></a>';
+            }
+        }
+    }
+
+    function redirect_roomidx( id, path )
+    {
+
+        var i;
+        var fs = null;
+
+        switch ( id ) {
+            case "10102100":
+
+                fs         = fcscript_init(
+                    '../1/24/?id=10102100,../1/24/images/face.png;' +
+                    //                        '../1/15/?id=10102100,../1/15/xiaoyuan/face.png;' +
+                    '../1/22/?id=10102100,img/12210253.png;' +
+                    // '../1/16/?id=10102100,../1/16/xiaoyuan/face.png;' +
+                    './img/10108_300dpi.jpg,./img/10108.png;' +
+                    '../1/14/?id=10102100,../1/14/xiaoyuan/face.png;' +
+                    '../1/18/?id=10102100,../1/18/xiaoyuan/face.png;' +
+                    './img/10109_300dpi.jpg,./img/10109.png;' +
+                    '../1/16/?p=23,../1/16/images/cheng3.png;' +
+                    'http://app.cntv.cn/special/cportal/newlive/index.html?id=LiveDXwRal2gnyH5rZJxRVrm190901&from=timeline,./img/9.1xuedun.png;' +
+                    '../1/20/?id=10102100,../1/20/xiaoyuan/face.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "阿边老师藏棋教室";   // nm;
+
+                break;
+
+            case "10560":
+
+                fs         = fcscript_init(
+                    './img/10560/10560_1.pdf,img/10560/10560_1.png;' +
+                    './img/10560/10560_2.pdf,img/10560/10560_2.png;' +
+                    './img/10560/10560_3.pdf,img/10560/10560_3.png;' +
+                    './img/10560/10560_4.pdf,img/10560/10560_4.png;' +
+                    './img/10560/10560_5.pdf,img/10560/10560_5.png;' +
+                    './img/10560/10560_6.pdf,img/10560/10560_6.png;' +
+                    './img/10560/10560_7.pdf,img/10560/10560_7.png;' +
+                    './img/10560/10560_8.pdf,img/10560/10560_8.png;' +
+
+                    '../1/24/?id=10560,../1/24/images/face.png;' +
+                    '../1/22/?id=10560,img/12210253.png;' +
+                    '../1/18/?id=10560,../1/18/xiaoyuan/face.png;' +
+                    '../1/20/?id=10560,../1/20/xiaoyuan/face.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "拉萨八中";   // nm;
+
+                break;
+
+            case "20201100":
+
+                fs         = fcscript_init(
+                    '../1/31/?id='+id+',../1/31/xiaoyuan/face.png;' +
+                    '../1/22/?id='+id+',img/12210253.png;' +
+                    '../1/25/?id='+id+',../1/25/images/face.png;' +
+                    '?id=2020,img/2020/2020_360.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "婷婷";   // nm;
+
+                break;
+
+            case "2020":
+
+                fs         = fcscript_init(
+                    './?id=10253,img/2020/10253_360.png;' +
+                    './?id=12500,img/12500/nadamu360.png;' +
+                    '../1/22/?id=10102100,img/12210253.png;' +
+                    '../10253/minzuchess.html,img/2020/shiliu360.png;' +
+                    //                        './?id=12500201,img/2020/12500201_360.png;'
+                    '../diary/?id=12500101,../diary/img/12500/mqroom360.png;' +
+                    '../10253/static/pages/chess.html?code=10253,../10253/img/12210253_ai.png;' +
+                    '../1/33/?id=10253,../10253/xiaoyuan/12210253.png;' +
+                    '../1/25/?id=12500,../1/25/images/face.png;'
+
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "民族棋网";   // nm;
+
+                break;
+
+            case "20200101":
+
+
+                fs         = fcscript_init(
+                    './?id=20200101' + '001,./img/zhisai/t001.png;' +
+                    './?id=20200101' + '002,./img/zhisai/t002.png;' +
+                    './?id=20200101' + '003,./img/zhisai/t003.png;' +
+                    './?id=20200101' + '004,./img/zhisai/t004.png;' +
+                    './?id=20200101' + '005,./img/zhisai/t005.png;' +
+                    './?id=20200101' + '006,./img/zhisai/t006.png;' +
+                    './?id=20200101' + '007,./img/zhisai/t007.png;' +
+                    './?id=20200101' + '008,./img/zhisai/t008.png;' +
+                    './?id=20200101' + '009,./img/zhisai/t009.png;' +
+
+                    './?id=20200101' + '010,./img/zhisai/t010.png;' +
+                    './?id=20200101' + '011,./img/zhisai/t011.png;' +
+                    './?id=20200101' + '012,./img/zhisai/t012.png;' +
+                    './?id=20200101' + '013,./img/zhisai/t013.png;' +
+                    './?id=20200101' + '014,./img/zhisai/t014.png;' +
+                    './?id=20200101' + '015,./img/zhisai/t015.png;' +
+                    './?id=20200101' + '016,./img/zhisai/t016.png;' +
+                    './?id=20200101' + '017,./img/zhisai/t017.png;' +
+                    './?id=20200101' + '018,./img/zhisai/t018.png;' +
+                    './?id=20200101' + '019,./img/zhisai/t019.png;' +
+
+                    './?id=20200101' + '020,./img/zhisai/t020.png;' +
+                    './?id=20200101' + '021,./img/zhisai/t021.png;' +
+                    './?id=20200101' + '022,./img/zhisai/t022.png;' +
+                    './?id=20200101' + '023,./img/zhisai/t023.png;' +
+                    './?id=20200101' + '024,./img/zhisai/t024.png;' +
+                    './?id=20200101' + '025,./img/zhisai/t025.png;' +
+                    './?id=20200101' + '026,./img/zhisai/t026.png;' +
+                    './?id=20200101' + '027,./img/zhisai/t027.png;' +
+                    './?id=20200101' + '028,./img/zhisai/t028.png;' +
+                    './?id=20200101' + '029,./img/zhisai/t029.png;' +
+
+                    './?id=20200101' + '030,./img/zhisai/t030.png;' +
+                    './?id=20200101' + '031,./img/zhisai/t031.png;' +
+                    './?id=20200101' + '032,./img/zhisai/t032.png;' +
+                    './?id=20200101' + '033,./img/zhisai/t033.png;' +
+                    './?id=20200101' + '034,./img/zhisai/t034.png;' +
+                    './?id=20200101' + '035,./img/zhisai/t035.png;' +
+                    './?id=20200101' + '036,./img/zhisai/t036.png;' +
+                    './?id=20200101' + '037,./img/zhisai/t037.png;' +
+                    './?id=20200101' + '038,./img/zhisai/t038.png;' +
+                    './?id=20200101' + '039,./img/zhisai/t039.png;' +
+
+                    './?id=20200101' + '040,./img/zhisai/t040.png;' +
+                    './?id=20200101' + '041,./img/zhisai/t041.png;' +
+                    './?id=20200101' + '042,./img/zhisai/t042.png;' +
+                    './?id=20200101' + '043,./img/zhisai/t043.png;' +
+                    './?id=20200101' + '044,./img/zhisai/t044.png;' +
+                    './?id=20200101' + '045,./img/zhisai/t045.png;' +
+                    './?id=20200101' + '046,./img/zhisai/t046.png;' +
+                    './?id=20200101' + '047,./img/zhisai/t047.png;' +
+                    './?id=20200101' + '048,./img/zhisai/t048.png;' +
+                    './?id=20200101' + '049,./img/zhisai/t049.png;' +
+
+                    './?id=20200101' + '050,./img/zhisai/t050.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "智赛网";   // nm;
+
+                break;
+
+            case "12500":
+
+                fs         = fcscript_init(
+                    '../1/25/?id=12500,../1/25/images/face.png;' +
+                    '../1/20/?id=12500&p=1,../1/20/images/face1.png;' +
+                    '../1/25/?id=12500&p=9,./img/12510/13.png;' +
+                    '../1/25/?id=12500&p=15,./img/12530/12534/10.png;' +
+                    '../1/26/?id=12500,./img/12520/09.png;' +
+                    '../1/24/?id=12500&p=2,./img/12520/04.png;' +
+                    '../1/25/?id=12500&p=14,./img/12510/09.png;'+
+                    /*                        './?id=12510,./img/12510.png;' +
+                                            './?id=12520,./img/12520.png;' +
+                                            './?id=12530,./img/12530.png;' */
+                    './img/12500/jirige.pdf,./img/12500/jiang.png;'
+
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "智慧那达慕";   // nm;
+
+                break;
+
+            case "12510":
+
+                fs         = fcscript_init(
+                    '../1/25/?id=12500&p=8,./img/12510/05.png;' +
+                    '../1/25/?id=12500&p=14,./img/12510/09.png;' +
+                    '../1/25/?id=12500&p=9,./img/12510/13.png;' +
+                    '../1/25/?id=12500&p=10,./img/12510/17.png;' +
+                    '../1/25/?id=12500&p=13,./img/12510/28.png;' +
+                    '../1/25/?id=12500&p=11,./img/12510/34.png;' +
+                    '../1/25/?id=12500&p=12,./img/12510/37.png;'
+                );
+
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "鹿棋";   // nm;
+
+                break;
+
+            case "12520":
+
+                fs         = fcscript_init(
+                    '../1/25/?id=12500&p=3,./img/12520/02.png;' +
+                    '../1/25/?id=12500&p=4,./img/12520/03.png;' +
+                    '../1/24/?id=12500&p=2,./img/12520/04.png;' +
+                    '../1/24/?id=12500&p=3,./img/12520/05.png;' +
+                    '../1/22/?id=12500&p=3,./img/12520/06.png;' +
+                    '../1/25/?id=12500&p=6,./img/12520/07.png;' +
+                    '../1/28/?id=12500,./img/12520/08.png;' +
+                    '../1/26/?id=12500,./img/12520/09.png;' +
+                    '../1/22/?id=12500&p=4,./img/12520/10.png;' +
+                    '../1/22/?id=12500&p=5,./img/12520/11.png;' +
+                    '../1/25/?id=12500&p=5,./img/12520/12.png;' +
+                    '../1/30/,./img/12520/13.png;' +
+                    '../1/29/,./img/12520/14.png;' +
+                    '../1/18/?id=12500&p=1,./img/12520/15.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "蒙古跳棋";   // nm;
+
+                break;
+
+            case "12530":
+
+                fs         = fcscript_init(
+                    './?id=12532,./img/12530/12532.png;' +
+                    './?id=12533,./img/12530/12533.png;' +
+                    './?id=12534,./img/12530/12534.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "蒙古战棋";   // nm;
+
+                break;
+
+            case "12531":
+
+                fs         = fcscript_init(
+                    '../1/22/?id=12500&p=1,./img/12530/12531/02.png;' +
+                    '../1/24/?id=12500&p=1,./img/12530/12531/03.png;' +
+                    '../1/15/?id=12500&p=1,./img/12530/12531/04.png;' +
+                    '../1/22/?id=12500&p=2,./img/12530/12531/05.png;' +
+                    '../1/25/?id=12500&p=2,./img/12530/12531/06.png;'
+                );
+
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "方吉日格棋";   // nm;
+
+                break;
+
+            case "12532":
+
+                fs         = fcscript_init(
+                    '../1/24/?id=12500&p=4,./img/12530/12532/02.png;' +
+                    '../1/24/?id=12500&p=5,./img/12530/12532/03.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "混合吉日格棋";   // nm;
+
+                break;
+
+            case "12533":
+
+                fs         = fcscript_init(
+                    '../1/32/?id=12500&p=1,./img/12530/12533/02.png;' +
+                    '../1/32/?id=12500&p=2,./img/12530/12533/04.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "三角吉日格棋";   // nm;
+
+                break;
+
+            case "12534":
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "线性吉日格棋";   // nm;
+
+                break;
+
+            case "2411851577":
+            case "10353":
+
+                fs         = fcscript_init(
+                    '../1/25/?id=10353,../1/25/images/face.png;' +
+                    '../1/31/?id=10353,../1/31/xiaoyuan/face.png;' +
+                    'https://www.aerfaying.com/Studios/19396,./img/12500/jiang.png;' +
+                    '../1/31/?id=10353100&p=1,./img/10353/wanwu.png;'
+
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "阿儿法营";   // nm;
+
+                break;
+
+            case "10298":
+
+                fs         = fcscript_init(
+                    'img/10298100to500.jpg,img/10298.png;' +
+                    '../1/31/?id=10298,../1/31/xiaoyuan/face.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "弈茶益友";   // nm;
+
+                break;
+
+            case "12500111":
+                var divc = document.getElementById("cc");
+                divc.innerText = "苏绍萱";   // nm;
+
+                break;
+
+            case "10170100":
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "清华附中高研项目";   // nm;
+
+                break;
+
+            case "10170101":
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "张瀚宸";   // nm;
+
+                break;
+
+            case "10170102":
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "敬博浩";   // nm;
+
+                break;
+
+            case "10170103":
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "尹熙";   // nm;
+
+                break;
+
+            case "10170104":
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "沈芸伍";   // nm;
+
+                break;
+
+            case "10170105":
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "吕桉弛";   // nm;
+
+                break;
+
+            case "12500201":
+
+                fs         = fcscript_init(
+                    '../1/20/?id=12500201&p=1,../1/20/images/face1.png;' +
+                    '../1/20/?id=12500201&p=2,../1/20/images/face2.png;' +
+                    '../1/25/?id=12500201&p=9&pdf=24weilu.html&mp3=24weilump3.html,./img/12510/13.png;' +
+                    '../1/25/?id=12500201&p=15,./img/12530/12534/10.png;' +
+                    '../1/26/?id=12500201,./img/12520/09.png;' +
+                    '../1/24/?id=12500201&p=2,./img/12520/04.png;' +
+                    '../1/25/?id=12500201&p=14,./img/12510/09.png;'+
+                    '../diary/?id=12500101,../diary/img/12500/mqroom360.png;' // +
+                    //        '../diary/?id=12500,../diary/img/12500/nadamu360.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "赛因吉雅";   // nm;
+
+                break;
+
+            case "12500101":
+
+                fs         = fcscript_init(
+                    '../1/20/?id=12500101&p=2,../1/20/images/face2.png;' +
+                    '../1/20/?id=12500100&p=1&r=t,../1/20/images/faceplay.png;' +
+                    //        '../1/20/?id=12500101,../1/20/xiaoyuan/face.png;'
+                    '../diary/?id=20200101,../diary/img/12500/vip.png;' +
+                    '../diary/?id=12500,../diary/img/12500/nadamu360.png;' +
+                    'https://www.zego.im/app/audiolive,../diary/img/12500/zego2.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "蒙棋网络教室";   // nm = 袁德俊
+
+                var divz = document.getElementById("zz");
+                divz.innerHTML = '<img src="../diary/img/12500/zhang.png">';
+
+                var divl = document.getElementById("ll");
+                divl.innerHTML = '<img style="height:36px" src="../1/25/xiaoyuan/renlei.png">' + '&nbsp;' +
+                    '<a href="http://computergames.caai.cn/info/news191203.html" target="_blank">' +
+                    '<img style="height:36px" src="../1/25/xiaoyuan/CCG.png">' +
+                    '</a>' + '&nbsp;' +
+                    '<img style="height:36px" src="../1/25/xiaoyuan/fc100.png">' + '&nbsp;' +
+                    '<img style="height:36px" src="../1/25/xiaoyuan/ccb.png">' + '&nbsp;' +
+                    '<a href="https://mp.weixin.qq.com/s?__biz=MzU4MTcwNTM0MA==&mid=2247484002&idx=1&sn=bbc858a79350932b3afc46fbe560be7e&chksm=fd42c971ca354067679b81c9e8d659c5d01d581ee47516a5a53dac7491f5f0604771863b0ff8&mpshare=1&scene=1&srcid=&sharer_sharetime=1580817541944&sharer_shareid=e0be72305815c3dc8ff84a187081cf80&exportkey=AQ4Wl2sketYjyXff4Cb%2BihU%3D&pass_ticket=b5aH81c0OaGQttT4vr7XGBJ3nDx9ifYDtJkD0zPy5Lw8h8hlfYIK6PURq%2Fd57Fu5#rd" target="_blank">' +
+                    '<img style="height:36px" src="../1/25/xiaoyuan/mq100.png">' + '&nbsp;' +
+                    '</a>' + '&nbsp;' +
+                    '<a href="../1/25/images/ad_20191208_125524.jpg" target="_blank">' +
+                    '<img style="height:36px" src="../1/25/xiaoyuan/jiya.png">' +
+                    '</a>';
+
+                break;
+
+            case "12500100":
+            case "12500102":
+            case "12500103":
+            case "12500104":
+            case "12500105":
+            case "12500106":
+            case "12500107":
+            case "12500108":
+            case "12500109":
+
+            case "12500110":
+
+            case "12500112":
+            case "12500113":
+            case "12500114":
+            case "12500115":
+            case "12500116":
+            case "12500117":
+            case "12500118":
+            case "12500119":
+
+            case "12500120":
+            case "12500121":
+            case "12500122":
+            case "12500123":
+            case "12500124":
+            case "12500125":
+            case "12500126":
+            case "12500127":
+            case "12500128":
+            case "12500129":
+
+            case "12500130":
+            case "12500131":
+            case "12500132":
+            case "12500133":
+            case "12500134":
+            case "12500135":
+            case "12500136":
+            case "12500137":
+            case "12500138":
+            case "12500139":
+
+
+            case "10253001":
+            case "10253002": break;
+
+            case "10253":
+
+                location.href = "http://10253.flamechess.cn" ;
+                /*    fs         = fcscript_init(
+                            '../1/25/?id=' + id + ',../1/25/images/face.png;'
+                    );
+
+
+                    var divc = document.getElementById("cc");
+                    divc.innerText = "重庆三峡学院久棋博懿";   // nm; */
+
+                break;
+
+            case "10168":
+            case "10194":
+            case "10228":
+
+
+                fs         = fcscript_init(
+                    '../1/25/?id=' + id + ',../1/25/images/face.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "北信科久棋团队";   // nm;
+
+                break;
+
+            case "10286":
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "王中昊";   // nm;
+
+                break;
+
+            case "10267":
+
+                fs         = fcscript_init(
+                    './img/diary-hgfx-02.pdf,img/10267100.png;' +
+                    'https://v.qq.com/x/page/l3021zglifc.html,img/10267200.png;' +
+                    '../1/14/?id=10267,../1/14/xiaoyuan/face.png;' +
+                    'http://app.cntv.cn/special/cportal/newlive/index.html?id=LiveDXwRal2gnyH5rZJxRVrm190901&from=timeline,./img/9.1xuedun.png;'
+                );
+
+                break;
+
+            case "10307":
+
+//                fs         = fcscript_init(
+//                       '../1/25/?id=10201,../1/25/images/face.png;'
+//
+//               );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "玉廊东园火种站";   // nm;
+
+                break;
+
+            case "10456":
+
+                fs         = fcscript_init(
+
+                    '../1/31/?id=10353109,../1/31/xiaoyuan/face.png;'
+
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "张陈一";   // nm;
+
+                break;
+
+            case "10201":
+
+                fs         = fcscript_init(
+                    '../rander/project/oneeyeII.3.8.swf,./img/10201oneeye.png;' +
+                    'https://v.qq.com/x/page/l3028snkwof.html,./img/10201star5v2.png;' +
+                    '../1/15/?id=10201,../1/15/xiaoyuan/face.png;' +
+                    '../1/16/?p=23,../1/16/images/cheng3.png;' +
+                    '../1/25/?id=10201,../1/25/images/face.png;'
+
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "杨瑞昇";   // nm;
+
+                break;
+
+            case "10197":
+
+                fs         = fcscript_init(
+                    '../1/21/?id=10197,img/12210253.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "洪泽阳";   // nm;
+
+                break;
+
+            case "10193":
+
+                fs         = fcscript_init(
+                    '../1/22/?id=10193,img/12210253.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "翁宇辰";   // nm;
+
+                break;
+
+            case "10164":
+
+                fs         = fcscript_init(
+                    '../1/21/?id=10164,img/12210253.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "连想";   // nm;
+
+                break;
+
+            case "10170":
+
+                fs         = fcscript_init(
+                    '../1/15/?id=10170,../1/15/xiaoyuan/face.png;' +
+                    './?id=10102100,./img/abian.png;'
+                );
+
+                var divc = document.getElementById("cc");
+                divc.innerText = "清华附中机器博弈";   // nm;
+
+                break;
+
+            case "10106":
+
+                fs         = fcscript_init(
+                    './img/10108_300dpi.jpg,./img/10108.png;' +
+                    '../1/19/?id=10106,../1/19/xiaoyuan/face.png;'
+                );
+
+                break;
+
+            default: return false;
+        }
+
+
+        for ( var i=0; i<fs.length; i++ ) {
+
+            //获取div
+            var div=document.getElementById("bb");
+
+            //换行
+            var dd = document.createElement("div");
+            div.appendChild(dd);
+
+            div.appendChild(dd);
+            dd.innerHTML += '<a href="' + fs[i][0] + '" target=_blank><img src="' + fs[i][1] + '"></a>';
+        }
+        return true;
+    }
+
+</script>
+
+</body>
+</html>

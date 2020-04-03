@@ -9,7 +9,6 @@
 
 # Storage
 /public/storage
-/storage/source
 
 # Config files
 /storage/*.key
