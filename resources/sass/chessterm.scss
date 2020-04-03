@@ -1,0 +1,7 @@
+@import "~bootstrap/scss/bootstrap-reboot";
+@import "~xterm/css/xterm.css";
+
+html, body, #terminal {
+    height: 100%;
+    width: 100%;
+}
