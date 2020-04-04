@@ -1,4 +1,7 @@
-@import "~bootstrap/scss/bootstrap-reboot";
+@import "~bootstrap/scss/bootstrap-grid";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/reboot";
 @import "~xterm/css/xterm.css";
 
 html, body, #terminal {

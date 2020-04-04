@@ -1,12 +1,28 @@
 const mix = require('laravel-mix');
 
+/*
 mix.webpackConfig({
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
-                loader: "ts-loader",
-                exclude: /node_modules/
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        presets: [
+                            require.resolve("@babel/preset-typescript"),
+                            [
+                                require.resolve("@babel/preset-env"),
+                                {
+                                    modules: false,
+                                    targets: {"ie": 10}
+                                }
+                            ]
+                        ],
+                        cacheDirectory: true
+                    }
+                }
             }
         ]
     },
@@ -14,6 +30,7 @@ mix.webpackConfig({
         extensions: ["*", ".js", ".jsx", ".vue", ".ts", ".tsx"]
     }
 });
+*/
 
 mix.disableNotifications();
 mix.version();
@@ -29,6 +46,10 @@ mix.version();
  |
  */
 
-mix.js('resources/js/chessterm.js', 'public/js')
-    .sass('resources/sass/chessterm.scss', 'public/css')
-    .sourceMaps(false);
+mix.sass('resources/sass/chessterm.scss', 'public/css');
+
+mix.ts('resources/js/chessterm.ts', 'public/js');
+
+if (mix.inProduction()) {
+    mix.babel('public/js/chessterm.js', 'public/js/chessterm.js');
+} else mix.sourceMaps();

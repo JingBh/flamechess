@@ -1,13 +1,15 @@
 import {Terminal} from "xterm";
 import {cursorTo} from "ansi-escapes";
 
+const padStart = require("lodash/padStart");
+
 import {Params, VERSION} from "./main";
 
 export enum Side {
-    none = "none",
-    x = "x",
-    o = "o",
-    both = "both"
+    None = "None",
+    X = "X",
+    O = "O",
+    Both = "Both"
 }
 
 export enum Chess {
@@ -64,6 +66,10 @@ export function setStatusByPosition(term: Terminal, x: number, y: number, status
     }
 }
 
+function pickup(term: Terminal, currentStatus: Chess, currentPosition: Array<number>, infoX: number, infoY: number) {
+
+}
+
 export function drawBoard(term: Terminal, x: number, y: number, params: Params) {
     // x: Number of columns
     // y: Number of rows
@@ -79,7 +85,7 @@ export function drawBoard(term: Terminal, x: number, y: number, params: Params) 
 
             if (xi == 0) {
                 term.write(cursorTo(4, 4 + yi));
-                let lineNumber = (yi + 1).toString().padStart(2);
+                let lineNumber = padStart(yi + 1, 2);
                 term.write(lineNumber);
             }
 
@@ -109,11 +115,11 @@ export function drawBoard(term: Terminal, x: number, y: number, params: Params) 
     term.write("如何使用：");
     term.write(cursorTo(howtoStartX, howtoStartY + 1));
     term.write("1. 使用键盘上的方向键控制光标");
-    if (params.side != Side.none) {
+    if (params.side != Side.None) {
         term.write(cursorTo(howtoStartX, howtoStartY + 2));
         term.write("2. 在空白格按下<Enter>或<Space>来放置棋子");
         term.write(cursorTo(howtoStartX, howtoStartY + 3));
-        if (params.side != Side.both) {
+        if (params.side != Side.Both) {
             term.write("3. 在非空白格按下<Enter>或<Space>可以拿起棋子");
             term.write(cursorTo(howtoStartX, howtoStartY + 4));
             term.write("4. 拿起棋子时，在空白格按下<Enter>或<Space>可以");
@@ -125,6 +131,8 @@ export function drawBoard(term: Terminal, x: number, y: number, params: Params) 
     cursorToPosition(term, 0, 0);
 
     term.onKey(function(event) {
+        console.log(event.domEvent.key);
+
         const cursorX = term.buffer.cursorX;
         const cursorY = term.buffer.cursorY;
         const currentPosition = getPositionByCursor(cursorX, cursorY);
@@ -133,37 +141,42 @@ export function drawBoard(term: Terminal, x: number, y: number, params: Params) 
         if (currentPosition) {
             let targetPosition = currentPosition;
             let targetStatus: Chess;
-            switch (event.domEvent.code) {
+            switch (event.domEvent.key) {
                 case "ArrowUp":
+                case "Up":
                     targetPosition[1] -= 1;
                     if (targetPosition[1] < 0) targetPosition[1] = 0;
                     break;
                 case "ArrowDown":
+                case "Down":
                     targetPosition[1] += 1;
                     if (targetPosition[1] > y) targetPosition[1] = y;
                     break;
                 case "ArrowLeft":
+                case "Left":
                     targetPosition[0] -= 1;
                     if (targetPosition[0] < 0) targetPosition[0] = 0;
                     break;
                 case "ArrowRight":
+                case "Right":
                     targetPosition[0] += 1;
                     if (targetPosition[0] > x) targetPosition[0] = x;
                     break;
-                case "Space":
+                case " ":
+                case "Spacebar":
                 case "Enter":
                     switch (params.side) {
-                        case Side.x:
+                        case Side.X:
                             if (currentStatus == Chess.X) {
-                                targetStatus = Chess.None;
+                                pickup(term, currentStatus, currentPosition, infoStartX, infoStartY + 7);
                             } else if (currentStatus == Chess.None) targetStatus = Chess.X;
                             break;
-                        case Side.o:
+                        case Side.O:
                             if (currentStatus == Chess.O) {
-                                targetStatus = Chess.None;
+                                pickup(term, currentStatus, currentPosition, infoStartX, infoStartY + 7);
                             } else if (currentStatus == Chess.None) targetStatus = Chess.O;
                             break;
-                        case Side.both:
+                        case Side.Both:
                             if (currentStatus == Chess.None) {
                                 targetStatus = Chess.X;
                             } else if (currentStatus == Chess.X) {
@@ -173,7 +186,7 @@ export function drawBoard(term: Terminal, x: number, y: number, params: Params) 
                             }
                             break;
                     }
-                    if (currentStatus)
+                    if (currentStatus && targetStatus)
                         setStatusByPosition(term, currentPosition[0], currentPosition[1], targetStatus);
             }
             cursorToPosition(term, targetPosition[0], targetPosition[1]);

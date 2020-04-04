@@ -3,6 +3,8 @@ import {FitAddon} from "xterm-addon-fit";
 import {eraseScreen, cursorLeft} from "ansi-escapes";
 import {parse} from "qs";
 
+const capitalize = require("lodash/capitalize");
+
 import {drawBoard, Side} from "./drawBoard";
 
 export const VERSION = "0.1.0";
@@ -43,7 +45,8 @@ export function chessterm() {
     } else params.gameId = gameId;
 
     term.write(eraseScreen + cursorLeft);
-    params.side = paramsRaw.side in Side ? paramsRaw.side : Side.none;
+    let side = capitalize(paramsRaw.side);
+    params.side = side in Side ? side : Side.None;
 
     term.write(eraseScreen + cursorLeft);
     drawBoard(term, 14, 14, params);
