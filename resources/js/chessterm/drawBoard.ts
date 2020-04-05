@@ -1,5 +1,5 @@
 import {Terminal} from "xterm";
-import {cursorTo} from "ansi-escapes";
+import {cursorTo, eraseEndLine} from "ansi-escapes";
 
 const padStart = require("lodash/padStart");
 
@@ -20,6 +20,8 @@ export enum Chess {
 
 let positions: {[key: number]: {[key: number]: Array<number>}} = {};
 let boardStatus: {[key: number]: {[key: number]: Chess}} = {};
+
+let onKey: {[key: string]: (position?: Array<number>) => any} = {};
 
 export function cursorToPosition(term: Terminal, x: number, y: number) {
     // x: column
@@ -55,19 +57,58 @@ export function getStatusByPosition(x: number, y: number): Chess {
     return Chess[status] || Chess.None;
 }
 
-export function setStatusByPosition(term: Terminal, x: number, y: number, status: Chess) {
+export function setStatusByPosition(term: Terminal, x: number, y: number, status: Chess, color?) {
     // x: column
     // y: row
 
     if ((boardStatus[y] || {})[x]) {
         boardStatus[y][x] = status;
         cursorToPosition(term, x, y);
+        if (color) term.write(color);
         term.write(status);
+        if (color) term.write('\x1b[0;37m\x1b[49m');
     }
 }
 
-function pickup(term: Terminal, currentStatus: Chess, currentPosition: Array<number>, infoX: number, infoY: number) {
+function pickup(term: Terminal, currentPosition: Array<number>, infoX: number, infoY: number) {
+    let currentStatus: Chess = getStatusByPosition(currentPosition[0], currentPosition[1]);
+    setStatusByPosition(term, currentPosition[0], currentPosition[1], currentStatus, '\x1b[46m');
 
+    term.write(cursorTo(infoX, infoY));
+    term.write('\x1b[1;32m');
+    let rowNumber = currentPosition[1] + 1;
+    let colNumber = String.fromCharCode(65 + currentPosition[0]);
+    term.write(`Picking up: ${rowNumber}${colNumber} (${currentStatus})`);
+    term.write(cursorTo(infoX, infoY + 1));
+    term.write('\x1b[1;36m');
+    term.write("<Space> to put down;");
+    term.write(cursorTo(infoX, infoY + 2));
+    term.write("<X> to delete.");
+    term.write('\x1b[0;37m');
+
+    onKey["space"] = function(position) {
+        let status: Chess = getStatusByPosition(position[0], position[1]);
+        if (status == Chess.None) {
+            setStatusByPosition(term, currentPosition[0], currentPosition[1], Chess.None);
+            setStatusByPosition(term, position[0], position[1], currentStatus);
+
+            term.write(cursorTo(infoX, infoY) + eraseEndLine);
+            term.write(cursorTo(infoX, infoY + 1) + eraseEndLine);
+            term.write(cursorTo(infoX, infoY + 2) + eraseEndLine);
+
+            onKey["space"] = null;
+        }
+    };
+
+    onKey["x"] = function() {
+        setStatusByPosition(term, currentPosition[0], currentPosition[1], Chess.None);
+
+        term.write(cursorTo(infoX, infoY) + eraseEndLine);
+        term.write(cursorTo(infoX, infoY + 1) + eraseEndLine);
+        term.write(cursorTo(infoX, infoY + 2) + eraseEndLine);
+
+        onKey["x"] = null;
+    };
 }
 
 export function drawBoard(term: Terminal, x: number, y: number, params: Params) {
@@ -141,55 +182,70 @@ export function drawBoard(term: Terminal, x: number, y: number, params: Params) 
         if (currentPosition) {
             let targetPosition = currentPosition;
             let targetStatus: Chess;
-            switch (event.domEvent.key) {
-                case "ArrowUp":
-                case "Up":
+
+            switch (event.domEvent.key.toLowerCase()) {
+                case "arrowup":
+                case "up":
                     targetPosition[1] -= 1;
                     if (targetPosition[1] < 0) targetPosition[1] = 0;
                     break;
-                case "ArrowDown":
-                case "Down":
+                case "arrowdown":
+                case "down":
                     targetPosition[1] += 1;
                     if (targetPosition[1] > y) targetPosition[1] = y;
                     break;
-                case "ArrowLeft":
-                case "Left":
+                case "arrowleft":
+                case "left":
                     targetPosition[0] -= 1;
                     if (targetPosition[0] < 0) targetPosition[0] = 0;
                     break;
-                case "ArrowRight":
-                case "Right":
+                case "arrowright":
+                case "right":
                     targetPosition[0] += 1;
                     if (targetPosition[0] > x) targetPosition[0] = x;
                     break;
                 case " ":
-                case "Spacebar":
-                case "Enter":
-                    switch (params.side) {
-                        case Side.X:
-                            if (currentStatus == Chess.X) {
-                                pickup(term, currentStatus, currentPosition, infoStartX, infoStartY + 7);
-                            } else if (currentStatus == Chess.None) targetStatus = Chess.X;
-                            break;
-                        case Side.O:
-                            if (currentStatus == Chess.O) {
-                                pickup(term, currentStatus, currentPosition, infoStartX, infoStartY + 7);
-                            } else if (currentStatus == Chess.None) targetStatus = Chess.O;
-                            break;
-                        case Side.Both:
-                            if (currentStatus == Chess.None) {
-                                targetStatus = Chess.X;
-                            } else if (currentStatus == Chess.X) {
-                                targetStatus = Chess.O;
-                            } else if (currentStatus == Chess.O) {
-                                targetStatus = Chess.None;
-                            }
-                            break;
+                case "spacebar":
+                case "enter":
+                    if (onKey["space"]) {
+                        onKey["space"](currentPosition);
+                    } else {
+                        switch (params.side) {
+                            case Side.X:
+                                if (currentStatus == Chess.X) {
+                                    pickup(term, currentPosition, infoStartX, infoStartY + 7);
+                                } else if (currentStatus == Chess.None) targetStatus = Chess.X;
+                                break;
+                            case Side.O:
+                                if (currentStatus == Chess.O) {
+                                    pickup(term, currentPosition, infoStartX, infoStartY + 7);
+                                } else if (currentStatus == Chess.None) targetStatus = Chess.O;
+                                break;
+                            case Side.Both:
+                                if (currentStatus == Chess.None) {
+                                    targetStatus = Chess.X;
+                                } else if (currentStatus == Chess.X) {
+                                    targetStatus = Chess.O;
+                                } else if (currentStatus == Chess.O) {
+                                    targetStatus = Chess.None;
+                                }
+                                break;
+                        }
+                        if (currentStatus && targetStatus)
+                            setStatusByPosition(term,
+                                currentPosition[0],
+                                currentPosition[1],
+                                targetStatus);
                     }
-                    if (currentStatus && targetStatus)
-                        setStatusByPosition(term, currentPosition[0], currentPosition[1], targetStatus);
+                    break;
+                case "escape":
+                case "esc":
+                case "x":
+                    if (onKey["x"]) onKey["x"]();
+                    break;
             }
-            cursorToPosition(term, targetPosition[0], targetPosition[1]);
+            if (targetPosition)
+                cursorToPosition(term, targetPosition[0], targetPosition[1]);
         }
     });
 }
