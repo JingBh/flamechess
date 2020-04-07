@@ -3,14 +3,7 @@ import {cursorTo, eraseEndLine} from "ansi-escapes";
 
 const padStart = require("lodash/padStart");
 
-import {Params, VERSION} from "./main";
-
-export enum Side {
-    None = "None",
-    X = "X",
-    O = "O",
-    Both = "Both"
-}
+import {Side, Params, VERSION} from "./main";
 
 export enum Chess {
     None = "-",
@@ -111,9 +104,9 @@ function pickup(term: Terminal, currentPosition: Array<number>, infoX: number, i
     };
 }
 
-export function drawBoard(term: Terminal, x: number, y: number, params: Params) {
-    // x: Number of columns
-    // y: Number of rows
+export function drawBoard(term: Terminal, params: Params) {
+    const x = params.game.column;  // Number of columns
+    const y = params.game.row;  // Number of rows
 
     for (let yi = 0; yi < y; yi ++) {
         positions[yi] = {};
@@ -144,9 +137,9 @@ export function drawBoard(term: Terminal, x: number, y: number, params: Params) 
     term.write(cursorTo(infoStartX, infoStartY + 1));
     term.write("Developed by JingBh");
     term.write(cursorTo(infoStartX, infoStartY + 3));
-    term.write(`User ID: ${params.userId}`);
+    term.write(`\x1b[1;37m${params.game.title}\x1b[0;37m`);
     term.write(cursorTo(infoStartX, infoStartY + 4));
-    term.write(`Game ID: ${params.gameId}`);
+    term.write(`# ${params.board.id}`);
     term.write(cursorTo(infoStartX, infoStartY + 5));
     term.write(`Side: ${params.side}`);
 

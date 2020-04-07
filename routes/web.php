@@ -40,13 +40,14 @@ Route::group([
     // Delete a board
     Route::post("delete", "BoardController@destroy");
     Route::get("delete", "BoardController@destroy");
-
-    // RESTful mode
-    Route::post("/", "BoardController@store");
-    Route::get("{id}", "BoardController@show");
-    Route::put("{id}", "BoardController@update");
-    Route::patch("{id}", "BoardController@update");
-    Route::delete("{id}", "BoardController@destroy");
 });
+
+Route::resource("boards", "BoardController")->only([
+    "store", "show", "update", "destroy"
+]);
+
+Route::resource("games", "GameController")->only([
+    "show"
+]);
 
 Route::view("term", "chessterm");

@@ -1,0 +1,16 @@
+{
+    "name": "chess_server",
+    "version": "0.1.0",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "repository": "https://github.com/JingBh/flamechess",
+    "author": "JingBh",
+    "license": "GPL-3.0-or-later",
+    "private": true,
+    "dependencies": {
+        "axios": "^0.19.2",
+        "express": "^4.17.1",
+        "socket.io": "^2.3.0"
+    }
+}

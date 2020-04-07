@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class BoardAdmin
 {
     public function handle(Request $request, Closure $next) {
-        $password = env("FLAMECHESS_PASSWORD");
+        $password = config("flamechess.password");
         $input = $request->input("key");
         if ($input === $password) {
             return $next($request);

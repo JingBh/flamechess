@@ -39,7 +39,6 @@ class BoardController extends Controller
     {
         if (!filled($id)) $id = Request::input("id");
         $history = Request::input("history") == "true";
-        $clock = Request::input("clock") === "true";
         $cut = intval(Request::input("cut"));
         $json = Request::input("json") === "true";
 
@@ -62,7 +61,7 @@ class BoardController extends Controller
             } elseif (filled($cut) && $cut > 0) {
                 $response["data"]["chesspos"] = str_split($board->chesspos, $cut);
             } elseif ($json === false) {
-                return response($clock ? $board->clock : $board->chesspos)->withHeaders([
+                return response($board->chesspos)->withHeaders([
                     "Content-Type" => "text/plain"
                 ]);
             }
