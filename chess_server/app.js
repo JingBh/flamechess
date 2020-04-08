@@ -42,11 +42,15 @@ io.on("connection", function (socket) {
                             }).catch(function() {
                                 socket.emit("login_fail", "登录失败，服务器发生错误。");
                             });
+
                     } else socket.emit("login_fail", "登录失败，指定的 gameId 不存在或服务器发生错误。");
+
                 }).catch(function() {
                     socket.emit("login_fail", "登录失败，服务器发生错误。");
                 });
+
         } else socket.emit("login_fail", "登录失败，参数不合法。");
+
     });
 });
 

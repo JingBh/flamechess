@@ -6,7 +6,7 @@ import {parse} from "qs";
 const capitalize = require("lodash/capitalize");
 const io = require("socket.io-client");
 
-import {drawBoard} from "./drawBoard";
+import {drawBoard, setAllPosition} from "./drawBoard";
 
 export const VERSION = "0.1.0";
 
@@ -101,4 +101,8 @@ socket.on("login_fail", function(msg?: string) {
     term.write(`\x1b[1;31mError: ${msg || "登录失败。"}\x1b[0;37m`);
     term.write(cursorTo(1, 2));
     term.write("请检查 id 和 game 参数是否正确。");
+});
+
+socket.on("update_chesspos", function(chesspos?: string) {
+    if (chesspos) setAllPosition(term, chesspos);
 });

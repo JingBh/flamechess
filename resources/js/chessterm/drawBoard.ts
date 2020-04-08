@@ -11,6 +11,12 @@ export enum Chess {
     O = "O"
 }
 
+const binds: {[key: string]: Chess} = {
+    "0": Chess.None,
+    "z": Chess.X,
+    "Z": Chess.O
+};
+
 let positions: {[key: number]: {[key: number]: Array<number>}} = {};
 let boardStatus: {[key: number]: {[key: number]: Chess}} = {};
 
@@ -30,7 +36,7 @@ export function getPositionByCursor(x: number, y: number): Array<number> {
     for (let yi in positions) {
         // yi: row
 
-        for (let xi in positions) {
+        for (let xi in positions[yi]) {
             // xi: column
 
             let position = positions[yi][xi];
@@ -61,6 +67,26 @@ export function setStatusByPosition(term: Terminal, x: number, y: number, status
         term.write(status);
         if (color) term.write('\x1b[0;37m\x1b[49m');
     }
+}
+
+export function setAllPosition(term: Terminal, chesspos: string) {
+    let index = 0;
+    const cursorBack = cursorTo(term.buffer.cursorX, term.buffer.cursorY);
+
+    for (let yi in positions) {
+        // yi: row
+
+        for (let xi in positions[yi]) {
+            // xi: column
+
+            let position = positions[yi][xi];
+            let status: Chess = binds[chesspos[index]] || Chess.None;
+            term.write(cursorTo(position[0], position[1]));
+            term.write(status);
+        }
+    }
+
+    term.write(cursorBack);
 }
 
 function pickup(term: Terminal, currentPosition: Array<number>, infoX: number, infoY: number) {
@@ -163,6 +189,8 @@ export function drawBoard(term: Terminal, params: Params) {
     }
 
     cursorToPosition(term, 0, 0);
+
+    setAllPosition(term, params.board.chesspos);
 
     term.onKey(function(event) {
         console.log(event.domEvent.key);
