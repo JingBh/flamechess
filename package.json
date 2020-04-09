@@ -7,11 +7,13 @@
         "watch-poll": "yarn run watch --watch-poll",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "yarn run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "chess-server": "node chess_server/app.js"
     },
     "dependencies": {
         "ansi-escapes": "^4.3.1",
         "bootstrap": "^4.4.1",
+        "chess_server": "./chess_server",
         "lodash": "^4.17.15",
         "qs": "^6.9.3",
         "socket.io-client": "^2.3.0",

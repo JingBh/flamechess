@@ -38,7 +38,8 @@ export enum Side {
 export interface Params {
     board?: Board,
     game?: Game,
-    side?: Side
+    side?: Side,
+    callbacks: {[event: string]: (data) => any}
 }
 
 interface loginResult {
@@ -64,7 +65,7 @@ window.addEventListener("resize", function() {
 });
 
 const paramsRaw = parse(location.search.substring(1));
-let params: Params = {};
+let params: Params = {callbacks: {}};
 
 socket.on("connect", function() {
     clearScreen(term);
@@ -104,5 +105,12 @@ socket.on("login_fail", function(msg?: string) {
 });
 
 socket.on("update_chesspos", function(chesspos?: string) {
+    console.log(chesspos);
     if (chesspos) setAllPosition(term, chesspos);
 });
+
+params.callbacks.update_board = function(chesspos?: string) {
+    socket.emit("update_board", socket.id, {
+        chesspos: chesspos
+    });
+};

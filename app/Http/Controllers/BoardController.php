@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Board;
+use App\Services\SocketIO;
 use Exception;
 use Illuminate\Support\Facades\Request;
 
@@ -76,6 +77,7 @@ class BoardController extends Controller
         if (!filled($id)) $id = Request::input("id");
         $chesspos = Request::input("chesspos");
         $clock = Request::input("clock");
+        $socket = Request::input("socket", "true") === "true";
 
         $response = [
             "success" => false,
@@ -87,7 +89,10 @@ class BoardController extends Controller
         if (filled($board)) {
             if (filled($chesspos)) $board->chesspos = $chesspos;
             if (filled($clock)) $board->clock = $clock;
-            if (filled($chesspos) || filled($clock)) $board->record();
+            if (filled($chesspos) || filled($clock)) {
+                if ($socket === true) SocketIO::emit("update_board", $board);
+                $board->record();
+            }
             $board->save();
             $response["success"] = true;
         } else $response["message"] = "指定的棋盘不存在。";
