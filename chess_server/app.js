@@ -56,13 +56,15 @@ io.on("connection", function (socket) {
                                     socket.join("board_" + loginResult.board.id);
                                     socket.emit("login_result", loginResult);
                                 } else socket.emit("login_fail", "登录失败，指定的棋盘码不存在或服务器发生错误。");
-                            }).catch(function() {
+                            }).catch(function(error) {
+                                console.error(error);
                                 socket.emit("login_fail", "登录失败，服务器发生错误。");
                             });
 
                     } else socket.emit("login_fail", "登录失败，指定的 gameId 不存在或服务器发生错误。");
 
-                }).catch(function() {
+                }).catch(function(error) {
+                    console.error(error);
                     socket.emit("login_fail", "登录失败，服务器发生错误。");
                 });
 
@@ -77,11 +79,14 @@ io.on("connection", function (socket) {
 
             data.socket = false;
             axios.patch(`${session.backend}/boards/${session.board.id}`, data)
+                .catch(function(error) {
+                    console.error(error);
+                })
                 .finally(function() {
                     if (data.chesspos) session.board.chesspos = data.chesspos;
                     if (data.clock) session.board.clock = data.clock;
                     _sessions[clientId].board = session.board;
-                    socket.broadcast.to("board_" + session.board.id).emit("update_chesspos", session.board.chesspos);
+                    io.to("board_" + session.board.id).emit("update_chesspos", session.board.chesspos);
                 });
         }
     });

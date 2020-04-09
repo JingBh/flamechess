@@ -31,6 +31,9 @@ nano .env  # 或者其它编辑器
 # 生成一个 Laravel 秘钥
 php artisan key:generate
 
+# 创建数据库结构
+php artisan migrate
+
 # 运行 Laravel Mix 打包前端资源
 yarn production
 

@@ -26,7 +26,7 @@ class Board extends Model
     public function history() {
         return DB::table("boards_history")
             ->where("board_id", $this->id)
-            ->orderBy("time", "DESC")
+            ->orderBy("id", "DESC")
             ->pluck("chesspos");
     }
 }
