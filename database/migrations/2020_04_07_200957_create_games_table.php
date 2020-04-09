@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBoardsHistoryTable extends Migration
+class CreateGamesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateBoardsHistoryTable extends Migration
      */
     public function up()
     {
-        Schema::create("boards_history", function (Blueprint $table) {
+        Schema::create("games", function (Blueprint $table) {
             $table->id();
-            $table->string("board_id");
-            $table->string("board_clock")->nullable();
-            $table->string("chesspos")->nullable();
-            $table->timestamp("time")->useCurrent();
+            $table->string("title");
+            $table->mediumText("description")->nullable();
+            $table->tinyInteger("row");
+            $table->tinyInteger("column");
         });
     }
 
@@ -29,6 +29,6 @@ class CreateBoardsHistoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boards_history');
+        Schema::dropIfExists("games");
     }
 }

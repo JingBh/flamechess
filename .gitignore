@@ -9,13 +9,16 @@
 
 # Storage
 /public/storage
+/database/*.db
 
 # Config files
+laravel-echo-server.json
 /storage/*.key
 .env
 .env.backup
 
 # Caches
+laravel-echo-server.lock
 .phpunit.result.cache
 npm-debug.log
 yarn-error.log
