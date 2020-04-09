@@ -194,7 +194,7 @@ export function drawBoard(term: Terminal, params: Params) {
     term.write(cursorTo(infoStartX, infoStartY + 3));
     term.write(`\x1b[1;37m${params.game.title}\x1b[0;37m`);
     term.write(cursorTo(infoStartX, infoStartY + 4));
-    term.write(`# ${params.board.id}`);
+    term.write(`# ${String(params.board.id).substring(String(params.game.id).length)}`);
     term.write(cursorTo(infoStartX, infoStartY + 5));
     term.write(`Side: ${params.side}`);
 
@@ -214,7 +214,13 @@ export function drawBoard(term: Terminal, params: Params) {
             term.write("4. 拿起棋子时，在空白格按下<Enter>或<Space>可以");
             term.write(cursorTo(howtoStartX + 3, howtoStartY + 5));
             term.write("重新放下，按下<Esc>或<X>可以删除该棋子");
-        } else term.write("3. 在非空白格按下<Enter>或<Space>可以切换棋子");
+            term.write(cursorTo(howtoStartX + 3, howtoStartY + 6));
+            term.write("5. 在非空白格按下<Esc>或<X>可以直接删除棋子");
+        } else {
+            term.write("3. 在非空白格按下<Enter>或<Space>可以切换棋子");
+            term.write(cursorTo(howtoStartX, howtoStartY + 4));
+            term.write("4. 在非空白格按下<Esc>或<X>可以直接删除棋子");
+        }
     }
 
     setAllPosition(term, params.board.chesspos);
@@ -282,22 +288,30 @@ export function drawBoard(term: Terminal, params: Params) {
                                     }
                                     break;
                             }
-                            if (currentStatus && targetStatus) {
-                                setStatusByPosition(term,
-                                    currentPosition[0],
-                                    currentPosition[1],
-                                    targetStatus);
-
-                                uploadAllPosition();
-                            }
                         }
                         break;
                     case "escape":
                     case "esc":
                     case "x":
-                        if (onKey["x"]) onKey["x"]();
+                        if (onKey["x"]) {
+                            onKey["x"]();
+                        } else if ((params.side == Side.X && currentStatus == Chess.X) ||
+                            (params.side == Side.O && currentStatus == Chess.O) ||
+                            params.side == Side.Both) {
+                            targetStatus = Chess.None;
+                        }
                         break;
                 }
+
+                if (currentStatus && targetStatus && currentStatus != targetStatus) {
+                    setStatusByPosition(term,
+                        currentPosition[0],
+                        currentPosition[1],
+                        targetStatus);
+
+                    uploadAllPosition();
+                }
+
                 if (targetPosition)
                     cursorToPosition(term, targetPosition[0], targetPosition[1]);
             }
