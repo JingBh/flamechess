@@ -142,7 +142,7 @@ function pickup(term: Terminal, currentPosition: Array<number>, infoX: number, i
 
             uploadAllPosition();
 
-            onKey["space"] = null;
+            onKey["space"] = onKey["x"] = null;
         }
     };
 
@@ -155,7 +155,7 @@ function pickup(term: Terminal, currentPosition: Array<number>, infoX: number, i
 
         uploadAllPosition();
 
-        onKey["x"] = null;
+        onKey["space"] = onKey["x"] = null;
     };
 }
 

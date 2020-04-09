@@ -79,11 +79,14 @@ io.on("connection", function (socket) {
 
             data.socket = false;
             axios.patch(`${session.backend}/boards/${session.board.id}`, data)
+                .catch(function(error) {
+                    console.error(error);
+                })
                 .finally(function() {
                     if (data.chesspos) session.board.chesspos = data.chesspos;
                     if (data.clock) session.board.clock = data.clock;
                     _sessions[clientId].board = session.board;
-                    socket.broadcast.to("board_" + session.board.id).emit("update_chesspos", session.board.chesspos);
+                    io.to("board_" + session.board.id).emit("update_chesspos", session.board.chesspos);
                 });
         }
     });
