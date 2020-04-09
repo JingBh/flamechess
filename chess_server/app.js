@@ -56,13 +56,15 @@ io.on("connection", function (socket) {
                                     socket.join("board_" + loginResult.board.id);
                                     socket.emit("login_result", loginResult);
                                 } else socket.emit("login_fail", "登录失败，指定的棋盘码不存在或服务器发生错误。");
-                            }).catch(function() {
+                            }).catch(function(error) {
+                                console.error(error);
                                 socket.emit("login_fail", "登录失败，服务器发生错误。");
                             });
 
                     } else socket.emit("login_fail", "登录失败，指定的 gameId 不存在或服务器发生错误。");
 
-                }).catch(function() {
+                }).catch(function(error) {
+                    console.error(error);
                     socket.emit("login_fail", "登录失败，服务器发生错误。");
                 });
 
