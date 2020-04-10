@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=700, height=700, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="data-server" content="{{ config("flamechess.term_server") }}">
     <meta name="data-backend" content="{{ url("/") }}">
