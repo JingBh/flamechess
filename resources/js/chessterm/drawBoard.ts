@@ -3,7 +3,8 @@ import {cursorTo, eraseEndLine} from "ansi-escapes";
 
 const padStart = require("lodash/padStart");
 
-import {Side, Params, VERSION} from "./main";
+import {Side, Params} from "./main";
+import {VERSION} from "./version";
 
 export enum Chess {
     None = "-",

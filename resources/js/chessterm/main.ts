@@ -8,8 +8,6 @@ const io = require("socket.io-client");
 
 import {drawBoard, setAllPosition} from "./drawBoard";
 
-export const VERSION = "0.1.0";
-
 export const SERVER = document.querySelector("meta[name='data-server']").getAttribute("content");
 
 export const BACKEND = document.querySelector("meta[name='data-backend']").getAttribute("content");

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/finom/github-embed@gh-pages/github-embed.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .github-embed-frames {
+            padding-bottom: 0;
+        }
+
+        .github-embed-footer {
+            height: 0;
+        }
+    </style>
+    <title>Source of ChessTerm</title>
+</head>
+<body style="margin:0;padding:0;">
+<div id="container" style="height:100vh;"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.23.0/polyfill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/finom/github-embed@gh-pages/github-embed.min.js"></script>
+<script>
+    githubEmbed("body", {
+        owner: "JingBh",
+        repo: "flamechess",
+        ref: "master",
+        embed: [
+            {
+                type: "html",
+                path: "resources/views/chessterm.blade.php",
+                label: "前端网页"
+            },
+            {
+                type: "ts",
+                path: "resources/js/chessterm/main.ts",
+                label: "main.ts"
+            },
+            {
+                type: "ts",
+                path: "resources/js/chessterm/drawBoard.ts",
+                label: "drawBoard.ts (绘制棋盘)"
+            },
+            {
+                type: "js",
+                path: "chess_server/app.js",
+                label: "WebSocket 后端"
+            }
+        ]
+    });
+</script>
+</body>
+</html>
