@@ -74,7 +74,7 @@
                             <option selected="selected" value="none">无</option>
                             <option value="x">“X”</option>
                             <option value="o">“O”</option>
-                            <option value="both">“X“和”O“</option>
+                            <option value="both">“X”和“O”</option>
                         </select>
                         <small class="form-text">如“简介”中所说，棋盘上有两种棋子：<code>X</code> 和 <code>O</code>，您可以选择控制其中一方或两方，或者都不控制，进行观战。</small>
                     </div>
