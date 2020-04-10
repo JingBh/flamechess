@@ -2,10 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property integer $id
+ * @property string|null $name
+ * @property string|null $email
+ * @property string|null $password
+ * @property array|null $links
+ * @property Carbon|string|null $created_at
+ * @property Carbon|string|null $updated_at
+ */
 class User extends Authenticatable
 {
     use Notifiable;

@@ -31,42 +31,30 @@ io.on("connection", function (socket) {
         console.info(`Client ${clientId} is trying to login with ${data.userId} at ${data.backend}.`);
 
         if (data.backend && data.gameId && data.userId) {
-            let boardId = String(data.gameId) + String(data.userId);
-
-            // Query game info.
-            axios.get(`${data.backend}/games/${data.gameId}`)
-                .then(function(response) {
-                    if (response.data && typeof response.data == "object" &&
-                        response.data.row && response.data.column) {
-                        let gameInfo = response.data;
-
-                        // Query board info.
-                        axios.get(`${data.backend}/boards/${boardId}?json=true`)
-                            .then(function(response) {
-                                if (response.data && typeof response.data == "object" &&
-                                    response.data.success === true && response.data.data) {
-
-                                    // Return result to client.
-                                    let loginResult = {
-                                        board: response.data.data,
-                                        game: gameInfo
-                                    };
-                                    _sessions[clientId] = loginResult;
-                                    _sessions[clientId].backend = data.backend;
-                                    socket.join("board_" + loginResult.board.id);
-                                    socket.emit("login_result", loginResult);
-                                } else socket.emit("login_fail", "登录失败，指定的棋盘码不存在或服务器发生错误。");
-                            }).catch(function(error) {
-                                console.error(error);
-                                socket.emit("login_fail", "登录失败，服务器发生错误。");
-                            });
-
-                    } else socket.emit("login_fail", "登录失败，指定的 gameId 不存在或服务器发生错误。");
-
-                }).catch(function(error) {
-                    console.error(error);
+            // Query board info.
+            axios.get(`${data.backend}/user/getBoard`, {
+                params: {
+                    "id": data.userId,
+                    "game": data.gameId
+                }
+            }).then(function(response) {
+                if (response.data.success) {
+                    let loginResult = response.data.data;
+                    _sessions[clientId] = loginResult;
+                    _sessions[clientId].backend = data.backend;
+                    socket.join("board_" + loginResult.board.id);
+                    socket.emit("login_result", loginResult);
+                } else if (response.data.message) {
+                    socket.emit("login_fail", "登录失败：" + response.data.message);
+                } else {
+                    console.error(response.data);
                     socket.emit("login_fail", "登录失败，服务器发生错误。");
-                });
+                }
+
+            }).catch(function(error) {
+                console.error(error);
+                socket.emit("login_fail", "登录失败，服务器发生错误。");
+            });
 
         } else socket.emit("login_fail", "登录失败，参数不合法。");
 

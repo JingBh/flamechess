@@ -10,6 +10,9 @@
 # Storage
 /public/storage
 /database/*.db
+/database/*.sqlite
+/database/*.sqlite-journal
+/database/backup
 
 # Config files
 laravel-echo-server.json
