@@ -230,7 +230,8 @@ export function drawBoard(term: Terminal, params: Params) {
 
     if (!_init) {
         term.onKey(function(event) {
-            console.log(event.domEvent.key);
+            let key = event.domEvent.key || event.domEvent.code;
+            console.log(key);
 
             const cursorX = term.buffer.cursorX;
             const cursorY = term.buffer.cursorY;
@@ -241,7 +242,7 @@ export function drawBoard(term: Terminal, params: Params) {
                 let targetPosition = currentPosition;
                 let targetStatus: Chess;
 
-                switch (event.domEvent.key.toLowerCase()) {
+                switch (key.toLowerCase()) {
                     case "arrowup":
                     case "up":
                         targetPosition[1] -= 1;
@@ -293,6 +294,7 @@ export function drawBoard(term: Terminal, params: Params) {
                         break;
                     case "escape":
                     case "esc":
+                    case "keyx":
                     case "x":
                         if (onKey["x"]) {
                             onKey["x"]();
