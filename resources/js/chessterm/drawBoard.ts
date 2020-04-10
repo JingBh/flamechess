@@ -3,7 +3,8 @@ import {cursorTo, eraseEndLine} from "ansi-escapes";
 
 const padStart = require("lodash/padStart");
 
-import {Side, Params, VERSION} from "./main";
+import {Side, Params} from "./main";
+import {VERSION} from "./version";
 
 export enum Chess {
     None = "-",
@@ -214,7 +215,7 @@ export function drawBoard(term: Terminal, params: Params) {
             term.write("4. 拿起棋子时，在空白格按下<Enter>或<Space>可以");
             term.write(cursorTo(howtoStartX + 3, howtoStartY + 5));
             term.write("重新放下，按下<Esc>或<X>可以删除该棋子");
-            term.write(cursorTo(howtoStartX + 3, howtoStartY + 6));
+            term.write(cursorTo(howtoStartX, howtoStartY + 6));
             term.write("5. 在非空白格按下<Esc>或<X>可以直接删除棋子");
         } else {
             term.write("3. 在非空白格按下<Enter>或<Space>可以切换棋子");

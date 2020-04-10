@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="css/head.css">
     <link rel="stylesheet" href="css/diary.css">
     <link rel="stylesheet" href="css/custom.css">
+    @include("matomo")
     <title>清华附中机器博弈</title>
 </head>
 <body class="body" id="bb">

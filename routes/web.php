@@ -27,4 +27,10 @@ $router->get("board/{id}", function($id) {
 
 */
 
-Route::view("term", "chessterm");
+Route::group([
+    "prefix" => "term"
+], function() {
+    Route::view("/", "chessterm");
+
+    Route::view("intro", "chessterm_intro");
+});

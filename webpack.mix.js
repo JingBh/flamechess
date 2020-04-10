@@ -14,10 +14,13 @@ mix.version();
  |
  */
 
-mix.sass('resources/sass/chessterm.scss', 'public/css');
+mix.sass("resources/sass/chessterm.scss", "public/css");
+mix.ts("resources/js/chessterm/main.ts", "public/js/chessterm.js");
 
-mix.ts('resources/js/chessterm/main.ts', 'public/js/chessterm.js');
+mix.sass('resources/sass/chessterm_intro.scss', "public/css");
+mix.ts("resources/js/chessterm/intro.ts", "public/js/chessterm_intro.js");
 
 if (mix.inProduction()) {
-    mix.babel('public/js/chessterm.js', 'public/js/chessterm.js');
+    mix.babel("public/js/chessterm.js", "public/js/chessterm.js");
+    mix.babel("public/js/chessterm_intro.js", "public/js/chessterm_intro.js");
 } else mix.sourceMaps();
