@@ -4,19 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="data-backend" content="{{ url('/') }}">
     <link rel="stylesheet" href="{{ mix("css/chessterm_intro.css") }}">
     <link rel="icon" href="/images/Hashtag.png">
     @include("matomo")
     <title>ChessTerm</title>
 </head>
 <body>
-<div class="container-fluid my-3">
+<div class="container-fluid container-md my-3">
     <div class="jumbotron pt-sm-4 pb-sm-5">
         <h1 class="display-4">ChessTerm <small class="text-muted" id="version"></small></h1>
         <p class="lead mb-1">A checkerboard, but in a terminal.</p>
         <p class="mb-0">Developed by <a class="text-body" href="https://www.jingbh.top/" target="_blank">JingBh</a></p>
     </div>
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <ul class="nav nav-tabs" id="tabs" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="tabIntro" data-toggle="tab" href="#panelIntro" role="tab" aria-controls="panelIntro" aria-selected="true">简介</a>
         </li>
@@ -24,7 +25,10 @@
             <a class="nav-link" id="tabSource" data-toggle="tab" href="#panelSource" role="tab" aria-controls="panelSource" aria-selected="false">源码</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="tabUse" data-toggle="tab" href="#panelUse" role="tab" aria-controls="panelUse" aria-selected="false">试用</a>
+            <a class="nav-link" id="tabUse" data-toggle="tab" href="#panelUse" role="tab" aria-controls="panelUse" aria-selected="false">使用</a>
+        </li>
+        <li class="nav-item d-none">
+            <a class="nav-link" id="tabRegister" data-toggle="tab" href="#panelRegister" role="tab" aria-controls="panelRegister" aria-selected="false">注册</a>
         </li>
     </ul>
     <div class="tab-content mt-2" id="myTabContent">
@@ -43,48 +47,15 @@
             </ul>
         </div>
         <div class="tab-pane fade" id="panelSource" role="tabpanel" aria-labelledby="tabSource">
-            <div class="embed-responsive embed-responsive-16by9">
+            <div class="embed-responsive embed-responsive-4by3">
                 <iframe class="embed-responsive-item" src="{{ url("static/chess_source.html") }}"></iframe>
             </div>
         </div>
         <div class="tab-pane fade" id="panelUse" role="tabpanel" aria-labelledby="tabUse">
-            @if (\hisorange\BrowserDetect\Parser::isIE())
-                <p class="text-danger"><strong>注意：</strong>你的浏览器太旧了！我不保证 ChessTerm 能在这里正常运行。<small class="text-white">嫌弃你的浏览器！</small></p>
-            @endif
-            <p>正确填写下面参数才能打开 ChessTerm 哦~</p>
-            <form action="{{ url("term") }}" method="GET">
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="inputGameId">Game ID</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputGameId" name="game" value="1000" placeholder="请输入 Game ID" required="required">
-                        <small class="form-text">Game ID 主要标识了棋盘名称和大小，若不知道可以尝试一下 Game ID 为 <code>1000</code> 的 14x14 测试棋盘。</small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="inputBoardId">棋盘码</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputBoardId" name="id" required="required">
-                        <small class="form-text">要使用 ChessTerm，需要一个有效的棋盘码。</small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="selectSide">控制的棋子</label>
-                    <div class="col-sm-10">
-                        <select class="custom-select" id="selectSide" name="side">
-                            <option selected="selected" value="none">无</option>
-                            <option value="x">“X”</option>
-                            <option value="o">“O”</option>
-                            <option value="both">“X”和“O”</option>
-                        </select>
-                        <small class="form-text">如“简介”中所说，棋盘上有两种棋子：<code>X</code> 和 <code>O</code>，您可以选择控制其中一方或两方，或者都不控制，进行观战。</small>
-                    </div>
-                </div>
-                <div class="form-group row justify-content-end">
-                    <div class="col-sm-10">
-                        <input type="submit" class="btn btn-primary" value="打开 ChessTerm">
-                    </div>
-                </div>
-            </form>
+            @include("chessterm.intro_use")
+        </div>
+        <div class="tab-pane fade" id="panelRegister" role="tabpanel" aria-labelledby="tabRegister">
+            @include("chessterm.register")
         </div>
     </div>
 </div>

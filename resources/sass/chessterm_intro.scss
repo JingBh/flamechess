@@ -1,7 +1,10 @@
-$enable-shadows: true;
 $enable-responsive-font-sizes: true;
 
 @import "~bootstrap/scss/bootstrap";
+
+.hide {
+    display: none;
+}
 
 #version {
     font-size: 1.5rem;

@@ -30,7 +30,7 @@ $router->get("board/{id}", function($id) {
 Route::group([
     "prefix" => "term"
 ], function() {
-    Route::view("/", "chessterm");
+    Route::view("/", "chessterm.index");
 
-    Route::view("intro", "chessterm_intro");
+    Route::view("intro", "chessterm.intro");
 });
