@@ -243,21 +243,29 @@ export function drawBoard(term: Terminal, params: Params) {
                 let targetStatus: Chess;
 
                 switch (key.toLowerCase()) {
+                    case "w":
+                    case "keyw":
                     case "arrowup":
                     case "up":
                         targetPosition[1] -= 1;
                         if (targetPosition[1] < 0) targetPosition[1] = 0;
                         break;
+                    case "s":
+                    case "keys":
                     case "arrowdown":
                     case "down":
                         targetPosition[1] += 1;
                         if (targetPosition[1] > y) targetPosition[1] = y;
                         break;
+                    case "a":
+                    case "keya":
                     case "arrowleft":
                     case "left":
                         targetPosition[0] -= 1;
                         if (targetPosition[0] < 0) targetPosition[0] = 0;
                         break;
+                    case "d":
+                    case "keyd":
                     case "arrowright":
                     case "right":
                         targetPosition[0] += 1;
@@ -265,6 +273,8 @@ export function drawBoard(term: Terminal, params: Params) {
                         break;
                     case " ":
                     case "spacebar":
+                    case "space":
+                    case "numpadenter":
                     case "enter":
                         if (onKey["space"]) {
                             onKey["space"](currentPosition);
@@ -294,6 +304,7 @@ export function drawBoard(term: Terminal, params: Params) {
                         break;
                     case "escape":
                     case "esc":
+                    case "backspace":
                     case "keyx":
                     case "x":
                         if (onKey["x"]) {
