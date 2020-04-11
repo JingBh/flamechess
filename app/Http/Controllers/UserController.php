@@ -78,6 +78,8 @@ class UserController
 
         if ($eschoolMatch === 1) {
 
+            $response["success"] = true;
+
             $eschoolUser = $eschoolUser[0];
             $userName = "[{$eschoolUser->id}] {$eschoolUser->name}";
             $user = User::where("name", $userName)->first();
@@ -88,6 +90,7 @@ class UserController
                     ->orderBy("id", "DESC")->value("id") ?? 10170559999;
 
                 if ($lastId >= 10170569999) {
+                    $response["success"] = false;
                     $response["message"] = "注册人数已达上限，不允许注册。";
                 } else {
                     $userId = $lastId + 1;
@@ -100,7 +103,6 @@ class UserController
             }
 
             $response["data"] = $user;
-            $response["success"] = true;
 
         } elseif ($eschoolMatch > 1) {
 

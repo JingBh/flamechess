@@ -47,7 +47,7 @@
             </ul>
         </div>
         <div class="tab-pane fade" id="panelSource" role="tabpanel" aria-labelledby="tabSource">
-            <div class="embed-responsive embed-responsive-4by3">
+            <div class="embed-responsive" style="height:calc(100vh - 20rem);min-height:10rem;">
                 <iframe class="embed-responsive-item" src="{{ url("static/chess_source.html") }}"></iframe>
             </div>
         </div>

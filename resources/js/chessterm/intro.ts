@@ -1,7 +1,7 @@
 import $ = require("jquery");
 require("bootstrap/js/src/index");
 
-import VERSION from "./version";
+import {VERSION} from "./version";
 
 $.ajaxSetup({
     headers: {
@@ -21,6 +21,19 @@ $("#version").text("v" + VERSION);
 $('[data-toggle-link="tab"]').on("click", function(event) {
     event.preventDefault();
     $($(this).attr("href")).tab("show");
+});
+
+$("[data-toggle='tab']").on("show.bs.tab", function() {
+    location.hash = $(this).attr("id");
+});
+
+$(function() {
+    if (location.hash) {
+        let ele = $(location.hash);
+        if (ele && location.hash != "#tabIntro") {
+            ele.tab("show");
+        } else location.hash = "";
+    }
 });
 
 $("[id^='inputEschool']").on("keyup", function(event) {
@@ -104,7 +117,7 @@ $("#eschoolSubmit").on("click", function() {
         alert("请求过程中发生错误。\n" + error);
 
     }).always(function() {
-
+        $("[id^='inputEschool']").val("");
         $("#eschoolSubmit").html('提交')
             .removeAttr("disabled");
     });
