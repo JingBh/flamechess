@@ -42,9 +42,16 @@
             <ul>
                 <li>使用 Xterm.js 模拟终端</li>
                 <li>使用 TypeScript 语言</li>
-                <li>用了一下午想办法兼容 IE 11 <small class="text-muted">（这个是真的难 TAT）</small></li>
                 <li>使用基于 WebSocket 的 Socket.io 实现与服务器与客户端的双向实时通信</li>
+                <li>用了一下午想办法兼容 IE 11 <small class="text-muted">（这个是真的难 TAT）</small></li>
             </ul>
+            <div class="text-muted hide" id="visits">
+                <hr>
+                <p>本站访问量：
+                    <span id="visitsLive" title="当前" data-toggle="tooltip">?</span> /
+                    <span id="visitsCount" title="总计" data-toggle="tooltip">?</span>
+                </p>
+            </div>
         </div>
         <div class="tab-pane fade" id="panelSource" role="tabpanel" aria-labelledby="tabSource">
             <div class="embed-responsive" style="height:calc(100vh - 20rem);min-height:10rem;">

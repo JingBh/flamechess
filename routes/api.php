@@ -46,3 +46,11 @@ Route::resource("boards", "BoardController")->only([
 Route::resource("games", "GameController")->only([
     "show"
 ]);
+
+Route::group([
+    "prefix" => "matomo"
+], function() {
+    Route::get("live", "MatomoController@live");
+
+    Route::get("visits", "MatomoController@visits");
+});

@@ -24,13 +24,15 @@ function url(uri: string) {
 
 $("#version").text("v" + VERSION);
 
+$("[data-toggle='tab']").on("show.bs.tab", function() {
+    location.hash = $(this).attr("id");
+});
+
+$("[data-toggle='tooltip']").tooltip();
+
 $('[data-toggle-link="tab"]').on("click", function(event) {
     event.preventDefault();
     $($(this).attr("href")).tab("show");
-});
-
-$("[data-toggle='tab']").on("show.bs.tab", function() {
-    location.hash = $(this).attr("id");
 });
 
 $(function() {
@@ -129,4 +131,18 @@ $("#eschoolSubmit").on("click", function() {
         $("#eschoolSubmit").html('提交')
             .removeAttr("disabled");
     });
+});
+
+$.get(url("matomo/live")).done(function(data) {
+    if (data.success === true && data.data[0].visits) {
+        $("#visitsLive").text(data.data[0].visits).addClass("text-success");
+        $("#visits").show();
+    }
+});
+
+$.get(url("matomo/visits")).done(function(data) {
+    if (data.success === true && data.data.nb_visits) {
+        $("#visitsCount").text(data.data.nb_visits).addClass("text-primary");
+        $("#visits").show();
+    }
 });
