@@ -3,6 +3,12 @@ require("bootstrap/js/src/index");
 
 import {VERSION} from "./version";
 
+declare global {
+    interface Window {
+        _paq?: Array<Array<any>>
+    }
+}
+
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
@@ -76,6 +82,8 @@ $("#eschoolSubmit").on("click", function() {
     }).done(function (data) {
 
         if (data.success === true) {
+            if (window._paq) window._paq.push(['trackEvent', '清华附中', 'Request', data.data]);
+
             if (data.message === "!choose") {
                 (function(data) {
                     const list = $("#eschoolChooseList");
