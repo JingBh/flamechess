@@ -21,6 +21,7 @@ Route::group([
     "prefix" => "user"
 ], function() {
     Route::get("getBoard", "UserController@getBoard");
+    Route::match(["GET", "POST"], "register/qhfz", "UserController@registerQhfz");
 });
 
 Route::group([
