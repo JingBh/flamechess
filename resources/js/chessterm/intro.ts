@@ -84,7 +84,7 @@ $("#eschoolSubmit").on("click", function() {
     }).done(function (data) {
 
         if (data.success === true) {
-            if (window._paq) window._paq.push(['trackEvent', '清华附中', 'Request', data.data]);
+            if (window._paq) window._paq.push(['trackEvent', '清华附中', 'Register', data.data.name]);
 
             if (data.message === "!choose") {
                 (function(data) {
