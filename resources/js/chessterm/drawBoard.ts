@@ -3,10 +3,12 @@ import {cursorTo, eraseEndLine} from "ansi-escapes";
 
 const padStart = require("lodash/padStart");
 
+import {Available, getAvailable} from "./boardrects";
 import {Side, Params} from "./main";
 import {VERSION} from "./version";
 
 export enum Chess {
+    Unavailable = " ",
     None = "-",
     X = "X",
     O = "O"
@@ -22,11 +24,19 @@ let _init: boolean = false;
 
 let positions: {[key: number]: {[key: number]: Array<number>}} = {};
 let boardStatus: {[key: number]: {[key: number]: Chess}} = {};
+let available: Available = [];
 
 let onKey: {[key: string]: (position?: Array<number>) => any} = {};
 let callbacks: {[event: string]: (data) => any} = {};
 
-export function cursorToPosition(term: Terminal, x: number, y: number) {
+function isAvailable(x: number, y: number): boolean {
+    for (let item of available) {
+        if (item[0] === x && item[1] === y) return true;
+    }
+    return false;
+}
+
+function cursorToPosition(term: Terminal, x: number, y: number) {
     // x: column
     // y: row
 
@@ -34,7 +44,7 @@ export function cursorToPosition(term: Terminal, x: number, y: number) {
     if (position) term.write(cursorTo(position[0], position[1]));
 }
 
-export function getPositionByCursor(x: number, y: number): Array<number> {
+function getPositionByCursor(x: number, y: number): Array<number> {
     // x and y is cursor position
 
     for (let yi in positions) {
@@ -52,23 +62,30 @@ export function getPositionByCursor(x: number, y: number): Array<number> {
     return null;
 }
 
-export function getStatusByPosition(x: number, y: number): Chess {
+function getStatusByPosition(x: number, y: number): Chess {
     // x: column
     // y: row
 
     const status = (boardStatus[y] || {})[x] || null;
+    if (status === Chess.Unavailable) return Chess.Unavailable;
     return Chess[status] || Chess.None;
 }
 
-export function setStatusByPosition(term: Terminal, x: number, y: number, status: Chess, color?) {
+function setStatusByPosition(term: Terminal, x: number, y: number, status: Chess, color?) {
     // x: column
     // y: row
 
     if ((boardStatus[y] || {})[x]) {
-        boardStatus[y][x] = status;
+
         cursorToPosition(term, x, y);
         if (color) term.write(color);
-        term.write(status);
+
+        if (boardStatus[y][x] !== Chess.Unavailable) {
+            boardStatus[y][x] = status;
+
+            term.write(status);
+        } else term.write(Chess.Unavailable);
+
         if (color) term.write('\x1b[0;37m\x1b[49m');
     }
 }
@@ -105,6 +122,7 @@ export function uploadAllPosition() {
                 // xi: column
 
                 let status: Chess = boardStatus[y][x];
+                if (status == Chess.Unavailable) status = Chess.None;
                 for (let key in binds) {
                     if (binds[key] == status) chesspos += key;
                 }
@@ -133,7 +151,7 @@ function pickup(term: Terminal, currentPosition: Array<number>, infoX: number, i
 
     onKey["space"] = function(position) {
         let status: Chess = getStatusByPosition(position[0], position[1]);
-        if (status == Chess.None) {
+        if (status == Chess.None || status == Chess.Unavailable) {
             setStatusByPosition(term, currentPosition[0], currentPosition[1], Chess.None);
             setStatusByPosition(term, position[0], position[1], currentStatus);
 
@@ -164,6 +182,11 @@ export function drawBoard(term: Terminal, params: Params) {
     const x = params.game.column;  // Number of columns
     const y = params.game.row;  // Number of rows
 
+    const boardrects = params.game.boardrects;
+    if (boardrects) available = getAvailable(boardrects, x, y);
+    const hasBoardrects = (available || []).length > 0;
+    console.log(available);
+
     for (let yi = 0; yi < y; yi ++) {
         positions[yi] = {};
         boardStatus[yi] = {};
@@ -180,7 +203,16 @@ export function drawBoard(term: Terminal, params: Params) {
             }
 
             positions[yi][xi] = [9 + xi * 2, 4 + yi];
-            boardStatus[yi][xi] = Chess.None;
+
+            if (hasBoardrects) {
+                if (isAvailable(xi, yi)) {
+                    boardStatus[yi][xi] = Chess.None;
+                } else boardStatus[yi][xi] = Chess.Unavailable;
+            } else {
+                available.push([xi, yi]);
+                boardStatus[yi][xi] = Chess.None;
+            }
+
             cursorToPosition(term, xi, yi);  // Move the cursor
             term.write(Chess.None);
         }
@@ -317,7 +349,10 @@ export function drawBoard(term: Terminal, params: Params) {
                         break;
                 }
 
-                if (currentStatus && targetStatus && currentStatus != targetStatus) {
+                if (currentStatus && targetStatus &&
+                    currentStatus != targetStatus &&
+                    currentStatus != Chess.Unavailable) {
+
                     setStatusByPosition(term,
                         currentPosition[0],
                         currentPosition[1],

@@ -22,6 +22,8 @@ export interface Game {
     id: number,
     title?: string,
     description?: string|null,
+    chesspos?: string|null,
+    boardrects?: string|null,
     row: number,
     column: number
 }

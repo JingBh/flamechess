@@ -13,13 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect("/", "http://flamechess.cn/js/10170/")->name("diary");
+Route::any("/", function() {
+    return redirect()->route("chessterm.intro");
+})->name("diary");
 
-/*
-
-$router->get("diary", function() {
+Route::any("diary", function() {
     return redirect()->route("diary");
 });
+
+Route::any("intro", function() {
+    return redirect()->route("chessterm.intro");
+});
+
+/*
 
 $router->get("board/{id}", function($id) {
     return view("boards.{$id}");
@@ -28,9 +34,10 @@ $router->get("board/{id}", function($id) {
 */
 
 Route::group([
-    "prefix" => "term"
+    "prefix" => "term",
+    "as" => "chessterm."
 ], function() {
     Route::view("/", "chessterm.index");
 
-    Route::view("intro", "chessterm.intro");
+    Route::view("intro", "chessterm.intro")->name("intro");
 });

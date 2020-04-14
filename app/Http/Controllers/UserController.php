@@ -33,6 +33,7 @@ class UserController
                 if (blank($board)) {
                     $board = new Board;
                     $board->id = $boardId;
+                    if (filled($game->chesspos)) $board->chesspos = $game->chesspos;
                     $board->save();
                     $board = Board::find($boardId);
                 }
