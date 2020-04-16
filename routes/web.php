@@ -32,3 +32,15 @@ Route::group([
 
     Route::get("visits", "MatomoController@visits");
 });
+
+Route::resource("ajax/games", "GameController")->only([
+    "index", "show"
+]);
+
+Route::group([
+    "prefix" => "matomo"
+], function() {
+    Route::get("live", "MatomoController@live");
+
+    Route::get("visits", "MatomoController@visits");
+});

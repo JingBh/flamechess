@@ -7,7 +7,7 @@
         <label class="col-sm-3 col-md-2 col-form-label" for="inputGameId">Game ID</label>
         <div class="col-sm-9 col-md-10">
             <input type="text" class="form-control" id="inputGameId" name="game" value="1000" placeholder="请输入 Game ID" required="required">
-            <small class="form-text">Game ID 主要标识了棋盘名称和大小，若不知道可以尝试一下 Game ID 为 <code>1000</code> 的 14x14 测试棋盘。</small>
+            <small class="form-text">Game ID 主要标识了棋盘名称和大小，若不知道可以尝试一下 Game ID 为 <code>1000</code> 的 14x14 测试棋盘。<a href="#tabGames" data-toggle-link="tab">&gt; 查看所有棋盘 &lt;</a></small>
         </div>
     </div>
     <div class="form-group row">

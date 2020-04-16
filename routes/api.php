@@ -43,6 +43,4 @@ Route::resource("boards", "BoardController")->only([
     "store", "show", "update", "destroy"
 ]);
 
-Route::resource("games", "GameController")->only([
-    "show"
-]);
+Route::get("games/{game}", "GameController@api");

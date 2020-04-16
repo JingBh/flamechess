@@ -28,7 +28,10 @@
             <a class="nav-link" id="tabUse" data-toggle="tab" href="#panelUse" role="tab" aria-controls="panelUse" aria-selected="false">使用</a>
         </li>
         <li class="nav-item d-none">
-            <a class="nav-link" id="tabRegister" data-toggle="tab" href="#panelRegister" role="tab" aria-controls="panelRegister" aria-selected="false">注册</a>
+            <a class="nav-link" id="tabRegister" data-toggle="tab" href="#panelRegister" role="tab" aria-controls="panelRegister" aria-selected="false" aria-hidden="true">注册</a>
+        </li>
+        <li class="nav-item d-none">
+            <a class="nav-link" id="tabGames" data-toggle="tab" href="#panelGames" role="tab" aria-controls="panelGames" aria-selected="false" aria-hidden="true">棋盘列表</a>
         </li>
     </ul>
     <div class="tab-content mt-2" id="myTabContent">
@@ -45,6 +48,7 @@
                 <li>使用基于 WebSocket 的 Socket.io 实现与服务器与客户端的双向实时通信</li>
                 <li>用了一下午想办法兼容 IE 11 <small class="text-muted">（这个是真的难 TAT）</small></li>
             </ul>
+            <p>没列出的不是我没用到，而是我以前用过。这里只列出了我没接触过的技术。</p>
             <div class="text-muted hide" id="visits">
                 <hr>
                 <p>本站访问量：
@@ -63,6 +67,11 @@
         </div>
         <div class="tab-pane fade" id="panelRegister" role="tabpanel" aria-labelledby="tabRegister">
             @include("chessterm.register")
+        </div>
+        <div class="tab-pane fade mx-n3" id="panelGames" role="tabpanel" aria-labelledby="tabGames">
+            <div class="embed-responsive" style="height:50vh;">
+                <iframe class="embed-responsive-item" src="{{ url("ajax/games") }}"></iframe>
+            </div>
         </div>
     </div>
 </div>
