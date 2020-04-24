@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://flamechess.jingbh.top'),
+    'url' => env('APP_URL', 'https://chessterm.tech'),
 
     'asset_url' => env('ASSET_URL', null),
 
