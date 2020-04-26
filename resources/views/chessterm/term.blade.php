@@ -18,6 +18,7 @@
     @elseif (\hisorange\BrowserDetect\Parser::isIE())
         <p class="text-danger"><em>真难以想象这么旧的浏览器的为什么还能用...</em></p>
     @endif
+    <noscript class="text-danger">要<strong>启用 JavaScript </strong>才能打开 ChessTerm。</noscript>
 </div>
 <div id="terminal"></div>
 <script src="{{ mix('js/chessterm.js') }}"></script>
