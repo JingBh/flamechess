@@ -13,31 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::any("/", function() {
-    return redirect()->route("chessterm.intro");
-})->name("diary");
+Route::view("/", "chessterm.intro")->name("chessterm.intro");
 
-Route::any("diary", function() {
-    return redirect()->route("diary");
-});
+Route::view("term", "chessterm.term")->name("chessterm");
 
-Route::any("intro", function() {
+Route::any("term/intro", function() {
     return redirect()->route("chessterm.intro");
 });
 
-/*
-
-$router->get("board/{id}", function($id) {
-    return view("boards.{$id}");
-});
-
-*/
+Route::resource("ajax/games", "GameController")->only([
+    "index", "show"
+]);
 
 Route::group([
-    "prefix" => "term",
-    "as" => "chessterm."
+    "prefix" => "matomo"
 ], function() {
-    Route::view("/", "chessterm.index");
+    Route::get("live", "MatomoController@live");
 
-    Route::view("intro", "chessterm.intro")->name("intro");
+    Route::get("visits", "MatomoController@visits");
 });
