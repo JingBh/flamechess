@@ -1,9 +1,8 @@
-# flamechess
+# flamechess (ChessTerm)
 
-这是我的研学项目。
+**这是我在学校的研学项目。**
 
-For personal use only.
+## Documents
 
-## How to run
-
-See [this document](docs/how_to_run.md).
+ - [How to Run](docs/how_to_run.md)
+ - [API References](docs/api.md)

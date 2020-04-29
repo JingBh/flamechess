@@ -43,7 +43,7 @@ node chess_server/app  # 或 yarn run chess-server
 
 ### `.env`文件主要项说明
 
-其它项可以参见 [Laravel 官方文档](https://learnku.com/docs/laravel/7.x/configuration)，若没有特殊需求，留默认值即可。
+其它项可以参见 [Laravel 官方文档](https://learnku.com/docs/laravel/7.x/configuration) ，若没有特殊需求，留默认值即可。
 
 #### APP_ENV
 应用环境，有 3 种值：
