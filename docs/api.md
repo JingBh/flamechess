@@ -225,5 +225,9 @@ socket.on("update_chesspos", (chesspos) => {
 // 自己要更新棋盘时执行此方法
 socket.emit("update_board", socket.id, {
     chesspos: chesspos  // 更新后的棋盘状态
-});
+})
 ```
+
+#### Python 实现
+
+可以参考[这个网页](https://python-socketio.readthedocs.io/en/latest/client.html)，但兼容性未经验证。
