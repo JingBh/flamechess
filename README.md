@@ -6,3 +6,7 @@
 
  - [How to Run](docs/how_to_run.md)
  - [API References](docs/api.md)
+
+## Related Projects
+
+ - [zhc7/chess](https://github.com/zhc7/chess)
