@@ -94,7 +94,7 @@ export function setAllPosition(term: Terminal, chesspos: string) {
     if (!chesspos) return;
 
     let index = 0;
-    const cursorBack = cursorTo(term.buffer.cursorX, term.buffer.cursorY);
+    const cursorBack = cursorTo(term.buffer.active.cursorX, term.buffer.active.cursorY);
 
     for (let y in positions) {
         // yi: row
@@ -232,7 +232,7 @@ export function drawBoard(term: Terminal, params: Params) {
     term.write(`Side: ${params.side}`);
 
     const howtoStartX = 4;
-    const howtoStartY = 6 + y;
+    const howtoStartY = Math.max(6 + y, infoStartY + 11);
     term.write(cursorTo(howtoStartX, howtoStartY));
     term.write("如何使用：");
     term.write(cursorTo(howtoStartX, howtoStartY + 1));
@@ -265,8 +265,8 @@ export function drawBoard(term: Terminal, params: Params) {
             let key = event.domEvent.key || event.domEvent.code;
             console.log(key);
 
-            const cursorX = term.buffer.cursorX;
-            const cursorY = term.buffer.cursorY;
+            const cursorX = term.buffer.active.cursorX;
+            const cursorY = term.buffer.active.cursorY;
             const currentPosition = getPositionByCursor(cursorX, cursorY);
             const currentStatus = getStatusByPosition(currentPosition[0], currentPosition[1]);
 
