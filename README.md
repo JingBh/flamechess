@@ -10,3 +10,5 @@
 ## Related Projects
 
  - [zhc7/chess](https://github.com/zhc7/chess)
+ - [chessterm-sdk-python](https://github.com/JingBh/chessterm-sdk-python)
+ 
