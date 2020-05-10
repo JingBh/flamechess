@@ -1,0 +1,43 @@
+$enable-responsive-font-sizes: true;
+
+@import "~bootstrap/scss/bootstrap";
+
+@import "loading2";
+
+.release-stage {
+  font-family: $font-family-monospace;
+  vertical-align: top;
+  font-size: 0.7rem;
+}
+
+#table {
+  margin: 0 auto;
+  table-layout: fixed;
+
+  td.data-available {
+    background-color: $gray-100;
+    border: $dark 1px solid;
+  }
+
+  td.data-unavailable {
+    background-color: $gray-200;
+  }
+
+  .data-chess {
+    position: relative;
+    z-index: 900;
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+#table.td-no-border td {
+  border: none;
+}
+
+#rectpaper {
+  display: block;
+  position: fixed;
+  pointer-events: none;
+  /* opacity: 0.85; */
+}

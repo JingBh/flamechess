@@ -21,6 +21,12 @@ Route::any("term/intro", function() {
     return redirect()->route("chessterm.intro");
 });
 
+Route::group([
+    "prefix" => "gui"
+], function() {
+    Route::view("/", "chessgui.index")->name("chessgui");
+});
+
 Route::resource("ajax/games", "GameController")->only([
     "index", "show"
 ]);

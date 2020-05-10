@@ -4,21 +4,8 @@ import {cursorTo, eraseEndLine} from "ansi-escapes";
 const padStart = require("lodash/padStart");
 
 import {Available, getAvailable} from "./boardrects";
-import {Side, Params} from "./main";
+import {Side, Params, Chess, chessBinds} from "./classes";
 import {VERSION} from "./version";
-
-export enum Chess {
-    Unavailable = " ",
-    None = "-",
-    X = "X",
-    O = "O"
-}
-
-const binds: {[key: string]: Chess} = {
-    "0": Chess.None,
-    "z": Chess.X,
-    "Z": Chess.O
-};
 
 let _init: boolean = false;
 
@@ -102,7 +89,7 @@ export function setAllPosition(term: Terminal, chesspos: string) {
         for (let x in positions[y]) {
             // xi: column
 
-            let status: Chess = binds[chesspos[index] || null] || Chess.None;
+            let status: Chess = chessBinds[chesspos[index] || null] || Chess.None;
             setStatusByPosition(term, Number(x), Number(y), status);
             index ++;
         }
@@ -123,8 +110,8 @@ export function uploadAllPosition() {
 
                 let status: Chess = boardStatus[y][x];
                 if (status == Chess.Unavailable) status = Chess.None;
-                for (let key in binds) {
-                    if (binds[key] == status) chesspos += key;
+                for (let key in chessBinds) {
+                    if (chessBinds[key] == status) chesspos += key;
                 }
             }
         }

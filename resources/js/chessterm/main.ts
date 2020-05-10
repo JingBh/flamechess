@@ -7,45 +7,11 @@ const capitalize = require("lodash/capitalize");
 const io = require("socket.io-client");
 
 import {drawBoard, setAllPosition} from "./drawBoard";
+import {Side, Params, loginResult} from "./classes";
 
 export const SERVER = document.querySelector("meta[name='data-server']").getAttribute("content");
 
 export const BACKEND = document.querySelector("meta[name='data-backend']").getAttribute("content");
-
-export interface Board {
-    id: string|number,
-    chesspos?: string,
-    clock?: string
-}
-
-export interface Game {
-    id: number,
-    title?: string,
-    description?: string|null,
-    chesspos?: string|null,
-    boardrects?: string|null,
-    row: number,
-    column: number
-}
-
-export enum Side {
-    None = "None",
-    X = "X",
-    O = "O",
-    Both = "Both"
-}
-
-export interface Params {
-    board?: Board,
-    game?: Game,
-    side?: Side,
-    callbacks: {[event: string]: (data) => any}
-}
-
-interface loginResult {
-    game: Game,
-    board: Board
-}
 
 function clearScreen(term: Terminal) {
     term.write(eraseScreen + cursorTo(1, 1));

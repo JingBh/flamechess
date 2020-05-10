@@ -219,36 +219,40 @@
         },
         {
             "name": "doctrine/inflector",
-            "version": "1.3.1",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "ec3a55242203ffa6a4b27c58176da97ff0a7aec1"
+                "reference": "ab5de36233a1995f9c776c741b803eb8207aebef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/ec3a55242203ffa6a4b27c58176da97ff0a7aec1",
-                "reference": "ec3a55242203ffa6a4b27c58176da97ff0a7aec1",
-                "shasum": ""
+                "url": "https://mirrors.huaweicloud.com/repository/php/dist/doctrine/inflector/doctrine-inflector-1.4.0-ab5de362.zip",
+                "reference": "ab5de36233a1995f9c776c741b803eb8207aebef",
+                "shasum": "15af5478757900fde947776852771dfad7b918e6"
             },
             "require": {
-                "php": "^7.1"
+                "php": "^7.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.2"
+                "doctrine/coding-standard": "^7.0",
+                "phpstan/phpstan": "^0.11",
+                "phpstan/phpstan-phpunit": "^0.11",
+                "phpstan/phpstan-strict-rules": "^0.11",
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
+                    "Doctrine\\Inflector\\": "lib/Doctrine/Inflector",
                     "Doctrine\\Common\\Inflector\\": "lib/Doctrine/Common/Inflector"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -274,15 +278,35 @@
                     "email": "schmittjoh@gmail.com"
                 }
             ],
-            "description": "Common String Manipulations with regard to casing and singular/plural rules.",
-            "homepage": "http://www.doctrine-project.org",
+            "description": "PHP Doctrine Inflector is a small library that can perform string manipulations with regard to upper/lowercase and singular/plural forms of words.",
+            "homepage": "https://www.doctrine-project.org/projects/inflector.html",
             "keywords": [
                 "inflection",
-                "pluralize",
-                "singularize",
-                "string"
+                "inflector",
+                "lowercase",
+                "manipulation",
+                "php",
+                "plural",
+                "singular",
+                "strings",
+                "uppercase",
+                "words"
             ],
-            "time": "2019-10-30T19:59:35+00:00"
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Finflector",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-05-06T11:01:57+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -1043,17 +1067,17 @@
         },
         {
             "name": "league/commonmark",
-            "version": "1.4.2",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "9e780d972185e4f737a03bade0fd34a9e67bbf31"
+                "reference": "412639f7cfbc0b31ad2455b2fe965095f66ae505"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://mirrors.huaweicloud.com/repository/php/dist/league/commonmark/league-commonmark-1.4.2-9e780d97.zip",
-                "reference": "9e780d972185e4f737a03bade0fd34a9e67bbf31",
-                "shasum": "da67299f2c2d8ff526697ca8e4759ff217f55eed"
+                "url": "https://mirrors.huaweicloud.com/repository/php/dist/league/commonmark/league-commonmark-1.4.3-412639f7.zip",
+                "reference": "412639f7cfbc0b31ad2455b2fe965095f66ae505",
+                "shasum": "1c1b0848c4bb0a97dd710fe75e8a4c7cd95f76ff"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -1138,7 +1162,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-04-24T13:39:56+00:00"
+            "time": "2020-05-04T22:15:21+00:00"
         },
         {
             "name": "league/flysystem",
@@ -1467,21 +1491,22 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.32.2",
+            "version": "2.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "f10e22cf546704fab1db4ad4b9dedbc5c797a0dc"
+                "reference": "4d93cb95a80d9ffbff4018fe58ae3b7dd7f4b99b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/f10e22cf546704fab1db4ad4b9dedbc5c797a0dc",
-                "reference": "f10e22cf546704fab1db4ad4b9dedbc5c797a0dc",
-                "shasum": ""
+                "url": "https://mirrors.huaweicloud.com/repository/php/dist/nesbot/carbon/nesbot-carbon-2.33.0-4d93cb95.zip",
+                "reference": "4d93cb95a80d9ffbff4018fe58ae3b7dd7f4b99b",
+                "shasum": "6014eabb8ee170bbd62dfbfd435bfa8e85258ec5"
             },
             "require": {
                 "ext-json": "*",
                 "php": "^7.1.8 || ^8.0",
+                "symfony/polyfill-mbstring": "^1.0",
                 "symfony/translation": "^3.4 || ^4.0 || ^5.0"
             },
             "require-dev": {
@@ -1498,13 +1523,13 @@
             ],
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                },
                 "laravel": {
                     "providers": [
                         "Carbon\\Laravel\\ServiceProvider"
                     ]
+                },
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
@@ -1512,19 +1537,18 @@
                     "Carbon\\": "src/Carbon/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
+                    "homepage": "http://nesbot.com",
                     "name": "Brian Nesbitt",
-                    "email": "brian@nesbot.com",
-                    "homepage": "http://nesbot.com"
+                    "email": "brian@nesbot.com"
                 },
                 {
-                    "name": "kylekatarnls",
-                    "homepage": "http://github.com/kylekatarnls"
+                    "homepage": "http://github.com/kylekatarnls",
+                    "name": "kylekatarnls"
                 }
             ],
             "description": "An API extension for DateTime that supports 281 different languages.",
@@ -1534,7 +1558,17 @@
                 "datetime",
                 "time"
             ],
-            "time": "2020-03-31T13:43:19+00:00"
+            "funding": [
+                {
+                    "url": "https://opencollective.com/Carbon",
+                    "type": "open_collective"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/nesbot/carbon",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-04-20T15:05:43+00:00"
         },
         {
             "name": "opis/closure",
@@ -3828,20 +3862,20 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v4.1.4",
+            "version": "v4.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "feb6dad5ae24b1380827aee1629b730080fde500"
+                "reference": "539bb6927c101a5605d31d11a2d17185a2ce2bf1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://mirrors.huaweicloud.com/repository/php/dist/vlucas/phpdotenv/vlucas-phpdotenv-v4.1.4-feb6dad5.zip",
-                "reference": "feb6dad5ae24b1380827aee1629b730080fde500",
-                "shasum": "def38cac22890f569b6230085c5d3a334b4e6c52"
+                "url": "https://mirrors.huaweicloud.com/repository/php/dist/vlucas/phpdotenv/vlucas-phpdotenv-v4.1.5-539bb692.zip",
+                "reference": "539bb6927c101a5605d31d11a2d17185a2ce2bf1",
+                "shasum": "1e9d2a978a1c9c28af647a32ee60fedd10058627"
             },
             "require": {
-                "php": "^5.5.9 || ^7.0",
+                "php": "^5.5.9 || ^7.0 || ^8.0",
                 "phpoption/phpoption": "^1.7.2",
                 "symfony/polyfill-ctype": "^1.9"
             },
@@ -3887,7 +3921,17 @@
                 "env",
                 "environment"
             ],
-            "time": "2020-04-12T15:20:09+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/vlucas/phpdotenv",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-05-02T14:08:57+00:00"
         },
         {
             "name": "voku/portable-ascii",
@@ -4144,17 +4188,17 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.7.1",
+            "version": "2.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "fff6f1e4f36be0e0d0b84d66b413d9dcb0c49130"
+                "reference": "17d0d3f266c8f925ebd035cd36f83cf802b47d4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/fff6f1e4f36be0e0d0b84d66b413d9dcb0c49130",
-                "reference": "fff6f1e4f36be0e0d0b84d66b413d9dcb0c49130",
-                "shasum": ""
+                "url": "https://mirrors.huaweicloud.com/repository/php/dist/filp/whoops/filp-whoops-2.7.2-17d0d3f2.zip",
+                "reference": "17d0d3f266c8f925ebd035cd36f83cf802b47d4a",
+                "shasum": "2b363e3a7edb256d36f93a41000d1fdc5b55632b"
             },
             "require": {
                 "php": "^5.5.9 || ^7.0",
@@ -4180,15 +4224,14 @@
                     "Whoops\\": "src/Whoops/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
-                    "name": "Filipe Dobreira",
+                    "role": "Developer",
                     "homepage": "https://github.com/filp",
-                    "role": "Developer"
+                    "name": "Filipe Dobreira"
                 }
             ],
             "description": "php error handling for cool kids",
@@ -4201,7 +4244,7 @@
                 "throwable",
                 "whoops"
             ],
-            "time": "2020-01-15T10:00:00+00:00"
+            "time": "2020-05-05T12:28:07+00:00"
         },
         {
             "name": "fzaninotto/faker",
@@ -4255,17 +4298,17 @@
         },
         {
             "name": "laravel/homestead",
-            "version": "v10.7.0",
+            "version": "v10.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/homestead.git",
-                "reference": "73713c09c40da30f9258c3c656441654ec8e47e6"
+                "reference": "4e4b5b92d8192ccdbdeac826be88a9bfdfde99d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/homestead/zipball/73713c09c40da30f9258c3c656441654ec8e47e6",
-                "reference": "73713c09c40da30f9258c3c656441654ec8e47e6",
-                "shasum": ""
+                "url": "https://mirrors.huaweicloud.com/repository/php/dist/laravel/homestead/laravel-homestead-v10.8.0-4e4b5b92.zip",
+                "reference": "4e4b5b92d8192ccdbdeac826be88a9bfdfde99d0",
+                "shasum": "3ea0c6960bb9db0c138266ad379f64dce2c18624"
             },
             "require": {
                 "php": "^7.1",
@@ -4285,7 +4328,6 @@
                     "Laravel\\Homestead\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -4296,7 +4338,7 @@
                 }
             ],
             "description": "A virtual machine for web artisans.",
-            "time": "2020-03-26T14:32:10+00:00"
+            "time": "2020-04-26T23:51:08+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -4497,17 +4539,17 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.10.3",
+            "version": "v0.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "2bde2fa03e05dff0aee834598b951d6fc7c6fe02"
+                "reference": "a8aec1b2981ab66882a01cce36a49b6317dc3560"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://mirrors.huaweicloud.com/repository/php/dist/psy/psysh/psy-psysh-v0.10.3-2bde2fa0.zip",
-                "reference": "2bde2fa03e05dff0aee834598b951d6fc7c6fe02",
-                "shasum": "b63029b3a70a08e609b7cec8a9fa5319f169e14c"
+                "url": "https://mirrors.huaweicloud.com/repository/php/dist/psy/psysh/psy-psysh-v0.10.4-a8aec1b2.zip",
+                "reference": "a8aec1b2981ab66882a01cce36a49b6317dc3560",
+                "shasum": "7f8d6d3161385c2e4b013d448eff95fc80d06f8b"
             },
             "require": {
                 "dnoegel/php-xdg-base-dir": "0.1.*",
@@ -4564,7 +4606,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2020-04-07T06:44:48+00:00"
+            "time": "2020-05-03T19:32:03+00:00"
         },
         {
             "name": "scrivo/highlight.php",
