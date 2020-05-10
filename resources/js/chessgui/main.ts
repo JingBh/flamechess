@@ -46,6 +46,8 @@ socket.on("login_result", (data: loginResult) => {
 socket.on("login_fail", (msg?: string) => {
   console.error(`${msg || "登录失败。"}`)
   console.log("请检查 id 和 game 参数是否正确。")
+
+  $("#loading").hide()
 })
 
 socket.on("update_chesspos", (chesspos?: string) => {
