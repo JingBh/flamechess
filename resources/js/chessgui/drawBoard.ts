@@ -3,7 +3,7 @@ import $ = require("jquery")
 import {Chess, Params, chessBinds} from "../chessterm/classes"
 import {Available, getAvailable} from "../chessterm/boardrects"
 
-let eles: {[col: number]: {[row: number]: Iterable<HTMLElement>}} = {}
+let eles: {[col: number]: {[row: number]: JQuery<HTMLElement>}} = {}
 let boardStatus: {[col: number]: {[row: number]: Chess}} = {}
 let available: Available = []
 
@@ -58,7 +58,6 @@ function initRectPaper(rectpaper: string) {
 
 export function fit() {
   const boardEle = $("#board")
-  console.log(boardEle)
   const rectpaperEle = $("#rectpaper")
 
   const trCount = boardEle.children("tr").length
@@ -110,6 +109,53 @@ export function fit() {
   }
 }
 
+function setEleStatus(ele: JQuery<HTMLElement>|HTMLElement, status: Chess) {
+  ele = $(ele)
+  if (!ele) return
+
+  ele.empty()
+
+  const col = ele.attr("data-col"),
+        row = ele.attr("data-row")
+
+  if (!boardStatus[col]) boardStatus[col] = {}
+
+  if (boardStatus[col][row]) {
+
+    if (boardStatus[col][row] !== Chess.Unavailable) {
+      boardStatus[col][row] = status
+
+      let imageEle = $('<img class="data-chess" src="" />')
+      let color
+
+      switch (status) {
+        case Chess.X:
+          color = "yellow"
+          break
+        case Chess.O:
+          color = "blue"
+          break
+        default:
+          return
+      }
+
+      let imageUrl = `/images/flamechess/${color}_zu.png`
+      imageEle.attr("src", imageUrl)
+
+      ele.append(imageEle)
+    }
+  }
+}
+
+export function setAllPosition(chesspos: string) {
+  if (!chesspos) return
+
+  $("#board .data-position").each((i, ele) => {
+    let status: Chess = chessBinds[chesspos[i] || null] || Chess.None
+    setEleStatus(ele, status)
+  })
+}
+
 export function drawBoard(params: Params) {
   const boardEle = $("#board")
 
@@ -134,7 +180,7 @@ export function drawBoard(params: Params) {
         colEle.text(row + 1)
 
       if (row !== -1 && col !== -1 && col !== params.game.column) {
-        colEle.addClass("data-available")
+        colEle.addClass("data-available data-position")
               .attr("data-row", row)
               .attr("data-col", col)
 
@@ -166,4 +212,6 @@ export function drawBoard(params: Params) {
   if (params.game.rectpaper) initRectPaper(params.game.rectpaper)
 
   fit()
+
+  setAllPosition(params.board.chesspos)
 }

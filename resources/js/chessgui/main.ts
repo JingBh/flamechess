@@ -39,6 +39,7 @@ socket.on("login_result", (data: loginResult) => {
   let side = capitalize(paramsRaw.side)
   params.side = side in Side ? side : Side.None
 
+  $("#loading").hide()
   drawBoard(params)
 })
 

@@ -12,8 +12,13 @@
 </head>
 <body>
 @include("chessterm.browser_detect")
-<div class="container-fluid text-center my-3 mt-md-5" id="container">
+<div class="container-fluid text-center my-3 mt-md-4" id="container">
     <h1 class="display-4 mb-3">ChessTerm GUI <span class="badge badge-light release-stage">ALPHA</span></h1>
+    <div id="loading" style="margin:30vh 0;">
+        <svg id="load" x="0px" y="0px" viewBox="0 0 150 150">
+            <circle id="loading-inner" cx="75" cy="75" r="60"/>
+        </svg>
+    </div>
     <table id="table">
         <tbody id="board"></tbody>
     </table>

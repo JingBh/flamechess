@@ -2,6 +2,8 @@ $enable-responsive-font-sizes: true;
 
 @import "~bootstrap/scss/bootstrap";
 
+@import "loading2";
+
 .release-stage {
   font-family: $font-family-monospace;
   vertical-align: top;
@@ -20,6 +22,13 @@ $enable-responsive-font-sizes: true;
   td.data-unavailable {
     background-color: $gray-200;
   }
+
+  .data-chess {
+    position: relative;
+    z-index: 900;
+    max-width: 100%;
+    max-height: 100%;
+  }
 }
 
 #table.td-no-border td {
@@ -30,5 +39,5 @@ $enable-responsive-font-sizes: true;
   display: block;
   position: fixed;
   pointer-events: none;
-  opacity: 0.85;
+  /* opacity: 0.85; */
 }
