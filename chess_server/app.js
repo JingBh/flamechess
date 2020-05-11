@@ -121,7 +121,7 @@ io.on("connection", (socket) => {
             "CHESS_TYPE": session.game.id === 1002 ? "zhuobie" : "luqi",
             "CHESS_CODE": session.user.id
           },
-          stdio: "ignore",
+          stdio: ["ignore", "ignore", process.stderr],
           timeout: 600,
           windowsHide: true
         })
