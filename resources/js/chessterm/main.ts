@@ -47,7 +47,7 @@ socket.on("connect", function() {
         term.write("\x1b[1;31mError: 请先登录。\x1b[0;37m");
         return;
     } else {
-        socket.emit("login", socket.id, {
+        socket.emit("login", {
             backend: BACKEND,
             userId: userId,
             gameId: gameId
@@ -80,7 +80,7 @@ socket.on("update_chesspos", function(chesspos?: string) {
 });
 
 params.callbacks.update_board = function(chesspos?: string) {
-    socket.emit("update_board", socket.id, {
+    socket.emit("update_board", {
         chesspos: chesspos
     });
 };

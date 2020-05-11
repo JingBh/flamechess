@@ -198,7 +198,7 @@ const io = require("socket.io-client")
 const socket = io("https://chessterm.tech:8512")  // 服务器地址
 
 socket.on("connect", () => {
-  socket.emit("login", socket.id, {
+  socket.emit("login", {
     backend: "https://chessterm.tech",  // 网站地址，虽然值固定，但必须传入
     userId: "10170",  // 棋盘码
     gameId: "1000"  // Game ID
@@ -223,7 +223,7 @@ socket.on("update_chesspos", (chesspos) => {
 })
 
 // 自己要更新棋盘时执行此方法
-socket.emit("update_board", socket.id, {
+socket.emit("update_board", {
     chesspos: chesspos  // 更新后的棋盘状态
 })
 ```
