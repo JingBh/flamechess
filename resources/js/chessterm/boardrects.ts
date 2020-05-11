@@ -32,10 +32,10 @@ export function getAvailable(boardrects: string, x: number, y: number): Availabl
         let char = boardrects[i];
         if (char === "0") available.push([xi, yi]);
 
-        yi ++;
-        if (yi >= y) {
-            xi ++;
-            yi = 0;
+        xi ++;
+        if (xi >= y) {
+            yi ++;
+            xi = 0;
         }
     }
 
