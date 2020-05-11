@@ -15,6 +15,7 @@ let available: Available = [];
 
 let onKey: {[key: string]: (position?: Array<number>) => any} = {};
 let callbacks: {[event: string]: (data) => any} = {};
+let ruleCallback;
 
 function isAvailable(x: number, y: number): boolean {
     for (let item of available) {
@@ -80,6 +81,8 @@ function setStatusByPosition(term: Terminal, x: number, y: number, status: Chess
 export function setAllPosition(term: Terminal, chesspos: string) {
     if (!chesspos) return;
 
+    if (ruleCallback) chesspos = ruleCallback(chesspos)
+
     let index = 0;
     const cursorBack = cursorTo(term.buffer.active.cursorX, term.buffer.active.cursorY);
 
@@ -115,6 +118,8 @@ export function uploadAllPosition() {
                 }
             }
         }
+
+        if (ruleCallback) chesspos = ruleCallback(chesspos)
 
         callbacks.update_board(chesspos);
     }
@@ -168,6 +173,10 @@ function pickup(term: Terminal, currentPosition: Array<number>, infoX: number, i
 export function drawBoard(term: Terminal, params: Params) {
     const x = params.game.column;  // Number of columns
     const y = params.game.row;  // Number of rows
+
+    callbacks = params.callbacks;
+    if ((callbacks.rules || {})[Number(params.game.id)])
+        ruleCallback = callbacks.rules[Number(params.game.id)]
 
     const boardrects = params.game.boardrects;
     if (boardrects) available = getAvailable(boardrects, x, y);
@@ -355,6 +364,4 @@ export function drawBoard(term: Terminal, params: Params) {
 
         _init = true;
     }
-
-    callbacks = params.callbacks;
 }

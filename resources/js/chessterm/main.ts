@@ -31,7 +31,11 @@ window.addEventListener("resize", function() {
 });
 
 const paramsRaw = parse(location.search.substring(1));
-let params: Params = {callbacks: {}};
+let params: Params = {
+  callbacks: {
+    rules: require("../chess_callbacks/main")
+  }
+};
 
 socket.on("connect", function() {
     clearScreen(term);
