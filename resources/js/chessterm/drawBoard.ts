@@ -143,18 +143,23 @@ function pickup(term: Terminal, currentPosition: Array<number>, infoX: number, i
 
     onKey["space"] = function(position) {
         let status: Chess = getStatusByPosition(position[0], position[1]);
-        if (status == Chess.None || status == Chess.Unavailable) {
+
+        if (currentPosition[0] === position[0] && currentPosition[1] === position[1]) {
+            setStatusByPosition(term, position[0], position[1], currentStatus);
+
+        } else if (status == Chess.None || status == Chess.Unavailable) {
+
             setStatusByPosition(term, currentPosition[0], currentPosition[1], Chess.None);
             setStatusByPosition(term, position[0], position[1], currentStatus);
 
-            term.write(cursorTo(infoX, infoY) + eraseEndLine);
-            term.write(cursorTo(infoX, infoY + 1) + eraseEndLine);
-            term.write(cursorTo(infoX, infoY + 2) + eraseEndLine);
-
             uploadAllPosition();
+        } else return
 
-            onKey["space"] = onKey["x"] = null;
-        }
+        term.write(cursorTo(infoX, infoY) + eraseEndLine);
+        term.write(cursorTo(infoX, infoY + 1) + eraseEndLine);
+        term.write(cursorTo(infoX, infoY + 2) + eraseEndLine);
+
+        onKey["space"] = onKey["x"] = null;
     };
 
     onKey["x"] = function() {
