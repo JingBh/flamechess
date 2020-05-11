@@ -188,7 +188,7 @@ Content-Type: application/json
 
 ## <a id="3"></a> 3. Socket.io API
 
-此种 API 目前仅支持使用 JavaScript 语言的 [Socket.io](https://socket.io/) 库，详细使用方法参见 [Socket.io 官方文档](https://socket.io/docs/) 。
+此种 API 是使用 JavaScript 语言的 [Socket.io](https://socket.io/) 库实现的，详细使用方法参见 [Socket.io 官方文档](https://socket.io/docs/) 。
 
 **URL**: `https://chessterm.tech:8512`
 
@@ -230,4 +230,4 @@ socket.emit("update_board", {
 
 #### Python 实现
 
-可以参考[这个网页](https://python-socketio.readthedocs.io/en/latest/client.html)，但兼容性未经验证。
+可以参考[这个网页](https://python-socketio.readthedocs.io/en/latest/client.html)， ~~但兼容性未经验证~~ 经验证，[@zhc7](https://github.com/zhc7) 成功使用此方法实现了 Python 客户端。

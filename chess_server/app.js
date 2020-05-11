@@ -109,6 +109,8 @@ io.on("connection", (socket) => {
 
       console.log(`Client ${socket.id} is trying to start a bot for ${session.game.id}.`)
 
+      if (_bots[socket.id]) _bots[socket.id].kill()
+
       if (session.game.id === 1002 || session.game.id === 1003) {
         let path = fs.realpathSync(__dirname + "/../bots/luqi/src/main.py")
         let cwd = pathlib.dirname(path)
@@ -130,9 +132,7 @@ io.on("connection", (socket) => {
   })
 
   socket.on("disconnect", () => {
-    if (_bots[socket.id]) {
-      _bots[socket.id].kill()
-    }
+    if (_bots[socket.id]) _bots[socket.id].kill()
   })
 })
 

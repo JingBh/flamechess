@@ -6,9 +6,8 @@
 
  - [How to Run](docs/how_to_run.md)
  - [API References](docs/api.md)
+ - [ChessTerm SDK](docs/sdk.md)
 
 ## Related Projects
 
  - [zhc7/chess](https://github.com/zhc7/chess)
- - [chessterm-sdk-python](https://github.com/JingBh/chessterm-sdk-python)
- 
