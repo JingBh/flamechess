@@ -24,7 +24,7 @@ socket.on("connect", () => {
   if (!userId) {
     console.error("请先登录。")
     return
-  } else socket.emit("login", socket.id, {
+  } else socket.emit("login", {
     backend: BACKEND,
     userId: userId,
     gameId: gameId
@@ -53,8 +53,8 @@ socket.on("update_chesspos", (chesspos?: string) => {
   // if (chesspos) setAllPosition(chesspos)
 })
 
-params.callbacks.update_board = function(chesspos?: string) {
-  socket.emit("update_board", socket.id, {
+params.callbacks.update_board = (chesspos?: string) => {
+  socket.emit("update_board", {
     chesspos: chesspos
   })
 }
