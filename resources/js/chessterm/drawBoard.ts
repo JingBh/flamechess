@@ -5,6 +5,7 @@ const padStart = require("lodash/padStart");
 
 import {Available, getAvailable} from "./boardrects";
 import {Side, Params, Chess, chessBinds} from "./classes";
+import {mouseCursor} from "./mouseCursor";
 import {VERSION} from "./version";
 
 let _init: boolean = false;
@@ -268,7 +269,7 @@ export function drawBoard(term: Terminal, params: Params) {
     cursorToPosition(term, 0, 0);
 
     if (!_init) {
-        term.onKey(function(event) {
+        console.log(term.onKey(function(event) {
             let key = event.domEvent.key || event.domEvent.code;
             console.log(key);
 
@@ -371,7 +372,11 @@ export function drawBoard(term: Terminal, params: Params) {
                 if (targetPosition)
                     cursorToPosition(term, targetPosition[0], targetPosition[1]);
             }
-        });
+        }));
+
+        mouseCursor(term, positions);
+
+        term.focus()
 
         _init = true;
     }
