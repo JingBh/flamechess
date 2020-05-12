@@ -1,6 +1,6 @@
 import $ = require("jquery");
 
-import {IDisposable, Terminal} from "xterm";
+import {Terminal} from "xterm";
 import {cursorTo} from "ansi-escapes";
 import ClickEvent = JQuery.ClickEvent;
 
@@ -8,6 +8,8 @@ let positions: Array<string> = []
 
 let termObj: Terminal
 let screen: JQuery<HTMLElement>
+
+let mouseOnBoard: boolean = false
 
 function moveHandler(event: JQuery.MouseMoveEvent) {
   const eleWidth = screen.width()
@@ -19,18 +21,22 @@ function moveHandler(event: JQuery.MouseMoveEvent) {
   const cursorX = Math.floor(event.clientX / eleWidth * termWidth)
   const cursorY = Math.floor(event.clientY / eleHeight * termHeight)
 
-  if (positions.indexOf(`${cursorX}-${cursorY}`) !== -1)
+  if (positions.indexOf(`${cursorX}-${cursorY}`) !== -1) {
     termObj.write(cursorTo(cursorX, cursorY))
+    mouseOnBoard = true
+  } else mouseOnBoard = false
 }
 
 function clickHandler(event: ClickEvent) {
-  let keyboardEvent = new KeyboardEvent("keypress", {
-    key: event.button === 2 ? "X" : "Space",
-    // @ts-ignore
-    charCode: event.button === 2 ? 120 : 32
-  })
+  if (mouseOnBoard) {
+    let keyboardEvent = new KeyboardEvent("keypress", {
+      key: event.button === 2 ? "X" : "Space",
+      // @ts-ignore
+      charCode: event.button === 2 ? 120 : 32
+    })
 
-  $(termObj.element).find("textarea")[0].dispatchEvent(keyboardEvent)
+    $(termObj.element).find("textarea")[0].dispatchEvent(keyboardEvent)
+  }
 }
 
 export function mouseCursor(term: Terminal, newPositions) {

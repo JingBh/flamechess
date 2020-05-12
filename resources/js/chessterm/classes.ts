@@ -26,6 +26,8 @@ export interface Params {
     board?: Board,
     game?: Game,
     side?: Side,
+    mouse?: boolean,
+    bot?: boolean,
     callbacks: {[event: string]: (data) => any}
 }
 

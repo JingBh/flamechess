@@ -66,3 +66,7 @@ export function timing() {
     })
   }, 500)
 }
+
+export function disableChat() {
+  $(".chesstalk").remove()
+}

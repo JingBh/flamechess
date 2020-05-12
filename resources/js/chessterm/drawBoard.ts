@@ -269,7 +269,7 @@ export function drawBoard(term: Terminal, params: Params) {
     cursorToPosition(term, 0, 0);
 
     if (!_init) {
-        console.log(term.onKey(function(event) {
+        term.onKey(function(event) {
             let key = event.domEvent.key || event.domEvent.code;
             console.log(key);
 
@@ -372,9 +372,9 @@ export function drawBoard(term: Terminal, params: Params) {
                 if (targetPosition)
                     cursorToPosition(term, targetPosition[0], targetPosition[1]);
             }
-        }));
+        });
 
-        mouseCursor(term, positions);
+        if (params.mouse === true) mouseCursor(term, positions);
 
         term.focus()
 

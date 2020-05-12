@@ -8,7 +8,7 @@ const io = require("socket.io-client");
 
 import {drawBoard, setAllPosition} from "./drawBoard";
 import {Side, Params, loginResult} from "./classes";
-import {listenSendMessage, recievedMessage, timing} from "../chesstalk/main";
+import {disableChat, listenSendMessage, recievedMessage, timing} from "../chesstalk/main";
 
 export const SERVER = document.querySelector("meta[name='data-server']").getAttribute("content");
 
@@ -34,7 +34,7 @@ window.addEventListener("resize", function() {
 const paramsRaw = parse(location.search.substring(1));
 let params: Params = {
   callbacks: {
-  rules: require("../chess_callbacks/main")
+    rules: require("../chess_callbacks/main")
   }
 };
 
@@ -60,12 +60,15 @@ socket.on("login_result", function(data: loginResult) {
   console.info(data);
   params.board = data.board;
   params.game = data.game;
+  params.mouse = paramsRaw.mouse !== "false";
 
   let side = capitalize(paramsRaw.side);
   params.side = side in Side ? side : Side.None;
 
   term.write(eraseScreen + cursorLeft);
   drawBoard(term, params);
+
+  if (paramsRaw.bot === "true") socket.emit("start_bot")
 });
 
 socket.on("login_fail", function(msg?: string) {
@@ -86,10 +89,12 @@ params.callbacks.update_board = function(chesspos?: string) {
   });
 };
 
-socket.on("chat", recievedMessage)
+if (paramsRaw.chat !== "false") {
+  socket.on("chat", recievedMessage)
 
-listenSendMessage((message) => {
-  socket.emit("chat", message)
-})
+  listenSendMessage((message) => {
+    socket.emit("chat", message)
+  })
 
-timing()
+  timing()
+} else disableChat()
