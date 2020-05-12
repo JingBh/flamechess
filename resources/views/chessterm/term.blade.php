@@ -14,6 +14,7 @@
 <body>
 @include("chessterm.browser_detect")
 <div id="terminal"></div>
+@include("chesstalk.index")
 <script src="{{ mix('js/chessterm.js') }}"></script>
 </body>
 </html>

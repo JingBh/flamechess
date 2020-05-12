@@ -2,6 +2,9 @@
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/utilities";
 @import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/close";
+@import "~bootstrap/scss/toasts";
+
 @import "~xterm/css/xterm.css";
 
 html, body, #terminal {
@@ -13,3 +16,5 @@ body {
     background-color: black;
     cursor: text;
 }
+
+@import "chesstalk";

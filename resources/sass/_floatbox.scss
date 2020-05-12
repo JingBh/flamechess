@@ -1,0 +1,84 @@
+@media print {
+  .float-box {
+    display: none;
+  }
+}
+
+@media (max-width: breakpoint-max(xs)) {
+  .float-box {
+    left: 1.25rem !important;
+  }
+}
+
+.float-box {
+  position: fixed;
+  z-index: 1000;
+  top: 5rem;
+  left: 3rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  padding: 1rem;
+  border-radius: 1.75rem;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  background-color: rgba(198, 198, 198, 0.2);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+  color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  transition: 0.5s;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.float-box:hover {
+  border-radius: 1.25rem;
+  background-color: rgba(217, 217, 217, 0.7);
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.float-box.float-box-show {
+  border-radius: 0.75rem;
+  background-color: rgba(217, 217, 217, 0.9);
+  color: black;
+
+  .float-box-content {
+    display: block;
+  }
+}
+
+.float-box-title {
+  display: none;
+}
+
+.float-box-title::before {
+  content: " ";
+}
+
+.float-box.float-box-show .float-box-title, .float-box:hover .float-box-title {
+  display: inline;
+}
+
+.float-box-content {
+  display: none;
+  margin-top: 0.5rem;
+  font-size: initial;
+  line-height: initial;
+  cursor: auto;
+}
+
+.bg-dark {
+  .float-box {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .float-box:hover {
+    background-color: rgba(93, 97, 102, 0.7);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .float-box.float-box-show {
+    background-color: rgba(93, 97, 102, 0.9);
+    color: white;
+  }
+}

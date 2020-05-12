@@ -1,0 +1,32 @@
+.chesstalk {
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 25rem;
+  height: 100%;
+  overflow-y: scroll;
+  padding: 2rem 2.5rem;
+  z-index: 905;
+
+  .chesstalk-input {
+    display: block;
+    position: absolute;
+    bottom: 2rem;
+    width: 20rem;
+    z-index: 910;
+    transition: opacity 0.3s;
+
+    .toast-body {
+      width: 100%;
+      padding: 0.5rem;
+      overflow-y: scroll;
+      max-height: 12rem;
+      resize: none;
+    }
+  }
+
+  .chesstalk-input:hover {
+    opacity: 0.9;
+  }
+}

@@ -103,6 +103,22 @@ io.on("connection", (socket) => {
     }
   })
 
+  socket.on("chat", (message) => {
+    if (_sessions[socket.id]) {
+      let session = _sessions[socket.id]
+
+      console.log(`Client ${socket.id} said ${message}.`)
+
+      let time = new Date().getTime()
+
+      io.to("board_" + session.board.id).emit("chat", {
+        id: "用户 " + socket.id.substring(0, 5),
+        message: message,
+        time: time
+      })
+    }
+  })
+
   socket.on("start_bot", () => {
     if (_sessions[socket.id]) {
       let session = _sessions[socket.id]
@@ -133,6 +149,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     if (_bots[socket.id]) _bots[socket.id].kill()
+    _sessions[socket.id] = undefined
   })
 })
 
