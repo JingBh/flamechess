@@ -17,6 +17,8 @@ let onKey: {[key: string]: (position?: Array<number>) => any} = {};
 let callbacks: {[event: string]: (data) => any} = {};
 let ruleCallback;
 
+let lastChesspos: string;
+
 function isAvailable(x: number, y: number): boolean {
     for (let item of available) {
         if (item[0] === x && item[1] === y) return true;
@@ -81,7 +83,9 @@ function setStatusByPosition(term: Terminal, x: number, y: number, status: Chess
 export function setAllPosition(term: Terminal, chesspos: string) {
     if (!chesspos) return;
 
-    if (ruleCallback) chesspos = ruleCallback(chesspos)
+    if (ruleCallback) chesspos = ruleCallback(chesspos, lastChesspos);
+
+    lastChesspos = chesspos;
 
     let index = 0;
     const cursorBack = cursorTo(term.buffer.active.cursorX, term.buffer.active.cursorY);
@@ -119,9 +123,11 @@ export function uploadAllPosition() {
             }
         }
 
-        if (ruleCallback) chesspos = ruleCallback(chesspos)
+        if (ruleCallback) chesspos = ruleCallback(chesspos, lastChesspos);
 
         callbacks.update_board(chesspos);
+
+        lastChesspos = chesspos;
     }
 }
 
