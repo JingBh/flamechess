@@ -86,11 +86,11 @@ export function fit() {
     if (resultLengthEach > maxEach) resultLengthEach = maxEach
   }
 
-  resultLengthEach = Math.round(resultLengthEach)
+  let resultLengthRound = Math.round(resultLengthEach)
 
   boardEle.find("td").each((i, ele) => {
-    $(ele).css("height", resultLengthEach + "px")
-          .css("width", resultLengthEach + "px")
+    $(ele).css("height", resultLengthRound + "px")
+          .css("width", resultLengthRound + "px")
   })
 
   if (rectpaperEle.length > 0) {
@@ -151,8 +151,11 @@ function setEleStatus(ele: JQuery<HTMLElement>|HTMLElement, status: Chess) {
       let imageUrl = `/images/flamechess/${color}_zu.png`
       imageEle.attr("src", imageUrl)
 
-      if (side === Side.Both || (status === Chess.X && side === Side.X) || (status === Chess.O && side === Side.O))
+      if (side === Side.Both ||
+        (status === Chess.X && side === Side.X) ||
+        (status === Chess.O && side === Side.O)) {
         ele.addClass("pickable")
+      } else ele.removeClass("pickable")
 
       ele.append(imageEle)
     }
