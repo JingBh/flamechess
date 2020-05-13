@@ -23,6 +23,7 @@
         <tbody id="board"></tbody>
     </table>
 </div>
+@include("chesstalk.index")
 <script src="{{ mix('js/chessgui.js') }}"></script>
 </body>
 </html>
