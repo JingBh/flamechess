@@ -5,8 +5,9 @@ const capitalize = require("lodash/capitalize")
 const io = require("socket.io-client")
 require("bootstrap/js/src/index")
 
-import {drawBoard, fit} from "./drawBoard"
+import {drawBoard, fit, setAllPosition} from "./drawBoard"
 import {loginResult, Params, Side} from "../chessterm/classes"
+import {disableChat, listenSendMessage, recievedMessage, timing} from "../chesstalk/main";
 
 export const SERVER = document.querySelector("meta[name='data-server']").getAttribute("content")
 export const BACKEND = document.querySelector("meta[name='data-backend']").getAttribute("content")
@@ -15,7 +16,11 @@ const socket = io(SERVER)
 console.log(socket)
 
 const paramsRaw = parse(location.search.substring(1))
-let params: Params = {callbacks: {}}
+let params: Params = {
+  callbacks: {
+    rules: require("../chess_callbacks/main")
+  }
+}
 
 socket.on("connect", () => {
   console.log("Logging in, please wait...")
@@ -41,16 +46,21 @@ socket.on("login_result", (data: loginResult) => {
 
   $("#loading").hide()
   drawBoard(params)
+
+  if (paramsRaw.bot === "true") socket.emit("start_bot")
 })
 
 socket.on("login_fail", (msg?: string) => {
   console.error(`${msg || "登录失败。"}`)
   console.log("请检查 id 和 game 参数是否正确。")
+
+  $("#loading").hide()
 })
 
 socket.on("update_chesspos", (chesspos?: string) => {
   console.log(chesspos)
-  // if (chesspos) setAllPosition(chesspos)
+
+  if (chesspos) setAllPosition(chesspos)
 })
 
 params.callbacks.update_board = (chesspos?: string) => {
@@ -60,3 +70,13 @@ params.callbacks.update_board = (chesspos?: string) => {
 }
 
 $(window).on("resize", () => fit())
+
+if (paramsRaw.chat === "true") {
+  socket.on("chat", recievedMessage)
+
+  listenSendMessage((message) => {
+    socket.emit("chat", message)
+  })
+
+  timing()
+} else disableChat()

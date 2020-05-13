@@ -7,6 +7,7 @@ import {Available, getAvailable} from "./boardrects";
 import {Side, Params, Chess, chessBinds} from "./classes";
 import {mouseCursor} from "./mouseCursor";
 import {VERSION} from "./version";
+import {generateChesspos} from "./loadChesspos";
 
 let _init: boolean = false;
 
@@ -108,21 +109,8 @@ export function setAllPosition(term: Terminal, chesspos: string) {
 
 export function uploadAllPosition() {
     if (callbacks.update_board) {
-        let chesspos = "";
 
-        for (let y in boardStatus) {
-            // yi: row
-
-            for (let x in boardStatus[y]) {
-                // xi: column
-
-                let status: Chess = boardStatus[y][x];
-                if (status == Chess.Unavailable) status = Chess.None;
-                for (let key in chessBinds) {
-                    if (chessBinds[key] == status) chesspos += key;
-                }
-            }
-        }
+        let chesspos = generateChesspos(boardStatus)
 
         if (ruleCallback) chesspos = ruleCallback(chesspos, lastChesspos);
 

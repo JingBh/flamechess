@@ -23,11 +23,19 @@ $enable-responsive-font-sizes: true;
     background-color: $gray-200;
   }
 
-  .data-chess {
+  .data-chess, .data-chess-pre {
     position: relative;
-    z-index: 900;
+    z-index: 100;
     max-width: 100%;
     max-height: 100%;
+  }
+
+  .pickable .data-chess {
+    cursor: pointer;
+  }
+
+  .picked-up .data-chess, .data-chess-pre {
+    opacity: 0.5;
   }
 }
 
@@ -37,7 +45,16 @@ $enable-responsive-font-sizes: true;
 
 #rectpaper {
   display: block;
-  position: fixed;
+  position: absolute;
   pointer-events: none;
   /* opacity: 0.85; */
 }
+
+#pickedUpFollow {
+  position: fixed;
+  z-index: 105;
+  cursor: move;
+  pointer-events: none;
+}
+
+@import "chesstalk";

@@ -1,11 +1,19 @@
-import $ = require("jquery")
-
-import {Chess, Params, chessBinds} from "../chessterm/classes"
+import $ = require("jquery");
+import {Chess, chessBinds, Params, Side} from "../chessterm/classes"
 import {Available, getAvailable} from "../chessterm/boardrects"
+import {generateChesspos} from "../chessterm/loadChesspos";
 
 let eles: {[col: number]: {[row: number]: JQuery<HTMLElement>}} = {}
-let boardStatus: {[col: number]: {[row: number]: Chess}} = {}
+let boardStatus: {[row: number]: {[col: number]: Chess}} = {}
 let available: Available = []
+let pickedUp: boolean = false
+let pickedUpOn: number
+let pickedUpEle: JQuery<HTMLElement>|HTMLElement
+let pickedUpStatus: Chess
+let callbacks: {[event: string]: (data) => any} = {}
+let ruleCallback
+let lastChesspos: string
+let side: Side
 
 function isAvailable(col: number, row: number): boolean {
   for (let item of available) {
@@ -32,6 +40,7 @@ function parseLength(length): number {
 }
 
 function initRectPaper(rectpaper: string) {
+  $("#rectpaper").remove()
   let ele = $('<img id="rectpaper" src="" />')
 
   const cut = rectpaper.split("#")
@@ -115,15 +124,15 @@ function setEleStatus(ele: JQuery<HTMLElement>|HTMLElement, status: Chess) {
 
   ele.empty()
 
-  const col = ele.attr("data-col"),
-        row = ele.attr("data-row")
+  const col = Number(ele.attr("data-col")),
+        row = Number(ele.attr("data-row"))
 
-  if (!boardStatus[col]) boardStatus[col] = {}
+  if (!boardStatus[row]) boardStatus[row] = {}
 
-  if (boardStatus[col][row]) {
+  if (boardStatus[row][col]) {
 
-    if (boardStatus[col][row] !== Chess.Unavailable) {
-      boardStatus[col][row] = status
+    if (boardStatus[row][col] !== Chess.Unavailable) {
+      boardStatus[row][col] = status
 
       let imageEle = $('<img class="data-chess" src="" />')
       let color
@@ -142,6 +151,9 @@ function setEleStatus(ele: JQuery<HTMLElement>|HTMLElement, status: Chess) {
       let imageUrl = `/images/flamechess/${color}_zu.png`
       imageEle.attr("src", imageUrl)
 
+      if (side === Side.Both || (status === Chess.X && side === Side.X) || (status === Chess.O && side === Side.O))
+        ele.addClass("pickable")
+
       ele.append(imageEle)
     }
   }
@@ -150,14 +162,146 @@ function setEleStatus(ele: JQuery<HTMLElement>|HTMLElement, status: Chess) {
 export function setAllPosition(chesspos: string) {
   if (!chesspos) return
 
+  if (ruleCallback) chesspos = ruleCallback(chesspos, lastChesspos);
+
+  lastChesspos = chesspos
+
   $("#board .data-position").each((i, ele) => {
     let status: Chess = chessBinds[chesspos[i] || null] || Chess.None
     setEleStatus(ele, status)
   })
 }
 
+export function uploadAllPosition() {
+  if (callbacks.update_board) {
+
+    let chesspos = generateChesspos(boardStatus)
+
+    if (ruleCallback) chesspos = ruleCallback(chesspos, lastChesspos)
+
+    callbacks.update_board(chesspos)
+
+    lastChesspos = chesspos
+  }
+}
+
+function getEleFromEventTarget(target: HTMLElement): JQuery<HTMLElement>|null {
+  let ele = $(target)
+  if (ele && ele.parents("#board").length > 0
+    && (!ele.hasClass("data-unavailable"))) {
+      if (ele.hasClass("data-available")) {
+        return ele
+      } else {
+        ele = ele.parents(".data-available")
+        if (ele.length > 0) return ele
+      }
+  }
+}
+
+function putDownHandler(event: JQuery.ClickEvent) {
+  if (pickedUp) {
+
+    if (pickedUpOn && pickedUpOn + 50 > new Date().getTime()) return
+
+    let ele = getEleFromEventTarget(event.target)
+
+    if (ele && ele.length > 0) {
+      const newCol = Number(ele.attr("data-col"))
+      const newRow = Number(ele.attr("data-row"))
+      const eleStatus: Chess = (boardStatus[newRow] || {})[newCol] || Chess.None
+
+      if (eleStatus === Chess.None) {
+
+        if (pickedUpEle) setEleStatus(pickedUpEle, Chess.None)
+        setEleStatus(ele, pickedUpStatus)
+
+        uploadAllPosition()
+      } else if (!ele.is(pickedUpEle)) return
+
+    } else {
+
+      setEleStatus(pickedUpEle, Chess.None)
+      uploadAllPosition()
+    }
+
+    $("#pickedUpFollow, .data-chess-pre").remove()
+    $(".picked-up").removeClass("picked-up")
+    pickedUp = false
+  }
+}
+
+function mouseMoveHandler(event: JQuery.MouseMoveEvent) {
+  if (pickedUp) {
+    let ele = $("#pickedUpFollow")
+
+    if (ele.length <= 0) {
+      ele = $('<img src="" id="pickedUpFollow" />')
+
+      let originalEle = $(".picked-up img.data-chess")
+      if (originalEle.length <= 0) return
+
+      ele.attr("src", originalEle.attr("src"))
+      ele.css("width", originalEle.width())
+      ele.css("height", originalEle.height())
+
+      $("body").append(ele)
+    }
+
+    ele.css("left", event.clientX - ele.width() / 2)
+    ele.css("top", event.clientY - ele.height() / 2)
+
+    let target = getEleFromEventTarget(event.target)
+    if (target && target.length > 0
+      && (!target.hasClass("picked-up"))
+      && target.find(".data-chess").length <= 0) {
+
+      let preEle = target.find(".data-chess-pre")
+
+      if (preEle.length <= 0) {
+        $(".data-chess-pre").remove()
+
+        preEle = $('<img class="data-chess-pre" src="" />')
+        preEle.attr("src", ele.attr("src"))
+        preEle.css("width", ele.width())
+        preEle.css("height", ele.height())
+
+        target.append(preEle)
+      }
+    } else $(".data-chess-pre").remove()
+  }
+}
+
+function pickup(col?: number, row?: number, status?: Chess) {
+  if (pickedUp) return
+
+  if (typeof col !== "number") col = -1
+  if (typeof row !== "number") row = -1
+
+  let currentStatus = status || (boardStatus[row] || {})[col] || null
+  if (!currentStatus) return
+
+  let currentEle = (eles[col] || {})[row] || null
+  if (currentEle) {
+    currentEle = $(currentEle)
+    currentEle.addClass("picked-up")
+
+    pickedUpEle = currentEle
+  }
+
+  pickedUpOn = new Date().getTime()
+  pickedUpStatus = currentStatus
+  pickedUp = true
+}
+
 export function drawBoard(params: Params) {
   const boardEle = $("#board")
+  boardEle.empty()
+
+  side = params.side
+
+  callbacks = params.callbacks
+  if ((callbacks.rules || {})[Number(params.game.id)])
+    ruleCallback = callbacks.rules[Number(params.game.id)]
 
   // Parse boardrects
   const boardrects = params.game.boardrects
@@ -185,22 +329,45 @@ export function drawBoard(params: Params) {
               .attr("data-col", col)
 
         if (!eles[col]) eles[col] = {}
-        if (!boardStatus[col]) boardStatus[col] = {}
+        if (!boardStatus[row]) boardStatus[row] = {}
 
         if (hasBoardrects) {
           if (isAvailable(col, row)) {
-            boardStatus[col][row] = Chess.None
+            boardStatus[row][col] = Chess.None
           } else {
-            boardStatus[col][row] = Chess.Unavailable
+            boardStatus[row][col] = Chess.Unavailable
             colEle.removeClass("data-available")
                   .addClass("data-unavailable")
           }
         } else {
           available.push([col, row]);
-          boardStatus[col][row] = Chess.None
+          boardStatus[row][col] = Chess.None
         }
 
         eles[col][row] = colEle
+
+        colEle.on("click", (event) => {
+          const ele = $(event.currentTarget)
+
+          const col = Number(ele.attr("data-col"))
+          const row = Number(ele.attr("data-row"))
+          const status: Chess = (boardStatus[row] || {})[col] || Chess.None
+
+          if (ele.hasClass("pickable")) pickup(col, row, status)
+
+        }).on("contextmenu", (event: JQuery.ContextMenuEvent) => {
+          event.preventDefault()
+
+          /*
+          const ele = $(event.currentTarget)
+
+          const col = Number(ele.attr("data-col"))
+          const row = Number(ele.attr("data-row"))
+          const status: Chess = (boardStatus[row] || {})[col] || Chess.None
+
+          TODO: Custom ContextMenu
+          */
+        })
       }
 
       rowEle.append(colEle)
@@ -214,4 +381,10 @@ export function drawBoard(params: Params) {
   fit()
 
   setAllPosition(params.board.chesspos)
+
+  $(window)
+    .off("mousemove", mouseMoveHandler)
+    .on("mousemove", mouseMoveHandler)
+    .off("click", putDownHandler)
+    .on("click", putDownHandler)
 }
