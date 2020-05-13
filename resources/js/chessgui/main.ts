@@ -16,7 +16,11 @@ const socket = io(SERVER)
 console.log(socket)
 
 const paramsRaw = parse(location.search.substring(1))
-let params: Params = {callbacks: {}}
+let params: Params = {
+  callbacks: {
+    rules: require("../chess_callbacks/main")
+  }
+}
 
 socket.on("connect", () => {
   console.log("Logging in, please wait...")

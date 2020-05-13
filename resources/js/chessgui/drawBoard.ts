@@ -348,7 +348,6 @@ export function drawBoard(params: Params) {
 
         colEle.on("click", (event) => {
           const ele = $(event.currentTarget)
-          console.log(ele)
 
           const col = Number(ele.attr("data-col"))
           const row = Number(ele.attr("data-row"))
