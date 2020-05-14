@@ -38,7 +38,9 @@ php artisan migrate
 yarn production
 
 # 运行 ChessTerm 后端服务器
-node chess_server/app  # 或 yarn run chess-server
+cd chess_server
+yarn install
+node app  # 或 yarn run chess-server
 ```
 
 ### `.env`文件主要项说明

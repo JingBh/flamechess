@@ -22,10 +22,10 @@
             <a class="nav-link active" id="tabIntro" data-toggle="tab" href="#panelIntro" role="tab" aria-controls="panelIntro" aria-selected="true">简介</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="tabSource" data-toggle="tab" href="#panelSource" role="tab" aria-controls="panelSource" aria-selected="false">源码</a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" id="tabUse" data-toggle="tab" href="#panelUse" role="tab" aria-controls="panelUse" aria-selected="false">使用</a>
+        </li>
+        <li class="nav-item ml-auto">
+            <a class="nav-link" id="tabAPI" href="https://github.com/JingBh/flamechess" role="tab" target="_blank">GitHub</a>
         </li>
         <li class="nav-item d-none">
             <a class="nav-link" id="tabRegister" data-toggle="tab" href="#panelRegister" role="tab" aria-controls="panelRegister" aria-selected="false">注册</a>
@@ -45,17 +45,13 @@
                 <li>使用基于 WebSocket 的 Socket.io 实现与服务器与客户端的双向实时通信</li>
                 <li>用了一下午想办法兼容 IE 11 <small class="text-muted">（这个是真的难 TAT）</small></li>
             </ul>
+            <p>源码以及 ChessTerm 的 API 和 SDK 详见本项目的 <a href="https://github.com/JingBh/flamechess" target="_blank">GitHub repository</a>。</p>
             <div class="text-muted hide" id="visits">
                 <hr>
                 <p>本站访问量：
                     <span id="visitsLive" title="当前" data-toggle="tooltip">?</span> /
                     <span id="visitsCount" title="总计" data-toggle="tooltip">?</span>
                 </p>
-            </div>
-        </div>
-        <div class="tab-pane fade" id="panelSource" role="tabpanel" aria-labelledby="tabSource">
-            <div class="embed-responsive" style="height:calc(100vh - 20rem);min-height:10rem;">
-                <iframe class="embed-responsive-item" src="{{ url("static/chess_source.html") }}"></iframe>
             </div>
         </div>
         <div class="tab-pane fade" id="panelUse" role="tabpanel" aria-labelledby="tabUse">

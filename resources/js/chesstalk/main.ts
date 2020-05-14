@@ -28,7 +28,7 @@ export function recievedMessage(data, sid?: string) {
 
   const list = $(".chesstalk-list")
 
-  let ele = $('<div class="toast" aria-live="assertive" aria-atomic="true"></div>')
+  let ele = $('<div class="toast chesstalk-message"></div>')
   if (isSelf) ele.addClass("chesstalk-is-self")
 
   let headerEle = $('<div class="toast-header"></div>')
