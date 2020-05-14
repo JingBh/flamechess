@@ -12,7 +12,6 @@ $enable-responsive-font-sizes: true;
 
 #table {
   margin: 0 auto;
-  table-layout: fixed;
 
   td.data-available {
     background-color: $gray-100;
@@ -47,6 +46,8 @@ $enable-responsive-font-sizes: true;
   display: block;
   position: absolute;
   pointer-events: none;
+  width: 0;
+  height: 0;
   /* opacity: 0.85; */
 }
 

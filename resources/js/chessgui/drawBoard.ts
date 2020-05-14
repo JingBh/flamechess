@@ -86,11 +86,11 @@ export function fit() {
     if (resultLengthEach > maxEach) resultLengthEach = maxEach
   }
 
-  let resultLengthRound = Math.round(resultLengthEach)
+  resultLengthEach = Math.round(resultLengthEach)
 
   boardEle.find("td").each((i, ele) => {
-    $(ele).css("height", resultLengthRound + "px")
-          .css("width", resultLengthRound + "px")
+    $(ele).css("height", resultLengthEach + "px")
+          .css("width", resultLengthEach + "px")
   })
 
   if (rectpaperEle.length > 0) {
