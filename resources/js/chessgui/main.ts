@@ -71,8 +71,10 @@ params.callbacks.update_board = (chesspos?: string) => {
 
 $(window).on("resize", () => fit())
 
-if (paramsRaw.chat === "true") {
-  socket.on("chat", recievedMessage)
+if (paramsRaw.chat !== "false") {
+  socket.on("chat", (data) => {
+    recievedMessage(data, socket.id)
+  })
 
   listenSendMessage((message) => {
     socket.emit("chat", message)

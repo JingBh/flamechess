@@ -90,7 +90,9 @@ params.callbacks.update_board = function(chesspos?: string) {
 };
 
 if (paramsRaw.chat !== "false") {
-  socket.on("chat", recievedMessage)
+  socket.on("chat", (data) => {
+    recievedMessage(data, socket.id)
+  })
 
   listenSendMessage((message) => {
     socket.emit("chat", message)

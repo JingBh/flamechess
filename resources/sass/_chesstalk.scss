@@ -9,6 +9,10 @@
   padding: 2rem 2.5rem;
   z-index: 905;
 
+  .chesstalk-is-self {
+    background-color: rgb(149, 236, 105);
+  }
+
   .chesstalk-input {
     display: block;
     position: fixed;

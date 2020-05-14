@@ -85,7 +85,7 @@ io.on("connection", (socket) => {
 
       console.log(`Client ${socket.id} is trying to update board ${session.board.id}`)
 
-      data.socket = false
+      data.socket = "false"
 
       axios.patch(`${session.backend}/boards/${session.board.id}`, data)
         .catch(function(error) {
@@ -122,34 +122,46 @@ io.on("connection", (socket) => {
   socket.on("start_bot", () => {
     if (_sessions[socket.id]) {
       let session = _sessions[socket.id]
+      let board = session.board.id
 
       console.log(`Client ${socket.id} is trying to start a bot for ${session.game.id}.`)
 
-      if (_bots[socket.id]) _bots[socket.id].kill()
+      if (_bots[board]) _bots[board].kill()
 
-      if (session.game.id === 1002 || session.game.id === 1003) {
-        let path = fs.realpathSync(__dirname + "/../bots/luqi/src/main.py")
-        let cwd = pathlib.dirname(path)
+      let command, cwd, args, env
 
-        _bots[socket.id] = child_process.spawn("python3", [
-          path
-        ], {
-          cwd: cwd,
-          env: {
+      switch (session.game.id) {
+
+        case 1002:
+        case 1003:
+          // luqi.py
+          let path = fs.realpathSync(__dirname + "/../bots/luqi/src/main.py")
+          command = "python3"
+          args = [ path ]
+          cwd = pathlib.dirname(path)
+          env = {
             "CHESS_TYPE": session.game.id === 1002 ? "zhuobie" : "luqi",
             "CHESS_CODE": session.user.id
-          },
-          stdio: ["ignore", "ignore", process.stderr],
-          timeout: 600,
-          windowsHide: true
-        })
+          }
+          break
       }
+
+      _bots[board] = child_process.spawn(command, args, {
+        cwd: cwd || pathlib.dirname(__dirname + "/../bots"),
+        env: env || {},
+        stdio: ["ignore", "ignore", process.stderr],
+        timeout: 600,
+        windowsHide: true
+      })
     }
   })
 
   socket.on("disconnect", () => {
-    if (_bots[socket.id]) _bots[socket.id].kill()
-    _sessions[socket.id] = undefined
+    if (_sessions[socket.id]) {
+      let board = _sessions[socket.id].board.id
+      if (_bots[board]) _bots[board].kill()
+      _sessions[socket.id] = undefined
+    }
   })
 })
 

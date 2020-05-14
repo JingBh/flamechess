@@ -23,16 +23,19 @@ export function listenSendMessage(callback) {
   })
 }
 
-export function recievedMessage(data) {
+export function recievedMessage(data, sid?: string) {
+  const isSelf = "用户 " + sid.substring(0, 5) === data.id
+
   const list = $(".chesstalk-list")
 
   let ele = $('<div class="toast" aria-live="assertive" aria-atomic="true"></div>')
+  if (isSelf) ele.addClass("chesstalk-is-self")
 
   let headerEle = $('<div class="toast-header"></div>')
   ele.append(headerEle)
 
   let titleEle = $('<strong class="mr-auto"></strong>')
-  titleEle.text(data.id)
+  titleEle.text(isSelf ? `${data.id} (我)` : data.id)
   headerEle.append(titleEle)
 
   let timeEle = $('<small class="text-muted data-chesstalk-time">刚刚</small>')
