@@ -18,7 +18,20 @@ console.log(socket)
 const paramsRaw = parse(location.search.substring(1))
 let params: Params = {
   callbacks: {
-    rules: require("../chess_callbacks/main")
+    rules: require("../chess_callbacks/main"),
+
+    winCallback(message?: string) {
+      message = message || "游戏结束。"
+
+      socket.off("update_chesspos")
+      socket.emit("update_board", {
+        chesspos: params.game.chesspos ? params.game.chesspos : ""
+      })
+      params.callbacks.update_board = undefined
+      socket.disconnect()
+
+      alert(message)
+    }
   }
 }
 

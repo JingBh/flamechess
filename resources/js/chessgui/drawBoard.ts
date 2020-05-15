@@ -3,6 +3,8 @@ import {Chess, chessBinds, Params, Side} from "../chessterm/classes"
 import {Available, getAvailable} from "../chessterm/boardrects"
 import {generateChesspos} from "../chessterm/loadChesspos";
 
+const get = require("lodash/get")
+
 let eles: {[col: number]: {[row: number]: JQuery<HTMLElement>}} = {}
 let boardStatus: {[row: number]: {[col: number]: Chess}} = {}
 let available: Available = []
@@ -23,20 +25,54 @@ function isAvailable(col: number, row: number): boolean {
   return false
 }
 
-function parseLength(length): number {
-  if (typeof length == "object" && length[1]
-    && length[0] && typeof length[0] == "number") {
+function getChessImage(status: Chess): string|null {
+  let color
 
-    if (length[1] === "%") {
+  switch (status) {
+    case Chess.X:
+      color = "yellow"
+      break
+    case Chess.O:
+      color = "blue"
+      break
+    default:
+      return
+  }
 
-      const height = window.innerHeight * length[0] * 0.01
-      const width = window.innerWidth * length[0] * 0.01
+  return `/images/flamechess/${color}_zu.png`
+}
 
-      return Math.min(height, width)
+function initInfo(params: Params) {
+  let infoEle = $("#info")
 
-    } else return length[0]
+  infoEle.find('[data-param]').each((i, ele) => {
+    let param = $(ele).attr("data-param"), value
 
-  } else return length
+    switch (param) {
+
+      case "user.id":
+        value = String(params.board.id).substring(String(params.game.id).length)
+        break
+
+      default:
+        value = get(params, param)
+    }
+
+    if (value) $(ele).text(value)
+  })
+
+  infoEle.find(".data-new-chess").off("click")
+    .on("click", (event) => {
+      let ele = $(event.currentTarget)
+
+      let status = ele.attr("data-status")
+      if (status === "x") pickup(-1, -1, Chess.X)
+      if (status === "o") pickup(-1, -1, Chess.O)
+
+      ele.addClass("picked-up")
+    })
+
+  infoEle.removeClass("d-none")
 }
 
 function initRectPaper(rectpaper: string) {
@@ -69,14 +105,14 @@ export function fit() {
   const boardEle = $("#board")
   const rectpaperEle = $("#rectpaper")
 
-  const trCount = boardEle.children("tr").length
-  const tdCount = $(boardEle.children("tr")[0]).children("td").length
+  const trCount: number = boardEle.children("tr").length
+  const tdCount: number = $(boardEle.children("tr")[0]).children("td").length
 
-  let resultLengthEach
+  let resultLengthEach: number
 
-  const minEach = parseLength([25, "px"])
-  const maxEach = parseLength([100, "px"])
-  const maxAll = parseLength([85, "%"])
+  const minEach: number = 25
+  const maxEach: number = 80
+  const maxAll: number = Math.min($("#tableContainer").width(), 900)
 
   const maxAsMinEach = Math.max(minEach * tdCount, minEach * trCount)
   if (maxAsMinEach > maxAll) {
@@ -88,7 +124,7 @@ export function fit() {
 
   resultLengthEach = Math.round(resultLengthEach)
 
-  boardEle.find("td").each((i, ele) => {
+  $("#board td, #info .data-new-chess").each((i, ele) => {
     $(ele).css("height", resultLengthEach + "px")
           .css("width", resultLengthEach + "px")
   })
@@ -135,21 +171,8 @@ function setEleStatus(ele: JQuery<HTMLElement>|HTMLElement, status: Chess) {
       boardStatus[row][col] = status
 
       let imageEle = $('<img class="data-chess" src="" />')
-      let color
 
-      switch (status) {
-        case Chess.X:
-          color = "yellow"
-          break
-        case Chess.O:
-          color = "blue"
-          break
-        default:
-          return
-      }
-
-      let imageUrl = `/images/flamechess/${color}_zu.png`
-      imageEle.attr("src", imageUrl)
+      imageEle.attr("src", getChessImage(status))
 
       if (side === Side.Both ||
         (status === Chess.X && side === Side.X) ||
@@ -165,7 +188,7 @@ function setEleStatus(ele: JQuery<HTMLElement>|HTMLElement, status: Chess) {
 export function setAllPosition(chesspos: string) {
   if (!chesspos) return
 
-  if (ruleCallback) chesspos = ruleCallback(chesspos, lastChesspos);
+  if (ruleCallback) chesspos = ruleCallback(chesspos, lastChesspos, callbacks.winCallback);
 
   lastChesspos = chesspos
 
@@ -176,16 +199,17 @@ export function setAllPosition(chesspos: string) {
 }
 
 export function uploadAllPosition() {
+  let chesspos = generateChesspos(boardStatus)
+
   if (callbacks.update_board) {
 
-    let chesspos = generateChesspos(boardStatus)
+    if (ruleCallback) chesspos = ruleCallback(chesspos, lastChesspos, callbacks.winCallback)
 
-    if (ruleCallback) chesspos = ruleCallback(chesspos, lastChesspos)
-
-    callbacks.update_board(chesspos)
-
-    lastChesspos = chesspos
+    // 检查两次的原因是在 ruleCallback 中可能修改此函数
+    if (callbacks.update_board) callbacks.update_board(chesspos)
   }
+
+  lastChesspos = chesspos
 }
 
 function getEleFromEventTarget(target: HTMLElement): JQuery<HTMLElement>|null {
@@ -243,7 +267,7 @@ function mouseMoveHandler(event: JQuery.MouseMoveEvent) {
       let originalEle = $(".picked-up img.data-chess")
       if (originalEle.length <= 0) return
 
-      ele.attr("src", originalEle.attr("src"))
+      ele.attr("src", getChessImage(pickedUpStatus))
       ele.css("width", originalEle.width())
       ele.css("height", originalEle.height())
 
@@ -390,4 +414,6 @@ export function drawBoard(params: Params) {
     .on("mousemove", mouseMoveHandler)
     .off("click", putDownHandler)
     .on("click", putDownHandler)
+
+  initInfo(params)
 }

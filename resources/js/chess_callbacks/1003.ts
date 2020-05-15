@@ -11,7 +11,7 @@ const lines: Array<Array<string>> = [
   ["3-1", "2-2", "1-3", "0-4"],  // 右上->左下斜线
 ]
 
-module.exports = (chesspos: string, lastChesspos: string) => {
+module.exports = (chesspos: string, lastChesspos: string, winCallback) => {
   if (chesspos && lastChesspos && chesspos != lastChesspos) {
 
     const length = 5
@@ -20,12 +20,19 @@ module.exports = (chesspos: string, lastChesspos: string) => {
 
     let lastPosition: string, nowPosition: string
 
+    let deerCount: number = 0
+    let unmoveAble: boolean = true
+
     for (let i in lastStatus) {
       if (lastStatus[i] === Chess.X) lastPosition = i
     }
 
     for (let i in status) {
-      if (status[i] === Chess.X) nowPosition = i
+      if (status[i] === Chess.X) {
+        nowPosition = i
+        deerCount ++
+        if (deerCount > 1) return lastChesspos
+      }
     }
 
     if (lastPosition && nowPosition) for (let line of lines) {
@@ -48,12 +55,23 @@ module.exports = (chesspos: string, lastChesspos: string) => {
             let replaceIndex: number = row * length + col
 
             chesspos = chesspos.substring(0, replaceIndex) + "0" + chesspos.substring(replaceIndex + 1)
-
+            status[line[wolfIndex]] = Chess.None
             console.log(row, col, replaceIndex, chesspos)
           }
         }
       }
-    }
+
+      if (nowPositionIndex !== -1) {
+        let moveAbleBackward = line[nowPositionIndex - 1] ? status[line[nowPositionIndex - 1]] === Chess.None : false
+        let moveAbleJumpBackward = line[nowPositionIndex - 2] ? status[line[nowPositionIndex - 2]] === Chess.None : false
+        let moveAbleForward = line[nowPositionIndex + 1] ? status[line[nowPositionIndex + 1]] === Chess.None : false
+        let moveAbleJumpForward = line[nowPositionIndex + 2] ? status[line[nowPositionIndex + 2]] === Chess.None : false
+
+        unmoveAble = unmoveAble && (!(moveAbleBackward || moveAbleForward || moveAbleJumpBackward || moveAbleJumpForward))
+      }
+    } else unmoveAble = false
+
+    if (unmoveAble) winCallback("鹿方失败，游戏结束。")
   }
 
   return chesspos

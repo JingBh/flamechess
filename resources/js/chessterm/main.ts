@@ -34,7 +34,19 @@ window.addEventListener("resize", function() {
 const paramsRaw = parse(location.search.substring(1));
 let params: Params = {
   callbacks: {
-    rules: require("../chess_callbacks/main")
+    rules: require("../chess_callbacks/main"),
+
+    winCallback(message?: string) {
+      message = message || "游戏结束。"
+
+      socket.off("update_chesspos")
+      socket.emit("update_board", params.game.chesspos ? params.game.chesspos : "")
+      window.setTimeout((message) => {
+        params.callbacks.update_board = undefined
+        socket.disconnect()
+        alert(message)
+      }, 50, message)
+    }
   }
 };
 

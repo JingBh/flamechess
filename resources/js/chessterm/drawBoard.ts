@@ -85,7 +85,7 @@ function setStatusByPosition(term: Terminal, x: number, y: number, status: Chess
 export function setAllPosition(term: Terminal, chesspos: string) {
     if (!chesspos) return;
 
-    if (ruleCallback) chesspos = ruleCallback(chesspos, lastChesspos);
+    if (ruleCallback) chesspos = ruleCallback(chesspos, lastChesspos, callbacks.winCallback);
 
     lastChesspos = chesspos;
 
@@ -112,7 +112,7 @@ export function uploadAllPosition() {
 
         let chesspos = generateChesspos(boardStatus)
 
-        if (ruleCallback) chesspos = ruleCallback(chesspos, lastChesspos);
+        if (ruleCallback) chesspos = ruleCallback(chesspos, lastChesspos, callbacks.winCallback);
 
         callbacks.update_board(chesspos);
 
