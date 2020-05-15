@@ -1,0 +1,27 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute remote ssh commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /var/www/flamechess
+            php artisan down --message "ChessTerm 正在更新" --retry 180
+            git fetch origin master
+            git reset --hard origin/master
+            composer install --no-dev
+            yarn install
+            yarn production
+            systemctl restart supervisor
+            php artisan up
