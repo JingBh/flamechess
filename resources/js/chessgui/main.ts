@@ -7,7 +7,8 @@ require("bootstrap/js/src/index")
 
 import {drawBoard, fit, setAllPosition} from "./drawBoard"
 import {loginResult, Params, Side} from "../chessterm/classes"
-import {disableChat, listenSendMessage, recievedMessage, timing} from "../chesstalk/main";
+// import {disableChat, listenSendMessage, recievedMessage, timing} from "../chesstalk/main"
+import {disableChat} from "../chesstalk/main"
 
 export const SERVER = document.querySelector("meta[name='data-server']").getAttribute("content")
 export const BACKEND = document.querySelector("meta[name='data-backend']").getAttribute("content")
@@ -30,7 +31,7 @@ let params: Params = {
       params.callbacks.update_board = undefined
       socket.disconnect()
 
-      alert(message)
+      window.setTimeout(alert, 50, message)
     }
   }
 }
@@ -84,6 +85,8 @@ params.callbacks.update_board = (chesspos?: string) => {
 
 $(window).on("resize", () => fit())
 
+/* Disable ChessTalk for now.
+
 if (paramsRaw.chat === "true") {
   socket.on("chat", (data) => {
     recievedMessage(data, socket.id)
@@ -95,3 +98,5 @@ if (paramsRaw.chat === "true") {
 
   timing()
 } else disableChat()
+*/
+disableChat()

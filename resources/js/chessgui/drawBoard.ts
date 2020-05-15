@@ -172,15 +172,18 @@ function setEleStatus(ele: JQuery<HTMLElement>|HTMLElement, status: Chess) {
 
       let imageEle = $('<img class="data-chess" src="" />')
 
-      imageEle.attr("src", getChessImage(status))
+      let imageURL = getChessImage(status)
+      if (imageURL) {
+        imageEle.attr("src", imageURL)
 
-      if (side === Side.Both ||
-        (status === Chess.X && side === Side.X) ||
-        (status === Chess.O && side === Side.O)) {
-        ele.addClass("pickable")
-      } else ele.removeClass("pickable")
+        if (side === Side.Both ||
+          (status === Chess.X && side === Side.X) ||
+          (status === Chess.O && side === Side.O)) {
+          ele.addClass("pickable")
+        } else ele.removeClass("pickable")
 
-      ele.append(imageEle)
+        ele.append(imageEle)
+      }
     }
   }
 }

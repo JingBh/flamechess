@@ -9,6 +9,8 @@ const lines: Array<Array<string>> = [
   ["2-0", "2-1", "2-2", "2-3", "2-4"],  // 竖线
   ["1-1", "2-2", "3-3", "4-4"],  // 左上->右下斜线
   ["3-1", "2-2", "1-3", "0-4"],  // 右上->左下斜线
+  ["2-0", "1-1"],  // 左上角斜线
+  ["2-0", "3-1"],  // 右上角斜线
 ]
 
 module.exports = (chesspos: string, lastChesspos: string, winCallback) => {
