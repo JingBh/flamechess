@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view("/", "chessterm.intro")->name("chessterm.intro");
 
-Route::view("term", "chessterm.term")->name("chessterm");
+Route::view("term", "chessterm.term")->middleware("redirect_referer")->name("chessterm");
 
 Route::any("term/intro", function() {
     return redirect()->route("chessterm.intro");
@@ -24,7 +24,7 @@ Route::any("term/intro", function() {
 Route::group([
     "prefix" => "gui"
 ], function() {
-    Route::view("/", "chessgui.index")->name("chessgui");
+    Route::view("/", "chessgui.index")->middleware("redirect_referer")->name("chessgui");
 });
 
 Route::resource("ajax/games", "GameController")->only([
