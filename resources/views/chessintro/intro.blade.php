@@ -14,7 +14,7 @@
 <div class="container-fluid container-md my-3">
     <div class="jumbotron pt-sm-4 pb-sm-5">
         <h1 class="display-4">ChessTerm <small class="text-muted" id="version"></small></h1>
-        <p class="lead mb-1">A checkerboard, but in a terminal.</p>
+        <p class="lead mb-1">A checkerboard <del title="Not anymore." data-toggle="tooltip">, but in a terminal</del>.</p>
         <p class="mb-0">Developed by <a class="text-body" href="https://www.jingbh.top/" target="_blank">JingBh</a></p>
     </div>
     <ul class="nav nav-tabs" id="tabs" role="tablist">
@@ -55,10 +55,10 @@
             </div>
         </div>
         <div class="tab-pane fade" id="panelUse" role="tabpanel" aria-labelledby="tabUse">
-            @include("chessterm.intro_use")
+            @include("chessintro.intro_use")
         </div>
         <div class="tab-pane fade" id="panelRegister" role="tabpanel" aria-labelledby="tabRegister">
-            @include("chessterm.register")
+            @include("chessintro.register")
         </div>
     </div>
 </div>

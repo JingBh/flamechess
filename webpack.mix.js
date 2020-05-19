@@ -18,7 +18,7 @@ mix.sass("resources/sass/chessterm.scss", "public/css");
 mix.ts("resources/js/chessterm/main.ts", "public/js/chessterm.js");
 
 mix.sass('resources/sass/chessterm_intro.scss', "public/css");
-mix.ts("resources/js/chessterm/intro.ts", "public/js/chessterm_intro.js");
+mix.ts("resources/js/chessintro/intro.ts", "public/js/chessterm_intro.js");
 
 mix.sass("resources/sass/chessgui.scss", "public/css");
 mix.ts("resources/js/chessgui/main.ts", "public/js/chessgui.js");

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view("/", "chessterm.intro")->name("chessterm.intro");
+Route::view("/", "chessintro.intro")->name("chessterm.intro");
 
 Route::view("term", "chessterm.term")->middleware("redirect_referer")->name("chessterm");
 
