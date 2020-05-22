@@ -24,4 +24,5 @@ jobs:
             yarn install
             yarn production
             systemctl restart supervisor
+            ps -ef | grep flamechess/bots | grep -v grep | awk '{print $2}' | xargs kill -9
             php artisan up

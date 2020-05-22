@@ -165,6 +165,12 @@ io.on("connection", (socket) => {
   })
 })
 
+process.on("exit", () => {
+  for (let bot of _bots) {
+    bot.kill()
+  }
+})
+
 http.listen(11512, () => {
   console.log('Listening on 0.0.0.0:11512')
 })
