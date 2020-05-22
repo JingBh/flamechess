@@ -63,4 +63,9 @@ $enable-responsive-font-sizes: true;
   pointer-events: none;
 }
 
+#contextMenu {
+  display: none;
+  position: fixed;
+}
+
 @import "chesstalk";

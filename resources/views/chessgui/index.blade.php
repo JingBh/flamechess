@@ -48,6 +48,7 @@
         </div>
     </div>
 </div>
+@include("chessgui.contextmenu")
 @include("chesstalk.index")
 <script src="{{ mix('js/chessgui.js') }}"></script>
 </body>

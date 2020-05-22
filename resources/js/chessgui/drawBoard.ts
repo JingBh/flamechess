@@ -101,6 +101,20 @@ function initRectPaper(rectpaper: string) {
   $("#table").addClass("td-no-border")
 }
 
+function contextMenuAddOption(text: string, classes: string, callback, ...params) {
+  let ele = $('<a class="dropdown-item" href="#"></a>')
+
+  ele.text(text)
+  ele.addClass(classes)
+
+  ele.on("click", (event) => {
+    event.preventDefault()
+    callback(...params)
+  })
+
+  $("#contextMenu").append(ele)
+}
+
 export function fit() {
   const boardEle = $("#board")
   const rectpaperEle = $("#rectpaper")
@@ -386,17 +400,55 @@ export function drawBoard(params: Params) {
           if (ele.hasClass("pickable")) pickup(col, row, status)
 
         }).on("contextmenu", (event: JQuery.ContextMenuEvent) => {
-          event.preventDefault()
+          let ele = getEleFromEventTarget(event.currentTarget)
 
-          /*
-          const ele = $(event.currentTarget)
+          if (ele) {
+            event.preventDefault()
 
-          const col = Number(ele.attr("data-col"))
-          const row = Number(ele.attr("data-row"))
-          const status: Chess = (boardStatus[row] || {})[col] || Chess.None
+            const col = Number(ele.attr("data-col"))
+            const row = Number(ele.attr("data-row"))
+            const status: Chess = (boardStatus[row] || {})[col] || Chess.None
 
-          TODO: Custom ContextMenu
-          */
+            const menu = $("#contextMenu")
+            menu.find(".dropdown-item").remove()
+            menu.css("top", event.clientY)
+            menu.css("left", event.clientX)
+
+            if (status === Chess.None) {
+              if (side === Side.X || side === Side.Both)
+                contextMenuAddOption("放置黄棋", "text-warning", (ele) => {
+                  setEleStatus(ele, Chess.X)
+                }, ele)
+
+              if (side === Side.O || side === Side.Both)
+                contextMenuAddOption("放置蓝棋", "text-info", (ele) => {
+                  setEleStatus(ele, Chess.O)
+                }, ele)
+
+            } else if (ele.hasClass("pickable")) {
+              contextMenuAddOption("拾起棋子", "text-success", (col, row, status) => {
+                pickup(col, row, status)
+              }, col, row, status)
+
+              contextMenuAddOption("删除棋子", "text-danger", (ele) => {
+                setEleStatus(ele, Chess.None)
+              }, ele)
+            }
+
+            $(window).one("click", () => {
+              menu.stop().slideUp(70)
+            })
+
+            menu.stop().slideDown(70, () => {
+              menu.css("height", "").css("width", "")
+            })
+
+            let unitChar = String(row + 1) + String.fromCharCode(65 + col)
+            if (menu.find(".dropdown-item").length > 0) {
+              menu.find(".dropdown-header").text(`对 ${unitChar} 的操作：`)
+            } else
+              menu.find(".dropdown-header").text(`对 ${unitChar} 无可用操作。`)
+          }
         })
       }
 

@@ -42,6 +42,7 @@ socket.on("connect", () => {
   let gameId = paramsRaw.game
   if (!userId) {
     console.error("请先登录。")
+    $("#loading").hide()
     return
   } else socket.emit("login", {
     backend: BACKEND,
@@ -97,6 +98,4 @@ if (paramsRaw.chat === "true") {
   })
 
   timing()
-} else disableChat()
-*/
-disableChat()
+} else */ disableChat()
