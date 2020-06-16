@@ -2,8 +2,8 @@
     "private": true,
     "scripts": {
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "yarn run development --watch",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run development -- --watch",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "chess-server": "node chess_server/app.js"
     },
     "dependencies": {
@@ -24,6 +24,8 @@
         "@babel/preset-typescript": "^7.9.0",
         "@types/bootstrap": "^4.3.2",
         "@types/jquery": "^3.3.34",
+        "browser-sync": "^2.26.7",
+        "browser-sync-webpack-plugin": "^2.2.2",
         "cross-env": "^7.0",
         "laravel-mix": "^5.0.1",
         "resolve-url-loader": "^3.1.0",

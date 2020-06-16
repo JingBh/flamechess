@@ -27,4 +27,13 @@ if (mix.inProduction()) {
     mix.babel("public/js/chessterm.js", "public/js/chessterm.js");
     mix.babel("public/js/chessterm_intro.js", "public/js/chessterm_intro.js");
     mix.babel("public/js/chessgui.js", "public/js/chessgui.js");
-} else mix.sourceMaps();
+} else {
+  mix.sourceMaps();
+  mix.browserSync({
+    proxy: "homestead-flamechess",
+    port: 33000,
+    ui: {
+      port: 33001
+    }
+  });
+}

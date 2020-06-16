@@ -39,8 +39,10 @@ io.on("connection", (socket) => {
     console.info(`Client ${socket.id} is trying to login with ${data.userId} at ${data.backend}.`)
 
     if (data.backend && data.gameId && data.userId) {
-      // Query board info.
+      // Format backend url.
+      if (data.backend.startsWith("//")) data.backend = "http:" + data.backend
 
+      // Query board info.
       axios.get(`${data.backend}/user/getBoard`, {
         params: {
           "id": data.userId,
