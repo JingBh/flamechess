@@ -1,8 +1,9 @@
-import $ = require("jquery");
+import jQuery from "jquery"
 import {Chess, chessBinds, Params, Side} from "../chessterm/classes"
 import {Available, getAvailable} from "../chessterm/boardrects"
-import {generateChesspos} from "../chessterm/loadChesspos";
+import {generateChesspos} from "../chessterm/loadChesspos"
 
+const $ = jQuery
 const get = require("lodash/get")
 
 let eles: {[col: number]: {[row: number]: JQuery<HTMLElement>}} = {}

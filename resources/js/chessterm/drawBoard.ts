@@ -6,7 +6,7 @@ const padStart = require("lodash/padStart");
 import {Available, getAvailable} from "./boardrects";
 import {Side, Params, Chess, chessBinds} from "./classes";
 import {mouseCursor} from "./mouseCursor";
-import {VERSION} from "./version";
+import {VERSION} from "../version";
 import {generateChesspos} from "./loadChesspos";
 
 let _init: boolean = false;

@@ -1,5 +1,7 @@
-import $ = require("jquery");
-require("bootstrap/js/src/index");
+import jQuery from "jquery"
+const $ = jQuery
+
+require("bootstrap/js/src/index")
 
 const moment = require("moment")
 moment.locale("zh-cn")
@@ -9,7 +11,7 @@ export function listenSendMessage(callback) {
   const inputBody = inputEle.find(".toast-body")
 
   inputEle.removeClass("d-none")
-  inputEle.find(".close").on("click", (event) => {
+  inputEle.find(".close").on("click", () => {
     inputEle.remove()
   })
 

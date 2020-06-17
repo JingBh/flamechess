@@ -1,4 +1,6 @@
-import $ = require("jquery")
+import jQuery from "jquery"
+
+const $ = jQuery
 
 import {url} from "./utils"
 

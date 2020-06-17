@@ -1,6 +1,7 @@
 $enable-responsive-font-sizes: true;
 
 @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-vue/src/index";
 
 .hide {
     display: none;

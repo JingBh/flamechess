@@ -1,6 +1,8 @@
-import $ = require("jquery");
+import jQuery from "jquery"
 
-import {VERSION} from "../chessterm/version";
+const $ = jQuery
+
+import {VERSION} from "../version";
 
 $.ajaxSetup({
   headers: {

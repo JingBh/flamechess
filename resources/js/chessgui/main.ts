@@ -1,6 +1,7 @@
-import $ = require("jquery")
+import jQuery from "jquery"
 import {parse} from "qs"
 
+const $ = jQuery
 const capitalize = require("lodash/capitalize")
 const io = require("socket.io-client")
 require("bootstrap/js/src/index")

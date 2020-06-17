@@ -1103,6 +1103,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nuxt/opencollective@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "@nuxt/opencollective@npm:0.3.0"
+  dependencies:
+    chalk: ^2.4.2
+    consola: ^2.10.1
+    node-fetch: ^2.6.0
+  bin:
+    opencollective: bin/opencollective.js
+  checksum: e62cc641c28d1dcca62ff4b3680e9f8b50f81532eee38c911da6e3670dbc13bd29e7e8dae3edc28a523430f9b3d613d4490045db70ded6327ada9124ead45981
+  languageName: node
+  linkType: hard
+
 "@types/bootstrap@npm:^4.3.2":
   version: 4.3.3
   resolution: "@types/bootstrap@npm:4.3.3"
@@ -1140,6 +1153,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4.14.155":
+  version: 4.14.155
+  resolution: "@types/lodash@npm:4.14.155"
+  checksum: e3fa52de94757a765761b3b5f0e483aa61de985b75f7d4a55e6f6b79c31b7cbba0e2e91eec14b38fe66b82f5cd79dd83a54069a0e5491a1c7126e01b143a0a29
+  languageName: node
+  linkType: hard
+
 "@types/minimatch@npm:*":
   version: 3.0.3
   resolution: "@types/minimatch@npm:3.0.3"
@@ -1158,6 +1178,13 @@ __metadata:
   version: 1.5.4
   resolution: "@types/q@npm:1.5.4"
   checksum: 1a19cf2c41648b862bd25a4c26ba33dc7206f14fcf50c5b78031b59090d21176e703cd10aff8af409eafbefcebb288607d30af765ee3859637cf3fae6e875648
+  languageName: node
+  linkType: hard
+
+"@types/qs@npm:^6.9.3":
+  version: 6.9.3
+  resolution: "@types/qs@npm:6.9.3"
+  checksum: 4b6b5b759423dbd08581e6dc55d140651455f01a8587a03ac557799e605c190119f6f9446494665d7409889f08aaec7763223f7c26972de0d897a3238710ed71
   languageName: node
   linkType: hard
 
@@ -2052,7 +2079,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:^4.5.0":
+"bootstrap-vue@npm:^2.15.0":
+  version: 2.15.0
+  resolution: "bootstrap-vue@npm:2.15.0"
+  dependencies:
+    "@nuxt/opencollective": ^0.3.0
+    bootstrap: ">=4.5.0 <5.0.0"
+    popper.js: ^1.16.1
+    portal-vue: ^2.1.7
+    vue-functional-data-merge: ^3.1.0
+  checksum: 01cb779d3af115a5f1b5664f74850e8705ed5aaa8c4c36b92ae8aa3e971a82552190e876c4f74a5098587e977a2708288e652f5887c74a384aa301c0de73443e
+  languageName: node
+  linkType: hard
+
+"bootstrap@npm:>=4.5.0 <5.0.0, bootstrap@npm:^4.5.0":
   version: 4.5.0
   resolution: "bootstrap@npm:4.5.0"
   peerDependencies:
@@ -2908,6 +2948,13 @@ __metadata:
     parseurl: ~1.3.2
     utils-merge: 1.0.1
   checksum: 920ce1914953508a51075f97954619626fee24ed84e65ada2f86ce4f32de4666ec5da6b03bef0a6e49aa6d19172451132dc130546b38cd31a431f8090353d7dd
+  languageName: node
+  linkType: hard
+
+"consola@npm:^2.10.1":
+  version: 2.13.0
+  resolution: "consola@npm:2.13.0"
+  checksum: d8bbae3aea6e67995229f2cf6a033dad1e9a32714d9df67d3230a951acd5edd5f813509d700944da1c015a8b693d0dc88ac56b0559ceca522ffdf238825a7fd5
   languageName: node
   linkType: hard
 
@@ -6880,6 +6927,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"node-fetch@npm:^2.6.0":
+  version: 2.6.0
+  resolution: "node-fetch@npm:2.6.0"
+  checksum: dd9f586a9f7ddb7dd94d2aba9cb693d32f5001e9850098512fbc8a4cbdd56838afa08ed0a6725b9fce9b01ec12b713e622cbfc16d92762d8b937b238330a632a
+  languageName: node
+  linkType: hard
+
 "node-forge@npm:0.9.0":
   version: 0.9.0
   resolution: "node-forge@npm:0.9.0"
@@ -7721,6 +7775,15 @@ fsevents@~2.1.2:
   version: 1.16.1
   resolution: "popper.js@npm:1.16.1"
   checksum: eb53806fb7680e31c7d1db096f95438a40a7cb869f7ee0e27100c0860f11583a0d322606c6073618e7fe8865f834ec36482901b547256d9a0cf2b22434bca75d
+  languageName: node
+  linkType: hard
+
+"portal-vue@npm:^2.1.7":
+  version: 2.1.7
+  resolution: "portal-vue@npm:2.1.7"
+  peerDependencies:
+    vue: ^2.5.18
+  checksum: 5817f7320dff42faf4034582757cdbc2e391ece9cc7d2c1e28585689c5d3467bdb518ecc431365f1fbabd18ec58a849e8d246e222d435d5df178a9310038f7a3
   languageName: node
   linkType: hard
 
@@ -8837,8 +8900,11 @@ fsevents@~2.1.2:
     "@babel/preset-typescript": ^7.9.0
     "@types/bootstrap": ^4.3.2
     "@types/jquery": ^3.3.34
+    "@types/lodash": ^4.14.155
+    "@types/qs": ^6.9.3
     ansi-escapes: ^4.3.1
     bootstrap: ^4.5.0
+    bootstrap-vue: ^2.15.0
     browser-sync: ^2.26.7
     browser-sync-webpack-plugin: ^2.2.2
     chess_server: ./chess_server
@@ -8855,6 +8921,9 @@ fsevents@~2.1.2:
     socket.io-client: ^2.3.0
     ts-loader: ^6.2.2
     typescript: ^3.8.3
+    vue: ^2.6.11
+    vue-loader: ^15.9.2
+    vue-router: ^3.3.4
     vue-template-compiler: ^2.6.11
     xterm: ^4.4.0
     xterm-addon-fit: ^0.3.0
@@ -10532,6 +10601,13 @@ typescript@^3.8.3:
   languageName: node
   linkType: hard
 
+"vue-functional-data-merge@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "vue-functional-data-merge@npm:3.1.0"
+  checksum: f7a02cd400011a584ae52dee023109a915f9078ecaba76d43c7eb75c408856a94f8c2b3c1c0a1135cce360e473acacf1c1a15142d662256c7d2d97ef549ee5e6
+  languageName: node
+  linkType: hard
+
 "vue-hot-reload-api@npm:^2.3.0":
   version: 2.3.4
   resolution: "vue-hot-reload-api@npm:2.3.4"
@@ -10539,7 +10615,7 @@ typescript@^3.8.3:
   languageName: node
   linkType: hard
 
-"vue-loader@npm:^15.4.2":
+"vue-loader@npm:^15.4.2, vue-loader@npm:^15.9.2":
   version: 15.9.2
   resolution: "vue-loader@npm:15.9.2"
   dependencies:
@@ -10559,6 +10635,13 @@ typescript@^3.8.3:
     vue-template-compiler:
       optional: true
   checksum: e91539fa76b5749ef4fd6ff51f3de7b299f983d521a55d089d82053ecd6173c95a65dd95dbd17a27cf815ad974d18568426c7f1d011de43b5409fdc1e4a972b5
+  languageName: node
+  linkType: hard
+
+"vue-router@npm:^3.3.4":
+  version: 3.3.4
+  resolution: "vue-router@npm:3.3.4"
+  checksum: 5fb8bafedd8409a9be0640714c7ab5c9db403934f4f5edd5654086629fc37614fadff7a4d1afc97a6eaecdb6ebe68b3db6b3be4dd274c76a5d5e76f45f57f146
   languageName: node
   linkType: hard
 
@@ -10586,6 +10669,13 @@ typescript@^3.8.3:
   version: 1.9.1
   resolution: "vue-template-es2015-compiler@npm:1.9.1"
   checksum: e25c0d4603cafb76a2d2c2adbd5cc62f419377d23d65118bc19793320c6448ef80ae191a8d6ec88e62fdd7ecb33d54850b232b02110da94a1fcfac3e062e9e83
+  languageName: node
+  linkType: hard
+
+"vue@npm:^2.6.11":
+  version: 2.6.11
+  resolution: "vue@npm:2.6.11"
+  checksum: ba12fa9632c3fa4e46eec0fffeb6ec03fae6eb999bf502628e0e1c4312a3f5ed62e34378b80a4f21c00fe20d772435f56e87f7c0ee761b47cb2999fb6f7fb722
   languageName: node
   linkType: hard
 

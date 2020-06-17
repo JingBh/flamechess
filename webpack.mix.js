@@ -1,39 +1,33 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix")
 
-mix.disableNotifications();
-mix.version();
+mix.disableNotifications()
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
- |
- */
+mix.sass("resources/sass/chessterm.scss", "public/css")
+  .sass('resources/sass/chessterm_intro.scss', "public/css")
+  .sass("resources/sass/chessgui.scss", "public/css")
 
-mix.sass("resources/sass/chessterm.scss", "public/css");
-mix.ts("resources/js/chessterm/main.ts", "public/js/chessterm.js");
+mix.ts("resources/js/chessterm/main.ts", "public/js/chessterm.js")
+  .ts("resources/js/chessintro/intro.ts", "public/js/chessterm_intro.js")
+  .ts("resources/js/chessgui/main.ts", "public/js/chessgui.js")
 
-mix.sass('resources/sass/chessterm_intro.scss', "public/css");
-mix.ts("resources/js/chessintro/intro.ts", "public/js/chessterm_intro.js");
-
-mix.sass("resources/sass/chessgui.scss", "public/css");
-mix.ts("resources/js/chessgui/main.ts", "public/js/chessgui.js");
+// Vue
+mix.ts("resources/chessterm/intro/index.ts", "public/js/chessterm/intro.js")
 
 if (mix.inProduction()) {
-    mix.babel("public/js/chessterm.js", "public/js/chessterm.js");
-    mix.babel("public/js/chessterm_intro.js", "public/js/chessterm_intro.js");
-    mix.babel("public/js/chessgui.js", "public/js/chessgui.js");
+  mix.babel("public/js/chessterm.js", "public/js/chessterm.js")
+    .babel("public/js/chessterm_intro.js", "public/js/chessterm_intro.js")
+    .babel("public/js/chessgui.js", "public/js/chessgui.js")
+  mix.version()
 } else {
-  mix.sourceMaps();
+  mix.sourceMaps()
   mix.browserSync({
     proxy: "homestead-flamechess",
-    port: 33000,
-    ui: {
-      port: 33001
-    }
-  });
+    files: [
+      "resources/views/**/*.php",
+      "public/js/**/*.js",
+      "public/css/**/*.css"
+    ],
+    ghostMode: false,
+    open: false
+  })
 }

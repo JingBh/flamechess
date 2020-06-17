@@ -1,8 +1,9 @@
-import $ = require("jquery");
+import jQuery from "jquery"
+import {Terminal} from "xterm"
+import {cursorTo} from "ansi-escapes"
+import ClickEvent = JQuery.ClickEvent
 
-import {Terminal} from "xterm";
-import {cursorTo} from "ansi-escapes";
-import ClickEvent = JQuery.ClickEvent;
+const $ = jQuery
 
 let positions: Array<string> = []
 
