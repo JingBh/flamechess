@@ -1,5 +1,7 @@
 # flamechess (ChessTerm)
 
+# DEPRECATED! Please see [ChessTerm](http://github.com/ChessTerm) instead.
+
 **这是我在学校的研学项目。**
 
 ## Documents
